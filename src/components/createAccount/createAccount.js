@@ -8,6 +8,7 @@ class createAccount extends React.Component {
     const username = document.getElementById('usernameInput').value;
     const pw = document.getElementById('pwInput').value;
     const email = document.getElementById('emailInput').value;
+    const location = document.getElementById('locationInput').value;
     createAccountData.createUser(email, pw)
       .then((data) => {
         this.props.history.push('/home');
@@ -30,6 +31,10 @@ class createAccount extends React.Component {
               <div className="form-group">
                 <label htmlFor="emailInput">Email</label>
                 <input type="email" className="form-control" id="emailInput" placeholder="Enter email"/>
+              </div>
+              <div className="form-group">
+                <label htmlFor="locationInput">Location</label>
+                <input type="email" className="form-control" id="locationInput" placeholder="Enter location"/>
               </div>
               <div className="form-group">
                 <label htmlFor="pwInput">Password</label>

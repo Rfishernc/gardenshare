@@ -16,6 +16,11 @@ class login extends React.Component {
       });
   }
 
+  clickedCreate = (event) => {
+    event.preventDefault();
+    this.props.history.push('/createAccount');
+  }
+
   render() {
     return (
       <div className="login">
@@ -32,6 +37,7 @@ class login extends React.Component {
             </div>
             <button type="submit" className="btn btn-primary" onClick={this.loginUser}>Sign In</button>
           </form>
+          <button type='button' className='createAccountLink' onClick={this.clickedCreate}>Create a new Account</button>
         </div>
       </div>
     );
