@@ -5,7 +5,7 @@ import './userHome.scss';
 class userHome extends React.Component {
   render() {
     return (
-      <div className="userHome">
+      <div className="userHome row">
         <Navbar></Navbar>
       </div>
     );

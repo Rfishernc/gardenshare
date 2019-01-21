@@ -21,10 +21,10 @@ class navbar extends React.Component {
     return (
       <div className="navbar">
       <Navbar color="dark" dark expand="md">
-          <NavbarBrand href="/">Developer Plus</NavbarBrand>
+          <NavbarBrand href="/">Gardenshare</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
             <Nav className="ml-auto" navbar>
-              <NavItem>
+              <NavItem className='navLinks'>
                 <NavLink tag={RRNavLink} to='/home'>Home</NavLink>
                 <NavLink tag={RRNavLink} to='/userInfo'>User Info</NavLink>
                 <NavLink tag={RRNavLink} to='/search'>Search Listings</NavLink>
