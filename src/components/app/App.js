@@ -11,15 +11,15 @@ import UserInfo from '../userInfo/userInfo';
 import SearchListings from '../searchListings/searchListings';
 import './App.scss';
 
-const PublicRoute = ({ component: Component, authenticated, ...rest }) => {
-  const routeChecker = props => (authenticated === false
+const PublicRoute = ({ component: Component, loginStatus, ...rest }) => {
+  const routeChecker = props => (loginStatus === false
     ? (<Component { ...props } />)
     : (<Redirect to={{ pathname: '/home', state: { from: props.location } } } />));
   return <Route {...rest} render={props => routeChecker(props)} />;
 };
 
-const PrivateRoute = ({ component: Component, authenticated, ...rest }) => {
-  const routeChecker = props => (authenticated === true
+const PrivateRoute = ({ component: Component, loginStatus, ...rest }) => {
+  const routeChecker = props => (loginStatus === true
     ? (<Component { ...props } />)
     : (<Redirect to={{ pathname: '/login', state: { from: props.location } } } />));
   return <Route {...rest} render={props => routeChecker(props)} />;
@@ -28,6 +28,7 @@ const PrivateRoute = ({ component: Component, authenticated, ...rest }) => {
 class App extends React.Component {
   state = {
     loginStatus: false,
+    pendingUser: true,
   }
 
   componentDidMount() {
@@ -35,12 +36,12 @@ class App extends React.Component {
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
-          authenticated: true,
+          loginStatus: true,
           pendingUser: false,
         });
       } else {
         this.setState({
-          authenticated: false,
+          loginStatus: false,
           pendingUser: false,
         });
       }
