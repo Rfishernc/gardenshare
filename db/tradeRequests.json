@@ -1,0 +1,14 @@
+{
+  "trade1": {
+    "user1": "GardenGnome",
+    "user2": "DrGreenThumb",
+    "dateSent": "04-15-2099",
+    "dateTrade": "07-22-3002",
+    "accepted": false,
+    "plantsUser1": { "potato": "5", "potatoe": "4" },
+    "plantsUser2": { "tomato": "4", "tomatoe": "5" },
+    "reliabilityRating": false,
+    "qualityRating": false,
+    "id": "trade1"
+    }
+}

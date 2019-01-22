@@ -2,5 +2,6 @@
   "users": "alpha",
   "tradeRequests": "beta",
   "plants": "gamma",
-  "messages": "delta"
+  "messages": "delta",
+  "emails": "kappa"
 }
