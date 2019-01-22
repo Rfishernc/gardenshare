@@ -23,10 +23,21 @@ const createUserObject = newUser => new Promise((resolve, reject) => {
     });
 });
 
+const createEmailObject = newUserEmail => new Promise((resolve, reject) => {
+  axios.post(`${apiKeys.firebaseKeys.databaseURL}/emails.json`, newUserEmail)
+    .then(() => {
+      resolve();
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
 const getNewUser = () => firebase.auth().currentUser;
 
 export default {
   createUser,
   createUserObject,
   getNewUser,
+  createEmailObject,
 };

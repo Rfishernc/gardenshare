@@ -24,7 +24,14 @@ class createAccount extends React.Component {
         newUser.uid = createAccountData.getNewUser().uid;
         createAccountData.createUserObject(newUser)
           .then(() => {
-            this.props.history.push('/home');
+            const newUserEmail = {
+              email,
+              userName,
+            };
+            createAccountData.createEmailObject(newUserEmail)
+              .then(() => {
+                this.props.history.push('/home');
+              });
           });
       })
       .catch((err) => {

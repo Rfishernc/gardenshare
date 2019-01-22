@@ -7,9 +7,13 @@ class login extends React.Component {
     event.preventDefault();
     const username = document.getElementById('usernameInput').value;
     const pw = document.getElementById('pwInput').value;
-    loginData.loginUser(username, pw)
-      .then((data) => {
-        this.props.history.push('/home');
+    loginData.getEmailByUsername(username)
+      .then((user) => {
+        const { email } = user;
+        loginData.loginUser(email, pw)
+          .then((data) => {
+            this.props.history.push('/home');
+          });
       })
       .catch((err) => {
         console.log(err);
