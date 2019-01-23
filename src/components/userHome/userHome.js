@@ -5,6 +5,7 @@ import Navbar from '../navbar/navbar';
 import UserPlants from '../userPlants/userPlants';
 import PendingOffer from '../pendingOffer/pendingOffer';
 import UserTrades from '../userTrades/userTrades';
+import AddPlant from '../addPlant/addPlant';
 
 import './userHome.scss';
 
@@ -12,6 +13,7 @@ class userHome extends React.Component {
   state = {
     picture: '',
     userName: '',
+    userPlants: '',
   }
 
   componentWillMount() {
@@ -19,6 +21,23 @@ class userHome extends React.Component {
     userHomeData.getUser(user.uid)
       .then((userData) => {
         this.setState({ picture: userData.picture, userName: userData.userName });
+        userHomeData.getPlantsByUser(this.state.userName)
+          .then((plantsArray) => {
+            this.setState({ userPlants: plantsArray });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  refreshPlants = () => {
+    userHomeData.getPlantsByUser(this.state.userName)
+      .then((plantsArray) => {
+        this.setState({ userPlants: plantsArray });
       })
       .catch((err) => {
         console.log(err);
@@ -26,19 +45,15 @@ class userHome extends React.Component {
   }
 
   userPlantsBuilder = () => {
-    userHomeData.getPlantsByUser(this.state.userName)
-      .then((plantsArray) => {
-        const plantsRender = [];
-        plantsArray.forEach((plantO) => {
-          plantsRender.push(<UserPlants dateHarvest={plantO.dateHarvest}
-          datePlanted={plantO.datePlanted} num={plantO.num}
-          plant={plantO.plant} surplus={plantO.surplus}/>);
-        });
-        return plantsRender;
-      })
-      .catch((err) => {
-        console.log(err);
+    const plantsRender = [];
+    if (this.state.userPlants !== '') {
+      this.state.userPlants.forEach((plantO) => {
+        plantsRender.push(<UserPlants dateHarvest={plantO.dateHarvest}
+        datePlanted={plantO.datePlanted} num={plantO.num}
+        plant={plantO.plant} surplus={plantO.surplus} key={plantO.id}/>);
       });
+    }
+    return plantsRender;
   }
 
   userTradesBuilder = () => {
@@ -90,9 +105,12 @@ class userHome extends React.Component {
           <img src={this.state.picture} className='userPicture' alt='profilepic'/>
           <p className='userTitle'>{this.state.userName}</p>
         </div>
-        <div className='userPlantsList'>{this.userPlantsBuilder}</div>
-        <div className='userTradesList'>{this.userTradesBuilder}</div>
-        <div className='pendingOfferList'>{this.pendingOfferBuilder}</div>
+        <div className='userPlantsList'>
+          {this.userPlantsBuilder()}
+          <AddPlant refreshPlants={this.refreshPlants} user={this.state.userName}/>
+        </div>
+        <div className='userTradesList'>{this.userTradesBuilder()}</div>
+        <div className='pendingOfferList'>{this.pendingOfferBuilder()}</div>
       </div>
     );
   }

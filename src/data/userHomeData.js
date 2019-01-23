@@ -24,6 +24,7 @@ const getPlantsByUser = user => new Promise((resolve, reject) => {
       const plantsArray = [];
       if (plantsObject !== null) {
         Object.keys(plantsObject).forEach((plant) => {
+          plantsObject[plant].id = plant;
           plantsArray.push(plantsObject[plant]);
         });
       }
