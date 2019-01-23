@@ -42,6 +42,7 @@ const getTradeRequests = user => new Promise((resolve, reject) => {
       const tradesArray = [];
       if (tradesObject !== null) {
         Object.keys(tradesObject).forEach((key) => {
+          tradesObject[key].id = key;
           tradesArray.push(tradesObject[key]);
         });
       }
@@ -50,6 +51,7 @@ const getTradeRequests = user => new Promise((resolve, reject) => {
           const tradesObject2 = data2.data;
           if (tradesObject2 !== null) {
             Object.keys(tradesObject2).forEach((key) => {
+              tradesObject2[key].id = key;
               tradesArray.push(tradesObject2[key]);
             });
           }

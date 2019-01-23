@@ -14,6 +14,9 @@ class userHome extends React.Component {
     picture: '',
     userName: '',
     userPlants: '',
+    trades: '',
+    sentOffers: '',
+    receivedOffers: '',
   }
 
   componentWillMount() {
@@ -24,9 +27,14 @@ class userHome extends React.Component {
         userHomeData.getPlantsByUser(this.state.userName)
           .then((plantsArray) => {
             this.setState({ userPlants: plantsArray });
-          })
-          .catch((err) => {
-            console.log(err);
+          });
+        userHomeData.getActiveTrades(this.state.userName)
+          .then((tradesArray) => {
+            this.setState({ trades: tradesArray });
+          });
+        userHomeData.getPendingOffers(this.state.userName)
+          .then((sentOffers, receivedOffers) => {
+            this.setState({ sentOffers, receivedOffers });
           });
       })
       .catch((err) => {
@@ -44,12 +52,23 @@ class userHome extends React.Component {
       });
   }
 
+  refreshOffers = () => {
+    userHomeData.getActiveTrades(this.state.userName)
+      .then((tradesArray) => {
+        this.setState({ trades: tradesArray });
+      });
+    userHomeData.getPendingOffers(this.state.userName)
+      .then((sentOffers, receivedOffers) => {
+        this.setState({ sentOffers, receivedOffers });
+      });
+  }
+
   userPlantsBuilder = () => {
     const plantsRender = [];
     if (this.state.userPlants !== '') {
       this.state.userPlants.forEach((plantO) => {
         plantsRender.push(<UserPlants dateHarvest={plantO.dateHarvest}
-        datePlanted={plantO.datePlanted} num={plantO.num}
+        datePlanted={plantO.datePlanted} qty={plantO.qty}
         plant={plantO.plant} surplus={plantO.surplus} key={plantO.id}/>);
       });
     }
@@ -57,44 +76,40 @@ class userHome extends React.Component {
   }
 
   userTradesBuilder = () => {
-    userHomeData.getActiveTrades(this.state.userName)
-      .then((tradesArray) => {
-        const tradesRender = [];
-        tradesArray.forEach((trade) => {
-          tradesRender.push(<UserTrades dateSent={trade.dateSent} dateTrade={trade.dateTrade}
-          user1={trade.user1} user2={trade.user2}
-          plantsUser1={trade.plantsUser1} plantsUser2={trade.plantsUser2}/>);
-        });
-        return tradesRender;
-      })
-      .catch((err) => {
-        console.log(err);
+    const tradesRender = [];
+    if (this.state.trades !== '') {
+      this.state.trades.forEach((trade) => {
+        tradesRender.push(<UserTrades dateSent={trade.dateSent} dateTrade={trade.dateTrade}
+        user1={trade.user1} user2={trade.user2} user={this.state.userName} id={trade.id}
+        plantsUser1={trade.plantsUser1} plantsUser2={trade.plantsUser2}
+        refreshOffers={this.refreshOffers} key={trade.id}/>);
       });
+    }
+    return tradesRender;
   }
 
   pendingOfferBuilder = () => {
-    userHomeData.getPendingOffers(this.state.userName)
-      .then((sentOffers, receivedOffers) => {
-        const sentRender = [];
-        const receivedRender = [];
-        sentOffers.forEach((offer) => {
-          sentRender.push(<PendingOffer dateSent={offer.dateSent} dateTrade={offer.dateTrade}
-          user1={offer.user1} user2={offer.user2}
-          plantsUser1={offer.plantsUser1} plantsUser2={offer.plantsUser2}/>);
-        });
-        receivedOffers.forEach((offer) => {
-          receivedRender.push(<PendingOffer dateSent={offer.dateSent} dateTrade={offer.dateTrade}
-            user1={offer.user1} user2={offer.user2}
-            plantsUser1={offer.plantsUser1} plantsUser2={offer.plantsUser2}/>);
-        });
-        return <div>
-                  <div className='sentOffers'>{sentRender}</div>
-                  <div className='receivedOffers'>{receivedRender}</div>
-              </div>;
-      })
-      .catch((err) => {
-        console.log(err);
+    const sentRender = [];
+    const receivedRender = [];
+    if (this.state.sentOffers !== '') {
+      this.state.sentOffers.forEach((offer) => {
+        sentRender.push(<PendingOffer dateSent={offer.dateSent} dateTrade={offer.dateTrade}
+        user1={offer.user1} user2={offer.user2} user={this.state.userName} id={offer.id}
+        plantsUser1={offer.plantsUser1} plantsUser2={offer.plantsUser2}
+        refreshOffers={this.refreshOffers} key={offer.id}/>);
       });
+    }
+    // if (this.state.receivedOffers !== '') {
+    //   this.state.receivedOffers.forEach((offer) => {
+    //     receivedRender.push(<PendingOffer dateSent={offer.dateSent} dateTrade={offer.dateTrade}
+    //       user1={offer.user1} user2={offer.user2}
+    //       plantsUser1={offer.plantsUser1} plantsUser2={offer.plantsUser2}/>);
+    //   });
+    // }
+    return <div>
+              <div className='sentOffers'>{sentRender}</div>
+              <div className='receivedOffers'>{receivedRender}</div>
+          </div>;
   }
 
   render() {
