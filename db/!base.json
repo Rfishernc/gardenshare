@@ -3,5 +3,6 @@
   "tradeRequests": "beta",
   "plants": "gamma",
   "messages": "delta",
-  "emails": "kappa"
+  "emails": "kappa",
+  "pictureRef": "lambda"
 }

@@ -7,6 +7,7 @@ import './userInfo.scss';
 class userInfo extends React.Component {
   state = {
     userName: '',
+    dbKey: '',
     picture: '',
     location: '',
     locationName: '',
@@ -14,6 +15,10 @@ class userInfo extends React.Component {
     reliabilityRating: '',
     numRating: '',
     email: '',
+    editingLocationName: false,
+    editingLocation: false,
+    editingPicture: false,
+    currentPicture: '',
   }
 
   componentWillMount() {
@@ -21,10 +26,19 @@ class userInfo extends React.Component {
     userInfoData.getUser(user.uid)
       .then((userData) => {
         const {
-          userName, picture, location, locationName, qualityRating, reliabilityRating, numRating,
+          userName, dbKey, picture, location,
+          locationName, qualityRating, reliabilityRating, numRating,
         } = userData;
         this.setState({
-          userName, picture, location, locationName, qualityRating, reliabilityRating, numRating,
+          userName,
+          dbKey,
+          picture,
+          location,
+          locationName,
+          qualityRating,
+          reliabilityRating,
+          numRating,
+          currentPicture: picture,
         });
         userInfoData.getEmailByUsername(this.state.userName)
           .then((userEmail) => {
@@ -37,8 +51,147 @@ class userInfo extends React.Component {
       });
   }
 
+  refreshInfo = () => {
+    const user = firebase.auth().currentUser;
+    userInfoData.getUser(user.uid)
+      .then((userData) => {
+        const {
+          userName, dbKey, picture, location,
+          locationName, qualityRating, reliabilityRating, numRating,
+        } = userData;
+        this.setState({
+          userName,
+          dbKey,
+          picture,
+          location,
+          locationName,
+          qualityRating,
+          reliabilityRating,
+          numRating,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   clickedEdit = (event) => {
     event.preventDefault();
+    if (event.target.id === 'editLocationName') {
+      this.setState({ editingLocationName: true });
+    } else if (event.target.id === 'editLocation') {
+      this.setState({ editingLocation: true });
+    } else {
+      this.setState({ editingPicture: true });
+    }
+  }
+
+  clickedSave = (event) => {
+    event.preventDefault();
+    if (event.target.id === 'saveLocationName') {
+      this.setState({ editingLocationName: false });
+      userInfoData.updateUserInfo(this.state.dbKey, { locationName: document.getElementById('locationNameInput').value })
+        .then(() => {
+          this.refreshInfo();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if (event.target.id === 'saveLocation') {
+      this.setState({ editingLocation: false });
+      userInfoData.updateUserInfo(this.state.dbKey, { location: document.getElementById('locationInput').value })
+        .then(() => {
+          this.refreshInfo();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      this.setState({ editingPicture: false });
+      userInfoData.getPicture(this.state.userName)
+        .then((path) => {
+          userInfoData.updateUserInfo(this.state.dbKey, { picture: path })
+            .then(() => {
+              this.refreshInfo();
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
+
+  clickedCancel = (event) => {
+    event.preventDefault();
+    if (event.target.id === 'cancelLocationName') {
+      this.setState({ editingLocationName: false });
+    } else if (event.target.id === 'cancelLocation') {
+      this.setState({ editingLocation: false });
+    } else {
+      this.setState({ editingPicture: false, currentPicture: this.state.picture });
+    }
+  }
+
+  upLoadPicture = (event) => {
+    event.preventDefault();
+    userInfoData.removePictureRef(this.state.userName)
+      .then(() => {
+        userInfoData.addPicture(this.state.userName)
+          .then(() => {
+            userInfoData.getPicture(this.state.userName)
+              .then((path) => {
+                this.setState({ currentPicture: path });
+              });
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  locationNameInfoBuilder = () => {
+    if (this.state.editingLocationName) {
+      return <div>
+        <input type='text' className='userInfoUnitInput' id='locationNameInput'/>
+        <button type='button' className='saveLink' onClick={this.clickedSave} id='saveLocationName'>Save</button>
+        <button type='button' className='cancelLink' onClick={this.clickedCancel} id='cancelLocationName'>Cancel</button>
+        </div>;
+    }
+    return <div>
+      <p className='userInfoUnitData'>{this.state.locationName}</p>
+      <button type='button' className='editLink' onClick={this.clickedEdit} id='editLocationName'>Edit</button>
+      </div>;
+  }
+
+  locationInfoBuilder = () => {
+    if (this.state.editingLocation) {
+      return <div>
+        <input type='text' className='userInfoUnitInput' id='locationInput'/>
+        <button type='button' className='saveLink' onClick={this.clickedSave} id='saveLocation'>Save</button>
+        <button type='button' className='cancelLink' onClick={this.clickedCancel} id='cancelLocation'>Cancel</button>
+        </div>;
+    }
+    return <div>
+      <p className='userInfoUnitData'>{this.state.location}</p>
+      <button type='button' className='editLink' onClick={this.clickedEdit} id='editLocation'>Edit</button>
+      </div>;
+  }
+
+  pictureInfoBuilder = () => {
+    if (this.state.editingPicture) {
+      return <div>
+        <input type='file' className='userInfoUnitInput' id='pictureInput'/>
+        <button type='button' onClick={this.upLoadPicture} id='uploadPicture'>Upload</button>
+        <button type='button' className='saveLink' onClick={this.clickedSave} id='savePicture'>Save</button>
+        <button type='button' className='cancelLink' onClick={this.clickedCancel} id='cancelPicture'>Cancel</button>
+        <img src={this.state.currentPicture} className='userInfoUnitPicture' alt='profilePic'/>
+      </div>;
+    }
+    return <div>
+          <p className='userInfoUnitData'>{this.state.picture}</p>
+          <button type='button' className='editLink' onClick={this.clickedEdit}>Edit</button>
+          <img src={this.state.picture} className='userInfoUnitPicture' alt='profilePic'/>
+          </div>;
   }
 
   render() {
@@ -56,13 +209,11 @@ class userInfo extends React.Component {
           </div>
           <div className='userInfoUnit'>
             <p className='userInfoUnitTitle'>Location:</p>
-            <p className='userInfoUnitData'>{this.state.locationName}</p>
-            <button type='button' className='editLink' onClick={this.clickedEdit}>Edit</button>
+            {this.locationNameInfoBuilder()}
           </div>
           <div className='userInfoUnit'>
             <p className='userInfoUnitTitle'>Zip Code:</p>
-            <p className='userInfoUnitData'>{this.state.location}</p>
-            <button type='button' className='editLink' onClick={this.clickedEdit}>Edit</button>
+            {this.locationInfoBuilder()}
           </div>
           <div className='userInfoUnit'>
             <p className='userInfoUnitTitle'>Reliability Rating:</p>
@@ -74,9 +225,7 @@ class userInfo extends React.Component {
           </div>
           <div className='userInfoUnit'>
             <p className='userInfoUnitTitle'>Profile Picture:</p>
-            <p className='userInfoUnitData'>{this.state.picture}</p>
-            <button type='button' className='editLink' onClick={this.clickedEdit}>Edit</button>
-            <img src={this.state.picture} className='userInfoUnitPicture' alt='profilePic'/>
+            {this.pictureInfoBuilder()}
           </div>
         </div>
       </div>
