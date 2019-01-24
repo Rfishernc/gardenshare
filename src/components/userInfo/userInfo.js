@@ -18,6 +18,7 @@ class userInfo extends React.Component {
     editingLocationName: false,
     editingLocation: false,
     editingPicture: false,
+    editingEmail: false,
     currentPicture: '',
   }
 
@@ -69,6 +70,11 @@ class userInfo extends React.Component {
           reliabilityRating,
           numRating,
         });
+        userInfoData.getEmailByUsername(this.state.userName)
+          .then((userEmail) => {
+            const { email } = userEmail;
+            this.setState({ email });
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -81,6 +87,8 @@ class userInfo extends React.Component {
       this.setState({ editingLocationName: true });
     } else if (event.target.id === 'editLocation') {
       this.setState({ editingLocation: true });
+    } else if (event.target.id === 'editEmail') {
+      this.setState({ editingEmail: true });
     } else {
       this.setState({ editingPicture: true });
     }
@@ -100,6 +108,15 @@ class userInfo extends React.Component {
     } else if (event.target.id === 'saveLocation') {
       this.setState({ editingLocation: false });
       userInfoData.updateUserInfo(this.state.dbKey, { location: document.getElementById('locationInput').value })
+        .then(() => {
+          this.refreshInfo();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if (event.target.id === 'saveEmail') {
+      this.setState({ editingEmail: false });
+      userInfoData.updateEmail(this.state.userName, { email: document.getElementById('emailInput').value })
         .then(() => {
           this.refreshInfo();
         })
@@ -127,6 +144,8 @@ class userInfo extends React.Component {
       this.setState({ editingLocationName: false });
     } else if (event.target.id === 'cancelLocation') {
       this.setState({ editingLocation: false });
+    } else if (event.target.id === 'cancelEmail') {
+      this.setState({ editingEmail: false });
     } else {
       this.setState({ editingPicture: false, currentPicture: this.state.picture });
     }
@@ -194,6 +213,20 @@ class userInfo extends React.Component {
           </div>;
   }
 
+  emailInfoBuilder = () => {
+    if (this.state.editingEmail) {
+      return <div>
+      <input type='email' className='userInfoUnitInput' id='emailInput'/>
+      <button type='button' className='saveLink' onClick={this.clickedSave} id='saveEmail'>Save</button>
+      <button type='button' className='cancelLink' onClick={this.clickedCancel} id='cancelEmail'>Cancel</button>
+      </div>;
+    }
+    return <div>
+    <p className='userInfoUnitData'>{this.state.email}</p>
+    <button type='button' className='editLink' onClick={this.clickedEdit} id='editEmail'>Edit</button>
+    </div>;
+  }
+
   render() {
     return (
       <div className="userInfo">
@@ -205,7 +238,7 @@ class userInfo extends React.Component {
           </div>
           <div className='userInfoUnit'>
             <p className='userInfoUnitTitle'>Email:</p>
-            <p className='userInfoUnitData'>{this.state.email}</p>
+            {this.emailInfoBuilder()}
           </div>
           <div className='userInfoUnit'>
             <p className='userInfoUnitTitle'>Location:</p>

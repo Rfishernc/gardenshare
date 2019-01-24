@@ -26,6 +26,7 @@ const getEmailByUsername = userName => new Promise((resolve, reject) => {
       let userData;
       Object.keys(data.data).forEach((key) => {
         userData = data.data[key];
+        userData.dbKey = key;
       });
       resolve(userData);
     })
@@ -111,7 +112,20 @@ const getPicture = userName => new Promise((resolve, reject) => {
 const removePictureRef = userName => new Promise((resolve, reject) => {
   getPictureDatabaseRef(userName)
     .then((ref) => {
-      axios.delete(`${URL}/pictureRef/${ref.dbKey}.json?`)
+      axios.delete(`${URL}/pictureRef/${ref.dbKey}.json`)
+        .then(() => {
+          resolve();
+        });
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
+const updateEmail = (userName, newInfo) => new Promise((resolve, reject) => {
+  getEmailByUsername(userName)
+    .then((emails) => {
+      axios.patch(`${URL}/emails/${emails.dbKey}.json`, newInfo)
         .then(() => {
           resolve();
         });
@@ -129,4 +143,5 @@ export default {
   addPicture,
   getPicture,
   removePictureRef,
+  updateEmail,
 };
