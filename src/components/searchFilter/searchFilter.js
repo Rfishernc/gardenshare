@@ -8,6 +8,8 @@ class searchFilter extends React.Component {
     checkedReliability: false,
     checkedQuality: false,
     checkedHarvest: false,
+    currentFilter: true,
+    active: true,
   }
 
   filterBuilder = () => {
@@ -31,33 +33,58 @@ class searchFilter extends React.Component {
   }
 
   filterStatus = () => {
+    if (this.state.currentFilter) {
+      return <div>
+        <p>Add a new filter</p>
+        <button type='button' onClick={this.addFilter}>+</button>
+        </div>;
+    }
+    return <div>
+    <p>Remove filter</p>
+    <button type='button' onClick={this.removeFilter}>x</button>
+    </div>;
+  }
 
+  addFilter = (event) => {
+    event.preventDefault();
+    this.props.newFilter();
+    this.setState({ currentFilter: false });
+  }
+
+  removeFilter = (event) => {
+    event.preventDefault();
+    this.setState({ active: false });
   }
 
   render() {
-    return (
-      <div className="searchFilter">
-        {this.filterBuilder()}
-        <div>
+    if (this.state.active) {
+      return (
+        <div className="searchFilter">
+          {this.filterBuilder()}
           <div>
-            <p>Plant</p>
-            <input type='checkbox' checked={this.state.checkedPlant} onChange={this.checkChanged} id='checkedPlant'/>
+            <div>
+              <p>Plant</p>
+              <input type='checkbox' checked={this.state.checkedPlant} onChange={this.checkChanged} id='checkedPlant'/>
+            </div>
+            <div>
+              <p>Reliability</p>
+              <input type='checkbox' checked={this.state.checkedReliability} onChange={this.checkChanged} id='checkedReliability'/>
+            </div>
+            <div>
+              <p>Quality</p>
+              <input type='checkbox' checked={this.state.checkedQuality} onChange={this.checkChanged} id='checkedQuality'/>
+            </div>
+            <div>
+              <p>Harvest Date</p>
+              <input type='checkbox' checked={this.state.checkedHarvest} onChange={this.checkChanged} id='checkedHarvest'/>
+            </div>
           </div>
-          <div>
-            <p>Reliability</p>
-            <input type='checkbox' checked={this.state.checkedReliability} onChange={this.checkChanged} id='checkedReliability'/>
-          </div>
-          <div>
-            <p>Quality</p>
-            <input type='checkbox' checked={this.state.checkedQuality} onChange={this.checkChanged} id='checkedQuality'/>
-          </div>
-          <div>
-            <p>Harvest Date</p>
-            <input type='checkbox' checked={this.state.checkedHarvest} onChange={this.checkChanged} id='checkedHarvest'/>
-          </div>
+          {this.filterStatus()}
         </div>
-        {this.filterStatus()}
-      </div>
+      );
+    }
+    return (
+      <div></div>
     );
   }
 }
