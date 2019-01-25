@@ -53,8 +53,23 @@ const getPlantsByUser = user => new Promise((resolve, reject) => {
     });
 });
 
+const getAllFilteredUsersPlants = usersArray => new Promise((resolve, reject) => {
+  const promiseArray = [];
+  usersArray.forEach((user) => {
+    promiseArray.push(getPlantsByUser(user.userName));
+  });
+  Promise.all(promiseArray)
+    .then((plantsArrayArray) => {
+      resolve(plantsArrayArray);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
 export default {
   getListings,
   getUser,
   getPlantsByUser,
+  getAllFilteredUsersPlants,
 };

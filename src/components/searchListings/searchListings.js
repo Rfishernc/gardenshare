@@ -11,6 +11,7 @@ class searchListings extends React.Component {
     filtersNum: 1,
     usersArray: '',
     userZip: '',
+    usersWithPlants: '',
   }
 
   componentWillMount() {
@@ -38,12 +39,12 @@ class searchListings extends React.Component {
 
   listingsBuilder = () => {
     const listingsRender = [];
-    if (this.state.usersArray !== '') {
+    if (this.state.usersWithPlants !== '') {
       this.state.usersArray.forEach((user) => {
         listingsRender.push(<UserListing key={user.id} location={user.location}
         locationName={user.locationName} picture={user.picture} numRating={user.numRating}
         qualityRating={user.qualityRating} reliabilityRating={user.reliabilityRating}
-        userName={user.userName}/>);
+        userName={user.userName} plants={user.plants}/>);
       });
     }
     return listingsRender;
@@ -53,6 +54,19 @@ class searchListings extends React.Component {
     searchListingsData.getListings(this.state.userZip)
       .then((usersArray) => {
         this.setState({ usersArray });
+        searchListingsData.getAllFilteredUsersPlants(this.state.usersArray)
+          .then((plantsArrayArray) => {
+            const usersWithPlantsArray = usersArray;
+            usersWithPlantsArray.forEach((user) => {
+              plantsArrayArray.forEach((plantArray) => {
+                if (user.userName === plantArray[0].user) {
+                  // eslint-disable-next-line no-param-reassign
+                  user.plants = plantArray;
+                }
+              });
+            });
+            this.setState({ usersWithPlants: usersWithPlantsArray });
+          });
       })
       .catch((err) => {
         console.log(err);
