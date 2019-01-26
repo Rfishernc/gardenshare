@@ -67,9 +67,7 @@ const getPendingOffers = user => new Promise((resolve, reject) => {
   getTradeRequests(user)
     .then((tradesArray) => {
       const filteredTrades = tradesArray.filter(trade => trade.accepted === false);
-      const sentOffers = filteredTrades.filter(trade => trade.user1 === user);
-      const receivedOffers = filteredTrades.filter(trade => trade.user2 === user);
-      resolve(sentOffers, receivedOffers);
+      resolve(filteredTrades);
     })
     .catch((err) => {
       reject(err);

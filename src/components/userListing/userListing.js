@@ -6,7 +6,7 @@ class userListing extends React.Component {
   plantsBuilder = () => {
     const plantsRender = [];
     if (this.props.plants !== null) {
-      for (let i = 0; i < 2; i += 1) {
+      for (let i = 0; i < 1; i += 1) {
         plantsRender.push(<div>
           <p>{this.props.plants[i].plant}</p>
           <p>{this.props.plants[i].surplus}</p>

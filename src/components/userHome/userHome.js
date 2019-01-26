@@ -33,7 +33,9 @@ class userHome extends React.Component {
             this.setState({ trades: tradesArray });
           });
         userHomeData.getPendingOffers(this.state.userName)
-          .then((sentOffers, receivedOffers) => {
+          .then((offers) => {
+            const sentOffers = offers.filter(trade => trade.user1 === this.state.userName);
+            const receivedOffers = offers.filter(trade => trade.user2 === this.state.userName);
             this.setState({ sentOffers, receivedOffers });
           });
       })
@@ -58,7 +60,9 @@ class userHome extends React.Component {
         this.setState({ trades: tradesArray });
       });
     userHomeData.getPendingOffers(this.state.userName)
-      .then((sentOffers, receivedOffers) => {
+      .then((offers) => {
+        const sentOffers = offers.filter(trade => trade.user1 === this.state.userName);
+        const receivedOffers = offers.filter(trade => trade.user2 === this.state.userName);
         this.setState({ sentOffers, receivedOffers });
       });
   }
@@ -99,13 +103,13 @@ class userHome extends React.Component {
         refreshOffers={this.refreshOffers} key={offer.id}/>);
       });
     }
-    // if (this.state.receivedOffers !== '') {
-    //   this.state.receivedOffers.forEach((offer) => {
-    //     receivedRender.push(<PendingOffer dateSent={offer.dateSent} dateTrade={offer.dateTrade}
-    //       user1={offer.user1} user2={offer.user2}
-    //       plantsUser1={offer.plantsUser1} plantsUser2={offer.plantsUser2}/>);
-    //   });
-    // }
+    if (this.state.receivedOffers !== '') {
+      this.state.receivedOffers.forEach((offer) => {
+        receivedRender.push(<PendingOffer dateSent={offer.dateSent} dateTrade={offer.dateTrade}
+          user1={offer.user1} user2={offer.user2}
+          plantsUser1={offer.plantsUser1} plantsUser2={offer.plantsUser2}/>);
+      });
+    }
     return <div>
               <div className='sentOffers'>{sentRender}</div>
               <div className='receivedOffers'>{receivedRender}</div>
