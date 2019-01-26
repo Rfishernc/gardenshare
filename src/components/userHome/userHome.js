@@ -106,7 +106,8 @@ class userHome extends React.Component {
     if (this.state.receivedOffers !== '') {
       this.state.receivedOffers.forEach((offer) => {
         receivedRender.push(<PendingOffer dateSent={offer.dateSent} dateTrade={offer.dateTrade}
-          user1={offer.user1} user2={offer.user2}
+          user1={offer.user1} user2={offer.user2} id={offer.id}
+          key={offer.id} refreshOffers={this.refreshOffers}
           plantsUser1={offer.plantsUser1} plantsUser2={offer.plantsUser2}/>);
       });
     }

@@ -16,7 +16,7 @@ class pendingOffer extends React.Component {
   }
 
   acceptThisOffer = () => {
-    pendingOfferData.acceptOffer()
+    pendingOfferData.acceptOffer(this.props.id)
       .then(() => {
         this.props.refreshOffers();
       })
@@ -26,7 +26,7 @@ class pendingOffer extends React.Component {
   }
 
   removeThisOffer = () => {
-    pendingOfferData.removeOffer()
+    pendingOfferData.removeOffer(this.props.id)
       .then(() => {
         this.props.refreshOffers();
       })
@@ -64,7 +64,7 @@ class pendingOffer extends React.Component {
               {}
             </div>
             <ul className="list-group list-group-flush">
-              <li className="list-group-item">{otherUser}</li>
+              <li className="list-group-item">{otherUser()}</li>
               <li className="list-group-item">{dateSent}</li>
               <li className="list-group-item">{dateTrade}</li>
               <li className="list-group-item">{this.plantsListBuilder(plantsUser1)}</li>

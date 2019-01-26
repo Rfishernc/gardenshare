@@ -4,7 +4,10 @@ import apiKeys from './apiKeys';
 const URL = apiKeys.firebaseKeys.databaseURL;
 
 const acceptOffer = offerId => new Promise((resolve, reject) => {
-  axios.patch(`${URL}/tradeRequests/${offerId}.json`, 'accepted')
+  const patchObj = {
+    accepted: true,
+  };
+  axios.patch(`${URL}/tradeRequests/${offerId}.json`, patchObj)
     .then(() => {
       resolve();
     })
@@ -14,7 +17,7 @@ const acceptOffer = offerId => new Promise((resolve, reject) => {
 });
 
 const removeOffer = offerId => new Promise((resolve, reject) => {
-  axios.delete(`${URL}/tradeRequests.json`, offerId)
+  axios.delete(`${URL}/tradeRequests/${offerId}.json`)
     .then(() => {
       resolve();
     })
