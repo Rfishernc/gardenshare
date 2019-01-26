@@ -34,7 +34,7 @@ class userTrades extends React.Component {
               {}
             </div>
             <ul className="list-group list-group-flush">
-              <li className="list-group-item">{otherUser}</li>
+              <li className="list-group-item">{otherUser()}</li>
               <li className="list-group-item">{dateSent}</li>
               <li className="list-group-item">{dateTrade}</li>
               <li className="list-group-item">{this.plantsListBuilder(plantsUser1)}</li>
