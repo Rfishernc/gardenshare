@@ -1,19 +1,24 @@
 import React from 'react';
+import ListingDetails from '../listingDetails/listingDetails';
 import './userListing.scss';
 
 class userListing extends React.Component {
   plantsBuilder = () => {
     const plantsRender = [];
     if (this.props.plants !== null) {
-      this.props.plants.forEach((plantType) => {
+      for (let i = 0; i < 2; i += 1) {
         plantsRender.push(<div>
-          <p>{plantType.plant}</p>
-          <p>{plantType.surplus}</p>
-          <p>{plantType.dateHarvest}</p>
+          <p>{this.props.plants[i].plant}</p>
+          <p>{this.props.plants[i].surplus}</p>
+          <p>{this.props.plants[i].dateHarvest}</p>
         </div>);
-      });
+      }
     }
     return plantsRender;
+  }
+
+  viewDetails = () => {
+
   }
 
   render() {
@@ -21,7 +26,7 @@ class userListing extends React.Component {
       picture, location, locationName, reliabilityRating, qualityRating, numRating, userName,
     } = this.props;
     return (
-      <div className="userListing">
+      <div className="userListing" onClick={this.viewDetails}>
         <div>
           <img src={picture} alt='profilePic'/>
           <p>{userName}</p>
@@ -46,6 +51,9 @@ class userListing extends React.Component {
           <p>Harvest Date</p>
           {this.plantsBuilder()}
         </div>
+        <ListingDetails userName={userName} picture={picture} location={location}
+        locationName={locationName} reliabilityRating={reliabilityRating} plants={this.props.plants}
+        qualityRating={qualityRating} numRating={numRating} key={userName}/>
       </div>
     );
   }
