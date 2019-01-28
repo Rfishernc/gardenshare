@@ -2,6 +2,7 @@ import React from 'react';
 import firebase from 'firebase/app';
 import userInfoData from '../../data/userInfoData';
 import Navbar from '../navbar/navbar';
+import ChangePassword from '../changePassword/changePassword';
 import './userInfo.scss';
 
 class userInfo extends React.Component {
@@ -260,6 +261,7 @@ class userInfo extends React.Component {
             <p className='userInfoUnitTitle'>Profile Picture:</p>
             {this.pictureInfoBuilder()}
           </div>
+          <ChangePassword email={this.state.email}/>
         </div>
       </div>
     );
