@@ -14,7 +14,7 @@ class ratingScreen extends React.Component {
 
   submitRating = (event) => {
     event.preventDefault();
-    this.props.updateRating();
+    this.props.updateRating(this.state.quality, this.state.reliability);
   }
 
   render() {
