@@ -35,6 +35,58 @@ class tradeDetails extends React.Component {
     this.setState({ closing: true });
   }
 
+  updateRating = (quality, reliability) => {
+    const otherUser = () => {
+      if (this.props.user1 === this.props.user) {
+        return this.props.user2;
+      }
+      return this.props.user1;
+    };
+    tradeDetailsData.getUserByUserName(otherUser())
+      .then((userData) => {
+        const oldQuality = parseInt(userData.qualityRating, 10);
+        const oldReliability = parseInt(userData.reliabilityRating, 10);
+        const numRating = parseInt(userData.numRating, 10);
+        const newQuality = (((oldQuality * numRating) + parseInt(quality, 10)) / (numRating + 1));
+        const newReliability = (((oldReliability * numRating)
+        + parseInt(reliability, 10)) / (numRating + 1));
+        const updatedUser = {
+          location: userData.location,
+          locationName: userData.locationName,
+          numRating: numRating + 1,
+          qualityRating: newQuality,
+          reliabilityRating: newReliability,
+          picture: userData.picture,
+          uid: userData.uid,
+          userName: userData.userName,
+        };
+        tradeDetailsData.updateRating(updatedUser, userData.id)
+          .then(() => {
+            const {
+              dateSent, dateTrade, plantsUser1, plantsUser2, user1, user2, id,
+            } = this.props;
+            const closedTrade = {
+              dateSent,
+              dateTrade,
+              plantsUser1,
+              plantsUser2,
+              user1,
+              user2,
+              qualityRating: quality,
+              reliabilityRating: reliability,
+              accepted: true,
+            };
+            tradeDetailsData.closeTrade(closedTrade, id)
+              .then(() => {
+                this.props.refreshOffers();
+              });
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   modalBuilder = () => {
     const {
       dateSent, dateTrade, plantsUser1, plantsUser2, user1, user2, user,
@@ -51,7 +103,7 @@ class tradeDetails extends React.Component {
       return <div>
         <ModalHeader toggle={this.toggle}>Trade Details</ModalHeader>
         <ModalBody>
-          <RatingScreen/>
+          <RatingScreen updateRating={this.updateRating}/>
         </ModalBody>
       </div>;
     }

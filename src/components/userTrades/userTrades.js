@@ -17,7 +17,7 @@ class userTrades extends React.Component {
 
   render() {
     const {
-      dateSent, dateTrade, user1, user2, plantsUser1, plantsUser2, user,
+      dateSent, dateTrade, user1, user2, plantsUser1, plantsUser2, user, id, refreshOffers,
     } = this.props;
 
     const otherUser = () => {
@@ -40,8 +40,9 @@ class userTrades extends React.Component {
               <li className="list-group-item">{this.plantsListBuilder(plantsUser1)}</li>
               <li className="list-group-item">{this.plantsListBuilder(plantsUser2)}</li>
             </ul>
-            <TradeDetails dateSent={dateSent} dateTrade={dateTrade} user1={user1}
-            user2={user2} plantsUser1={plantsUser1} plantsUser2={plantsUser2} user={user}/>
+            <TradeDetails dateSent={dateSent} dateTrade={dateTrade}
+            user1={user1} refreshOffers={refreshOffers}
+            user2={user2} plantsUser1={plantsUser1} plantsUser2={plantsUser2} user={user} id={id}/>
           </div>
       </div>
     );
