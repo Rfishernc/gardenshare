@@ -4,6 +4,7 @@ import './searchFilter.scss';
 class searchFilter extends React.Component {
   state = {
     input: '',
+    info: '',
     checkedPlant: false,
     checkedReliability: false,
     checkedQuality: false,
@@ -12,15 +13,24 @@ class searchFilter extends React.Component {
     active: true,
   }
 
+  componentDidMount() {
+    const filterObj = {
+      type: '',
+      info: '',
+      id: this.props.id,
+    };
+    this.props.addFilterObj(filterObj);
+  }
+
   filterBuilder = () => {
     if (this.state.input === 'Plant') {
-      return <input type='text'/>;
+      return <input type='text' onChange={this.updateInfo}/>;
     } if (this.state.input === 'Reliability' || this.state.input === 'Quality') {
-      return <input type='number' min="0" max="10"/>;
+      return <input type='number' min="0" max="10" onChange={this.updateInfo}/>;
     } if (this.state.input === 'Harvest') {
-      return <input type='date'/>;
+      return <input type='date' onChange={this.updateInfo}/>;
     }
-    return <input type='text'/>;
+    return <input type='text' onChange={this.updateInfo}/>;
   }
 
   checkChanged = (event) => {
@@ -54,6 +64,16 @@ class searchFilter extends React.Component {
   removeFilter = (event) => {
     event.preventDefault();
     this.setState({ active: false });
+  }
+
+  updateInfo = (event) => {
+    event.preventDefault();
+    this.setState({ info: event.target.value });
+    const filterData = {
+      type: this.state.input,
+      info: this.state.info,
+    };
+    this.props.filterInfo(filterData);
   }
 
   render() {
