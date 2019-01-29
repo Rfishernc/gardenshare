@@ -4,6 +4,7 @@ import {
 } from 'reactstrap';
 import firebase from 'firebase/app';
 import offerTradeData from '../../data/offerTradeData';
+import messagesData from '../../data/messagesData';
 import './offerTrade.scss';
 
 class offerTrade extends React.Component {
@@ -15,6 +16,7 @@ class offerTrade extends React.Component {
     currentQty: '',
     offerList: [],
     requestList: [],
+    tradeId: '',
   };
 
   toggle = () => {
@@ -103,22 +105,31 @@ class offerTrade extends React.Component {
       user2Plants[request.plant] = request.qty;
     });
     event.preventDefault();
+    const marker = `${Math.random()}`;
     const tradeObject = {
       user1: this.state.userName,
       user2: this.props.userName,
-      dateSent: '',
+      dateSent: new Date(),
       dateTrade: document.getElementById('dateInput').value,
       accepted: false,
       plantsUser1: user1Plants,
       plantsUser2: user2Plants,
       reliabilityRating: false,
       qualityRating: false,
+      marker,
     };
     offerTradeData.postOffer(tradeObject)
       .then(() => {
         this.setState({ offerList: [], requestList: [] });
         this.toggle();
         this.props.toggleParent();
+        offerTradeData.getTradeIdByMarker(marker)
+          .then((tradeId) => {
+            this.setTradeId(tradeId)
+              .then(() => {
+                this.addMessage();
+              });
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -151,6 +162,22 @@ class offerTrade extends React.Component {
     return requestsRender;
   }
 
+  addMessage = () => {
+    const newMessage = document.getElementById('messagesInput').value;
+    const newMessageObj = {
+      tradeId: this.state.tradeId,
+      user: this.state.userName,
+      message: newMessage,
+      date: new Date(),
+    };
+    messagesData.postMessage(newMessageObj);
+  }
+
+  setTradeId = tradeId => new Promise((resolve) => {
+    this.setState({ tradeId });
+    resolve();
+  })
+
   render() {
     return (
       <div className="offerTrade">
@@ -181,7 +208,7 @@ class offerTrade extends React.Component {
               <p>My Requests</p>
               {this.myRequestsBuilder()}
             </div>
-            <input type='text' id='messageInput'/>
+              <input type='text' id='messagesInput'/>
             <div>
               <p>Trade Date: </p>
               <input type='date' id='dateInput'/>

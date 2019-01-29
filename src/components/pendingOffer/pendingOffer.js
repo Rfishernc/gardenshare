@@ -1,8 +1,23 @@
 import React from 'react';
 import pendingOfferData from '../../data/pendingOfferData';
+import messagesData from '../../data/messagesData';
 import './pendingOffer.scss';
 
 class pendingOffer extends React.Component {
+  state = {
+    message: '',
+  }
+
+  componentWillMount() {
+    messagesData.getMessages(this.props.id)
+      .then((messagesArray) => {
+        this.setState({ message: messagesArray[0] });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   plantsListBuilder = (plants) => {
     const plantsRender = [];
     const listingKeys = Object.keys(plants);
@@ -45,6 +60,17 @@ class pendingOffer extends React.Component {
     </div>;
   }
 
+  messageBuilder = () => {
+    if (this.state.message !== '') {
+      return <div>
+      <p>{this.state.message.user}</p>
+      <p>{this.state.message.message}</p>
+      <p>{this.state.message.date}</p>
+    </div>;
+    }
+    return '';
+  }
+
   render() {
     const {
       dateSent, dateTrade, user1, user2, plantsUser1, plantsUser2, user,
@@ -70,6 +96,7 @@ class pendingOffer extends React.Component {
               <li className="list-group-item">{this.plantsListBuilder(plantsUser1)}</li>
               <li className="list-group-item">{this.plantsListBuilder(plantsUser2)}</li>
             </ul>
+            {this.messageBuilder()}
             {this.buttonBuilder()}
           </div>
       </div>

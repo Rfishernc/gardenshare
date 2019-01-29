@@ -56,7 +56,6 @@ class searchListings extends React.Component {
         this.setState({ usersArray });
         searchListingsData.getAllFilteredUsersPlants(this.state.usersArray)
           .then((plantsArrayArray) => {
-            console.log(plantsArrayArray);
             const usersWithPlantsArray = usersArray;
             usersWithPlantsArray.forEach((user) => {
               plantsArrayArray.forEach((plantArray) => {

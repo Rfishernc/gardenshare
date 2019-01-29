@@ -3,6 +3,7 @@ import {
   Button, Modal, ModalHeader, ModalBody,
 } from 'reactstrap';
 import RatingScreen from '../ratingScreen/ratingScreen';
+import Messages from '../messages/messages';
 import tradeDetailsData from '../../data/tradeDetailsData';
 import './tradeDetails.scss';
 
@@ -128,6 +129,7 @@ class tradeDetails extends React.Component {
         <Button color="success" onClick={this.toggle}>Trade Details</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           {this.modalBuilder()}
+          <Messages user={this.props.user} tradeId={this.props.id}/>
         </Modal>
       </div>
     );

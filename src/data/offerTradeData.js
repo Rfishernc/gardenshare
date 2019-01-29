@@ -45,8 +45,23 @@ const postOffer = newOffer => new Promise((resolve, reject) => {
     });
 });
 
+const getTradeIdByMarker = marker => new Promise((resolve, reject) => {
+  axios.get(`${URL}/tradeRequests.json?orderBy="marker"&equalTo="${marker}"`)
+    .then((data) => {
+      let tradeId;
+      Object.keys(data.data).forEach((key) => {
+        tradeId = key;
+      });
+      resolve(tradeId);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
 export default {
   getUser,
   getPlantsByUser,
   postOffer,
+  getTradeIdByMarker,
 };
