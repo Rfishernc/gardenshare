@@ -1,0 +1,10 @@
+{
+  "plant1": {
+    "plant": "blueberry",
+    "num": "3",
+    "surplus": "1",
+    "datePlanted": "01-01-0001",
+    "dateHarvest": "02-02-0001",
+    "user": "Gardenus Maximus"
+    }
+}
