@@ -78,7 +78,7 @@ class searchListings extends React.Component {
                     }
                   });
                 });
-                this.setState({ usersWithPlants: usersWithPlantsArray });
+                this.applyFilters(usersWithPlantsArray);
               });
           });
       })
@@ -104,8 +104,20 @@ class searchListings extends React.Component {
     this.setState({ filterInfo: addedFilters });
   }
 
-  applyFilters = () => {
-
+  applyFilters = (usersWithPlantsArray) => {
+    let baseArray = usersWithPlantsArray;
+    let filteredArray;
+    this.state.filterInfo.forEach((filter) => {
+      if (filter.type === 'Plant') {
+        filteredArray = baseArray.filter(user => Object.keys(user.plants).includes(filter.info));
+      } if (filter.type === 'Quality') {
+        filteredArray = baseArray.filter(user => user.qualityRating >= filter.info);
+      } if (filter.type === 'Reliability') {
+        filteredArray = baseArray.filter(user => user.reliabilityRating >= filter.info);
+      }
+      baseArray = filteredArray;
+    });
+    this.setState({ usersWithPlants: baseArray });
   }
 
   render() {
