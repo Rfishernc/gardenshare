@@ -11,6 +11,7 @@ class searchFilter extends React.Component {
     checkedHarvest: false,
     currentFilter: true,
     active: true,
+    state: '',
   }
 
   componentDidMount() {
@@ -68,12 +69,14 @@ class searchFilter extends React.Component {
 
   updateInfo = (event) => {
     event.preventDefault();
-    this.setState({ info: event.target.value });
-    const filterData = {
-      type: this.state.input,
-      info: this.state.info,
-    };
-    this.props.filterInfo(filterData);
+    this.setState({ info: event.target.value }, () => {
+      const filterData = {
+        type: this.state.input,
+        info: this.state.info,
+        id: this.props.id,
+      };
+      this.props.filterInfo(filterData);
+    });
   }
 
   render() {

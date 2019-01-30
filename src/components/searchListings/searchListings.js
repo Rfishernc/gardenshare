@@ -13,7 +13,7 @@ class searchListings extends React.Component {
     filtersNum: 1,
     usersArray: '',
     userZip: '',
-    usersWithPlants: '',
+    usersWithPlants: [],
     zipcodeRadius: 0,
     filterInfo: [],
   }
@@ -37,15 +37,15 @@ class searchListings extends React.Component {
     const renderArray = [];
     for (let i = 0; i < this.state.filtersNum; i += 1) {
       renderArray.push(<SearchFilter newFilter={this.newFilter} id={i}
-        filterinfo={this.filterInfo} addFilterObj={this.addFilterObj} key={i}/>);
+        filterInfo={this.filterInfo} addFilterObj={this.addFilterObj} key={i}/>);
     }
     return renderArray;
   }
 
   listingsBuilder = () => {
     const listingsRender = [];
-    if (this.state.usersWithPlants !== '') {
-      this.state.usersArray.forEach((user) => {
+    if (this.state.usersWithPlants !== []) {
+      this.state.usersWithPlants.forEach((user) => {
         listingsRender.push(<UserListing key={user.id} location={user.location}
         locationName={user.locationName} picture={user.picture} numRating={user.numRating}
         qualityRating={user.qualityRating} reliabilityRating={user.reliabilityRating}
@@ -109,7 +109,7 @@ class searchListings extends React.Component {
     let filteredArray;
     this.state.filterInfo.forEach((filter) => {
       if (filter.type === 'Plant') {
-        filteredArray = baseArray.filter(user => Object.keys(user.plants).includes(filter.info));
+        filteredArray = baseArray.filter(user => user.plants.filter(plantType => plantType.plant === filter.info).length > 0);
       } if (filter.type === 'Quality') {
         filteredArray = baseArray.filter(user => user.qualityRating >= filter.info);
       } if (filter.type === 'Reliability') {
@@ -117,7 +117,7 @@ class searchListings extends React.Component {
       }
       baseArray = filteredArray;
     });
-    this.setState({ usersWithPlants: baseArray });
+    this.setState({ usersWithPlants: baseArray });     
   }
 
   render() {
