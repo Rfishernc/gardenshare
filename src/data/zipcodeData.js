@@ -1,14 +1,23 @@
 import axios from 'axios';
 import apiKeys from './apiKeys';
 
-const zipcodeRadius = (userZip, radius) => {
+const zipcodeRadius = (userZip, radius) => new Promise((resolve, reject) => {
   axios.get(`https://www.zipcodeapi.com/rest/${apiKeys.zipcodeKey}/radius.json/${userZip}/${radius}/mile`)
     .then((data) => {
-      console.log(data);
+      const locations = data.data.zip_codes;
+      const zipcodesArray = [];
+      if (locations !== null) {
+        locations.forEach((location) => {
+          zipcodesArray.push(location.zip_code);
+        });
+      }
+      resolve(zipcodesArray);
     })
     .catch((err) => {
-      console.log(err);
+      reject(err);
     });
-};
+});
 
-export default zipcodeRadius;
+export default {
+  zipcodeRadius,
+};

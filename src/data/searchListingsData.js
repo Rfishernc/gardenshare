@@ -21,6 +21,20 @@ const getListings = userZip => new Promise((resolve, reject) => {
     });
 });
 
+const getListingsByZipcodes = zipcodes => new Promise((resolve, reject) => {
+  const promiseArray = [];
+  zipcodes.forEach((zipcode) => {
+    promiseArray.push(getListings(zipcode));
+  });
+  Promise.all(promiseArray)
+    .then((usersArrayArray) => {
+      resolve(usersArrayArray);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
 const getUser = uid => new Promise((resolve, reject) => {
   axios.get(`${URL}/users.json?orderBy="uid"&equalTo="${uid}"`)
     .then((data) => {
@@ -72,4 +86,5 @@ export default {
   getUser,
   getPlantsByUser,
   getAllFilteredUsersPlants,
+  getListingsByZipcodes,
 };
