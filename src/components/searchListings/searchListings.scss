@@ -1,0 +1,28 @@
+.zipcodeRadiusDiv {
+  display: flex;
+  margin: 3px;
+}
+
+.filterDiv {
+  border: 1.5px solid black;
+  border-radius: 2px;
+  height: 38em; 
+  overflow: auto;
+}
+
+.listingsDiv {
+  border: 1.5px solid black;
+  border-radius: 3px;
+  overflow: auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.radiusPar {
+  padding-top: 5px;
+}
+
+.searchButton {
+  display: flex;
+  justify-content: flex-start;
+}

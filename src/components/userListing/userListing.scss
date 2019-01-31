@@ -1,0 +1,41 @@
+.userListing {
+  display: flex;
+  border: 1.5px solid black;
+  border-radius: 2px;
+  margin-bottom: 0.5px;
+}
+
+.listingPic {
+  width: 150px;
+  border: 1.5px solid black;
+  margin: 3px;
+}
+
+.listingUnit {
+  display: flex;
+  justify-content: space-between;
+}
+
+.listingPlantDiv {
+  display: flex;
+  flex-flow: column;
+}
+
+.listingPlantTitle {
+  display: flex;
+}
+
+.listingPlantInfo {
+  display: flex;
+  justify-content: space-around;
+}
+
+.listingPlantItem, .listingItem {
+  width: 120px;
+}
+
+.listingPlantItem {
+  padding: 15px;
+  border: 1px solid black;
+  margin: 0;
+}

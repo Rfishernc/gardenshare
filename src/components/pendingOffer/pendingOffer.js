@@ -22,7 +22,7 @@ class pendingOffer extends React.Component {
     const plantsRender = [];
     const listingKeys = Object.keys(plants);
     listingKeys.forEach((key) => {
-      plantsRender.push(<div>
+      plantsRender.push(<div className='tradePlants'>
         <p>{key}</p>
         <p>{plants[key]}</p>
       </div>);
@@ -62,10 +62,10 @@ class pendingOffer extends React.Component {
 
   messageBuilder = () => {
     if (this.state.message !== '') {
-      return <div>
-      <p>{this.state.message.user}</p>
-      <p>{this.state.message.message}</p>
-      <p>{this.state.message.date}</p>
+      return <div className='offerMessage'>
+      <p className='messageUser'>{this.state.message.user}</p>
+      <p className='message'>{this.state.message.message}</p>
+      <p className='messageDate'>{this.state.message.date}</p>
     </div>;
     }
     return '';
@@ -85,20 +85,17 @@ class pendingOffer extends React.Component {
 
     return (
       <div className="pendingOffer">
-        <div className="card" style={{ width: '20rem' } }>
-            <div className="card-header">
-              {}
-            </div>
-            <ul className="list-group list-group-flush">
-              <li className="list-group-item">{otherUser()}</li>
-              <li className="list-group-item">{dateSent}</li>
-              <li className="list-group-item">{dateTrade}</li>
-              <li className="list-group-item">{this.plantsListBuilder(plantsUser1)}</li>
-              <li className="list-group-item">{this.plantsListBuilder(plantsUser2)}</li>
-            </ul>
-            {this.messageBuilder()}
-            {this.buttonBuilder()}
-          </div>
+        <div>
+          <ul className="offerInfo">
+            <li className="list-group-item offerLi">{otherUser()}</li>
+            <li className="list-group-item offerLi">{dateSent}</li>
+            <li className="list-group-item offerLi">{dateTrade}</li>
+            <li className="list-group-item offerLi">{this.plantsListBuilder(plantsUser1)}</li>
+            <li className="list-group-item offerLi">{this.plantsListBuilder(plantsUser2)}</li>
+          </ul>
+        </div>
+        {this.messageBuilder()}
+        {this.buttonBuilder()}
       </div>
     );
   }

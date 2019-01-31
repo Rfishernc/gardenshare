@@ -21,7 +21,7 @@ class messages extends React.Component {
     const messagesRender = [];
     if (this.state.messagesArray !== '') {
       this.state.messagesArray.forEach((message) => {
-        messagesRender.push(<div>
+        messagesRender.push(<div className='singleMessage'>
           <p>{message.user}</p>
           <p>{message.message}</p>
           <p>{message.date}</p>

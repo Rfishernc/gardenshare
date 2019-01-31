@@ -1,0 +1,53 @@
+.filterCheck {
+  display: flex;
+  border: 1px dotted black;
+  height: 25px;
+  font-size: 0.75em;
+}
+
+.filterCheckDiv {
+  display: flex;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 3px;
+}
+
+.checkBox {
+  margin-left: 2px;
+  margin-top: 5px;
+}
+
+.filterCheckTitle {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.searchFilter {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-end;
+  margin-top: 5px;
+  border: 1.5px solid black;
+}
+
+.filterNew {
+  display: flex;
+}
+
+.filterNewPar {
+  margin-left: 5px;
+  margin-right: 10px;
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
+.filterNewButton, .filterRemoveButton {
+  padding-bottom: 0;
+  padding-top: 0;
+  margin: 3px;
+}
+
+.filterInput {
+  width: 288px;
+  margin: 3px;
+}

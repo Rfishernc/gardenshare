@@ -56,30 +56,29 @@ class searchListings extends React.Component {
   }
 
   search = () => {
-    zipcodeData.zipcodeRadius(this.state.userZip, this.state.zipcodeRadius)
-      .then((zipcodesArray) => {
-        searchListingsData.getListingsByZipcodes(zipcodesArray)
-          .then((usersArrayArray) => {
-            const combinedUsersArray = [];
-            usersArrayArray.forEach((array) => {
-              array.forEach((user) => {
-                combinedUsersArray.push(user);
+    // zipcodeData.zipcodeRadius(this.state.userZip, this.state.zipcodeRadius)
+    //   .then((zipcodesArray) => {
+    searchListingsData.getListingsByZipcodes([37090])
+      .then((usersArrayArray) => {
+        const combinedUsersArray = [];
+        usersArrayArray.forEach((array) => {
+          array.forEach((user) => {
+            combinedUsersArray.push(user);
+          });
+        });
+        this.setState({ usersArray: combinedUsersArray });
+        searchListingsData.getAllFilteredUsersPlants(this.state.usersArray)
+          .then((plantsArrayArray) => {
+            const usersWithPlantsArray = combinedUsersArray;
+            usersWithPlantsArray.forEach((user) => {
+              plantsArrayArray.forEach((plantArray) => {
+                if (user.userName === plantArray[0].user) {
+                  // eslint-disable-next-line no-param-reassign
+                  user.plants = plantArray;
+                }
               });
             });
-            this.setState({ usersArray: combinedUsersArray });
-            searchListingsData.getAllFilteredUsersPlants(this.state.usersArray)
-              .then((plantsArrayArray) => {
-                const usersWithPlantsArray = combinedUsersArray;
-                usersWithPlantsArray.forEach((user) => {
-                  plantsArrayArray.forEach((plantArray) => {
-                    if (user.userName === plantArray[0].user) {
-                      // eslint-disable-next-line no-param-reassign
-                      user.plants = plantArray;
-                    }
-                  });
-                });
-                this.applyFilters(usersWithPlantsArray);
-              });
+            this.applyFilters(usersWithPlantsArray);
           });
       })
       .catch((err) => {
@@ -117,23 +116,25 @@ class searchListings extends React.Component {
       }
       baseArray = filteredArray;
     });
-    this.setState({ usersWithPlants: baseArray });     
+    this.setState({ usersWithPlants: baseArray });
   }
 
   render() {
     return (
-      <div className="searchListings">
+      <div className="searchListings container-fluid">
         <Navbar/>
-        <div>
-          {this.filtersBuilder()}
-          <div>
-            <p>Search distance from my zipcode</p>
-            <ZipcodeSelector zipcodeRadius={this.zipcodeRadius}/>
+        <div className='row'>
+          <div className='filterDiv col-3'>
+            {this.filtersBuilder()}
+            <div className='zipcodeRadiusDiv'>
+              <p className='radiusPar'>Search Radius</p>
+              <ZipcodeSelector zipcodeRadius={this.zipcodeRadius}/>
+            </div>
+            <button type='button' onClick={this.search} className='searchButton'>Search</button>
           </div>
-          <button type='button' onClick={this.search}>Search</button>
-        </div>
-        <div>
-          {this.listingsBuilder()}
+          <div className='listingsDiv col-9'>
+            {this.listingsBuilder()}
+          </div>
         </div>
       </div>
     );

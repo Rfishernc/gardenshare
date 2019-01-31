@@ -154,14 +154,11 @@ class userInfo extends React.Component {
 
   upLoadPicture = (event) => {
     event.preventDefault();
-    userInfoData.removePictureRef(this.state.userName)
+    userInfoData.addPicture(this.state.userName)
       .then(() => {
-        userInfoData.addPicture(this.state.userName)
-          .then(() => {
-            userInfoData.getPicture(this.state.userName)
-              .then((path) => {
-                this.setState({ currentPicture: path });
-              });
+        userInfoData.getPicture(this.state.userName)
+          .then((path) => {
+            this.setState({ currentPicture: path });
           });
       })
       .catch((err) => {
@@ -177,7 +174,7 @@ class userInfo extends React.Component {
         <button type='button' className='cancelLink' onClick={this.clickedCancel} id='cancelLocationName'>Cancel</button>
         </div>;
     }
-    return <div>
+    return <div className='dataDiv'>
       <p className='userInfoUnitData'>{this.state.locationName}</p>
       <button type='button' className='editLink' onClick={this.clickedEdit} id='editLocationName'>Edit</button>
       </div>;
@@ -191,7 +188,7 @@ class userInfo extends React.Component {
         <button type='button' className='cancelLink' onClick={this.clickedCancel} id='cancelLocation'>Cancel</button>
         </div>;
     }
-    return <div>
+    return <div className='dataDiv'>
       <p className='userInfoUnitData'>{this.state.location}</p>
       <button type='button' className='editLink' onClick={this.clickedEdit} id='editLocation'>Edit</button>
       </div>;
@@ -199,18 +196,19 @@ class userInfo extends React.Component {
 
   pictureInfoBuilder = () => {
     if (this.state.editingPicture) {
-      return <div>
-        <input type='file' className='userInfoUnitInput' id='pictureInput'/>
-        <button type='button' onClick={this.upLoadPicture} id='uploadPicture'>Upload</button>
-        <button type='button' className='saveLink' onClick={this.clickedSave} id='savePicture'>Save</button>
-        <button type='button' className='cancelLink' onClick={this.clickedCancel} id='cancelPicture'>Cancel</button>
+      return <div className='dataPicDiv'>
+        <input type='file' className='uploadInput' id='pictureInput'/>
+        <div className='dataPicUpload'>
+          <button type='button' onClick={this.upLoadPicture} id='uploadPicture'>Upload</button>
+          <button type='button' className='saveLink' onClick={this.clickedSave} id='savePicture'>Save</button>
+          <button type='button' className='cancelLink' onClick={this.clickedCancel} id='cancelPicture'>Cancel</button>
+        </div>
         <img src={this.state.currentPicture} className='userInfoUnitPicture' alt='profilePic'/>
       </div>;
     }
-    return <div>
-          <p className='userInfoUnitData'>{this.state.picture}</p>
-          <button type='button' className='editLink' onClick={this.clickedEdit}>Edit</button>
+    return <div className='dataPicDiv'>
           <img src={this.state.picture} className='userInfoUnitPicture' alt='profilePic'/>
+          <button type='button' className='editLink' onClick={this.clickedEdit}>Edit</button>
           </div>;
   }
 
@@ -222,7 +220,7 @@ class userInfo extends React.Component {
       <button type='button' className='cancelLink' onClick={this.clickedCancel} id='cancelEmail'>Cancel</button>
       </div>;
     }
-    return <div>
+    return <div className='dataDiv'>
     <p className='userInfoUnitData'>{this.state.email}</p>
     <button type='button' className='editLink' onClick={this.clickedEdit} id='editEmail'>Edit</button>
     </div>;
@@ -232,10 +230,11 @@ class userInfo extends React.Component {
     return (
       <div className="userInfo">
         <Navbar/>
-        <div>
+        <div className='userInfoContainer'>
           <div className='userInfoUnit'>
             <p className='userInfoUnitTitle'>Username:</p>
             <p className='userInfoUnitData'>{this.state.userName}</p>
+            <ChangePassword email={this.state.email}/>
           </div>
           <div className='userInfoUnit'>
             <p className='userInfoUnitTitle'>Email:</p>
@@ -257,11 +256,10 @@ class userInfo extends React.Component {
             <p className='userInfoUnitTitle'>Quality Rating:</p>
             <p className='userInfoUnitData'>{this.state.qualityRating} on {this.state.numRating} Ratings</p>
           </div>
-          <div className='userInfoUnit'>
-            <p className='userInfoUnitTitle'>Profile Picture:</p>
+          <div className='userPicUnit'>
+            <p className='userPicUnitTitle'>Profile Picture:</p>
             {this.pictureInfoBuilder()}
           </div>
-          <ChangePassword email={this.state.email}/>
         </div>
       </div>
     );

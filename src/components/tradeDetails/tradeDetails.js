@@ -9,15 +9,8 @@ import './tradeDetails.scss';
 
 class tradeDetails extends React.Component {
   state = {
-    modal: false,
     closing: false,
   };
-
-  toggle = () => {
-    this.setState({
-      modal: !this.state.modal,
-    });
-  }
 
   plantsListBuilder = (plants) => {
     const plantsRender = [];
@@ -109,16 +102,26 @@ class tradeDetails extends React.Component {
       </div>;
     }
     return <div>
-      <ModalHeader toggle={this.toggle}>Trade Details</ModalHeader>
+      <ModalHeader>Trade Details</ModalHeader>
       <ModalBody>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">{otherUser()}</li>
-          <li className="list-group-item">{dateSent}</li>
-          <li className="list-group-item">{dateTrade}</li>
-          <li className="list-group-item">{this.plantsListBuilder(plantsUser1)}</li>
-          <li className="list-group-item">{this.plantsListBuilder(plantsUser2)}</li>
-        </ul>
-        <button type='button' onClick={this.closeTrade}>Close Trade</button>
+        <div className='row'>
+          <ul className="detailsInfo">
+            <li className="list-group-item detailsTitleLi">User</li>
+            <li className="list-group-item detailsTitleLi">Offer Date</li>
+            <li className="list-group-item detailsTitleLi">Transaction Date</li>
+            <li className="list-group-item detailsTitleLi">My Contribution</li>
+            <li className="list-group-item detailsTitleLi">Their Contribution</li>
+          </ul>
+          <ul className="detailsInfo">
+            <li className="list-group-item detailsLi">{otherUser()}</li>
+            <li className="list-group-item detailsLi">{dateSent}</li>
+            <li className="list-group-item detailsLi">{dateTrade}</li>
+            <li className="list-group-item detailsLi">{this.plantsListBuilder(plantsUser1)}</li>
+            <li className="list-group-item detailsLi">{this.plantsListBuilder(plantsUser2)}</li>
+          </ul>
+        </div>
+        <button type='button' onClick={this.closeTrade} class='closeTradeButton'>Close Trade</button>
+        <Messages user={this.props.user} tradeId={this.props.id}/>
       </ModalBody>
     </div>;
   }
@@ -126,10 +129,8 @@ class tradeDetails extends React.Component {
   render() {
     return (
       <div className="tradeDetails">
-        <Button color="success" onClick={this.toggle}>Trade Details</Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+        <Modal isOpen={this.props.modal} toggle={this.toggle} className='tradeModal'>
           {this.modalBuilder()}
-          <Messages user={this.props.user} tradeId={this.props.id}/>
         </Modal>
       </div>
     );
