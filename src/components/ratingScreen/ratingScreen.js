@@ -20,13 +20,13 @@ class ratingScreen extends React.Component {
   render() {
     return (
       <div className='ratingScreen'>
-        <p>Rate This User</p>
-        <div>
-          <p>Quality</p>
+        <p className='ratingTitle'>Rate This User</p>
+        <div className='ratingDiv'>
+          <p className='ratingTitle'>Quality</p>
           <RatingSelector key='quality' rating='quality' selection={this.selection}/>
         </div>
-        <div>
-          <p>Reliability</p>
+        <div className='ratingDiv'>
+          <p className='ratingTitle'>Reliability</p>
           <RatingSelector key='reliability' rating='reliability' selection={this.selection}/>
         </div>
         <button type='button' onClick={this.submitRating}>Submit</button>

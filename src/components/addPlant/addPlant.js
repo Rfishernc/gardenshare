@@ -2,12 +2,15 @@ import React from 'react';
 import {
   Button, Modal, ModalHeader, ModalBody,
 } from 'reactstrap';
+import PlantSelector from '../plantSelector/plantSelector';
 import addPlantData from '../../data/addPlantData';
 import './addPlant.scss';
 
 class addPlant extends React.Component {
   state = {
     modal: false,
+    plantText: '',
+    plantSelection: '',
   };
 
   toggle = () => {
@@ -41,6 +44,24 @@ class addPlant extends React.Component {
       });
   }
 
+  plantText = (event) => {
+    event.preventDefault();
+    this.setState({ plantText: event.target.value });
+  }
+
+  selectorBuilder = () => {
+    if (this.state.plantText !== '') {
+      return <PlantSelector plantText={this.state.plantText} selection={this.selection}/>;
+    }
+    return '';
+  }
+
+  selection = (plant) => {
+    this.setState({ plantSelection: plant, plantText: plant }, () => {
+      document.getElementById('plantInput').value = this.state.plantSelection;
+    });
+  }
+
   render() {
     return (
       <div className="addPlant">
@@ -51,7 +72,8 @@ class addPlant extends React.Component {
           <form>
             <div className="form-group">
               <label htmlFor="plantInput">Plant:</label>
-              <input type="email" className="form-control" id="plantInput" placeholder="Enter plant name"/>
+              <input type="email" className="form-control" id="plantInput" placeholder="Enter plant name" onChange={this.plantText}/>
+              {this.selectorBuilder()}
             </div>
             <div className="form-group">
               <label htmlFor="qtyInput">Quantity:</label>
