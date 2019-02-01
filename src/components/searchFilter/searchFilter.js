@@ -15,7 +15,7 @@ class searchFilter extends React.Component {
 
   componentDidMount() {
     const filterObj = {
-      type: '',
+      type: 'Plant',
       info: '',
       id: this.props.id,
     };
@@ -36,10 +36,12 @@ class searchFilter extends React.Component {
   checkChanged = (event) => {
     event.preventDefault();
     const newInput = event.target.id.replace('checked', '');
+    const eventId = event.target.id;
     this.setState({
       checkedPlant: false, checkedReliability: false, checkedQuality: false, checkedHarvest: false,
+    }, () => {
+      this.setState({ [eventId]: true, input: newInput });
     });
-    this.setState({ [event.target.id]: true, input: newInput });
   }
 
   filterStatus = () => {

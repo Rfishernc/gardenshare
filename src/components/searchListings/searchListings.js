@@ -44,7 +44,7 @@ class searchListings extends React.Component {
 
   listingsBuilder = () => {
     const listingsRender = [];
-    if (this.state.usersWithPlants !== []) {
+    if (this.state.usersWithPlants !== [] && this.state.usersWithPlants !== undefined) {
       this.state.usersWithPlants.forEach((user) => {
         listingsRender.push(<UserListing key={user.id} location={user.location}
         locationName={user.locationName} picture={user.picture} numRating={user.numRating}
@@ -108,7 +108,7 @@ class searchListings extends React.Component {
     let filteredArray;
     this.state.filterInfo.forEach((filter) => {
       if (filter.type === 'Plant') {
-        filteredArray = baseArray.filter(user => user.plants.filter(plantType => plantType.plant === filter.info).length > 0);
+        filteredArray = baseArray.filter(user => user.plants.filter(plantType => plantType.plant.includes(filter.info)).length > 0);
       } if (filter.type === 'Quality') {
         filteredArray = baseArray.filter(user => user.qualityRating >= filter.info);
       } if (filter.type === 'Reliability') {
