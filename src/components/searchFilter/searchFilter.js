@@ -1,10 +1,13 @@
 import React from 'react';
+import PlantSelector from '../plantSelector/plantSelector';
 import './searchFilter.scss';
 
 class searchFilter extends React.Component {
   state = {
     input: '',
     info: '',
+    plantText: '',
+    plantSelection: '',
     checkedPlant: false,
     checkedReliability: false,
     checkedQuality: false,
@@ -22,9 +25,30 @@ class searchFilter extends React.Component {
     this.props.addFilterObj(filterObj);
   }
 
+  selectorBuilder = () => {
+    if (this.state.plantText !== '') {
+      return <PlantSelector plantText={this.state.plantText} selection={this.selection}/>;
+    }
+    return '';
+  }
+
+  plantText = (event) => {
+    event.preventDefault();
+    this.setState({ plantText: event.target.value });
+  }
+
+  selection = (plant) => {
+    this.setState({ plantSelection: plant, plantText: plant }, () => {
+      document.getElementById('plantInput').value = this.state.plantSelection;
+    });
+  }
+
   filterBuilder = () => {
     if (this.state.input === 'Plant') {
-      return <input type='text' onChange={this.updateInfo} className='filterInput'/>;
+      return <div>
+          <input type='text' onChange={this.updateInfo} className='filterInput' id='plantInput'/>
+          {this.selectorBuilder()}
+        </div>;
     } if (this.state.input === 'Reliability' || this.state.input === 'Quality') {
       return <input type='number' min="0" max="10" onChange={this.updateInfo} className='filterInput'/>;
     } if (this.state.input === 'Harvest') {
@@ -70,6 +94,7 @@ class searchFilter extends React.Component {
 
   updateInfo = (event) => {
     event.preventDefault();
+    this.plantText(event);
     this.setState({ info: event.target.value }, () => {
       const filterData = {
         type: this.state.input,

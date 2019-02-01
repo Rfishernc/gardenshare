@@ -6,6 +6,16 @@ import plantList from '../../data/plantList';
 import './plantSelector.scss';
 
 class plantSelector extends React.Component {
+  state = {
+    dropdownOpen: false,
+  }
+
+  toggle = () => {
+    this.setState(prevState => ({
+      dropdownOpen: !prevState.dropdownOpen,
+    }));
+  }
+
   selectorBuilder = () => {
     const plantRender = [];
     const plantTextSplit = this.props.plantText.split('');
@@ -30,13 +40,20 @@ class plantSelector extends React.Component {
     this.props.selection(event.target.value);
   }
 
+  classMaker = () => {
+    if (this.props.classMaker === 'plantSelectorMenu') {
+      return 'plantSelectorMenu';
+    }
+    return 'plantSelectorListings';
+  }
+
   render() {
     return (
       <div className='plantSelector'>
-      <Dropdown isOpen={true}>
+      <Dropdown isOpen={true} toggle={this.toggle}>
           <DropdownToggle caret className='dropdownBeGone'>
           </DropdownToggle>
-          <DropdownMenu className='plantSelectorMenu'>
+          <DropdownMenu className={this.classMaker()}>
             {this.selectorBuilder()}
           </DropdownMenu>
         </Dropdown>

@@ -51,7 +51,7 @@ class addPlant extends React.Component {
 
   selectorBuilder = () => {
     if (this.state.plantText !== '') {
-      return <PlantSelector plantText={this.state.plantText} selection={this.selection}/>;
+      return <PlantSelector plantText={this.state.plantText} selection={this.selection} classMaker='plantSelectorMenu'/>;
     }
     return '';
   }
