@@ -1,54 +1,51 @@
 import React from 'react';
-import {
-  Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
-} from 'reactstrap';
 import './ratingSelector.scss';
 
 class ratingSelector extends React.Component {
   state = {
-    dropdownOpen: false,
     selection: 1,
   }
 
-  toggle = () => {
-    this.setState(prevState => ({
-      dropdownOpen: !prevState.dropdownOpen,
-    }));
+  ratingStarBuilder = () => {
+    const renderArray = [];
+    let starCounter = 0;
+    for (let i = 1; i <= this.state.selection / 2; i += 1) {
+      renderArray.push(<i class="fas fa-star fa-2x" id={i} onClick={this.starClicked}></i>);
+      starCounter += 1;
+    }
+    if ((this.state.selection / 2) > Math.floor(this.state.selection / 2)) {
+      starCounter += 1;
+      renderArray.push(<i class="fas fa-star-half-alt fa-2x" id={starCounter} onClick={this.starClicked}></i>);
+    }
+    for (let i = 1; i <= (5 - starCounter); i += 1) {
+      renderArray.push(<i class="far fa-star fa-2x" id={i + starCounter} onClick={this.starClicked}></i>);
+    }
+    return renderArray;
   }
 
-  selectionPromise = event => new Promise((resolve, reject) => {
-    this.setState({ selection: event.target.value });
-    resolve();
-  })
-
-  selection = (event) => {
+  starClicked = (event) => {
     event.preventDefault();
-    this.selectionPromise(event)
-      .then(() => {
+    const baseLeft = event.target.parentElement.parentElement.parentElement
+      .parentElement.parentElement.parentElement.parentElement.offsetLeft;
+    const starLeft = baseLeft + event.target.offsetLeft;
+    const starWidth = event.target.offsetWidth;
+    const starCenter = starLeft + (starWidth / 2);
+    const clickX = event.pageX;
+    if (clickX >= starCenter) {
+      this.setState({ selection: parseInt(event.target.id, 10) * 2 }, () => {
         this.props.selection(this.props.rating, this.state.selection);
       });
+    } else {
+      this.setState({ selection: (parseInt(event.target.id, 10) * 2) - 1 }, () => {
+        this.props.selection(this.props.rating, this.state.selection);
+      });
+    }
   }
 
   render() {
     return (
       <div className='ratingSelector'>
-        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-        <DropdownToggle caret>
-          {this.state.selection}
-        </DropdownToggle>
-        <DropdownMenu>
-          <DropdownItem onClick={this.selection} value='1'>1</DropdownItem>
-          <DropdownItem onClick={this.selection} value='2'>2</DropdownItem>
-          <DropdownItem onClick={this.selection} value='3'>3</DropdownItem>
-          <DropdownItem onClick={this.selection} value='4'>4</DropdownItem>
-          <DropdownItem onClick={this.selection} value='5'>5</DropdownItem>
-          <DropdownItem onClick={this.selection} value='6'>6</DropdownItem>
-          <DropdownItem onClick={this.selection} value='7'>7</DropdownItem>
-          <DropdownItem onClick={this.selection} value='8'>8</DropdownItem>
-          <DropdownItem onClick={this.selection} value='9'>9</DropdownItem>
-          <DropdownItem onClick={this.selection} value='10'>10</DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
+        {this.ratingStarBuilder()}
       </div>
     );
   }

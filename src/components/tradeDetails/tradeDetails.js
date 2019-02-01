@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, Modal, ModalHeader, ModalBody,
+  Modal, ModalHeader, ModalBody,
 } from 'reactstrap';
 import RatingScreen from '../ratingScreen/ratingScreen';
 import Messages from '../messages/messages';
@@ -95,15 +95,20 @@ class tradeDetails extends React.Component {
 
     if (this.state.closing) {
       return <div>
-        <ModalHeader toggle={this.toggle}>Trade Details</ModalHeader>
+        <ModalHeader >Trade Details
+          <button type='button' className='close closeThis' onClick={this.props.toggle}>x</button>
+        </ModalHeader>
         <ModalBody>
           <RatingScreen updateRating={this.updateRating}/>
         </ModalBody>
       </div>;
     }
     return <div>
-      <ModalHeader>Trade Details</ModalHeader>
-      <ModalBody>
+      <ModalHeader className='modalH'>
+        Trade Details
+        <button type='button' className='close closeThis' onClick={this.props.toggle}>x</button>
+      </ModalHeader>
+      <ModalBody className='modalB'>
         <div className='row'>
           <ul className="detailsInfo">
             <li className="list-group-item detailsTitleLi">User</li>

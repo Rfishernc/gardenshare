@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, Modal, ModalHeader, ModalBody,
+  Modal, ModalHeader, ModalBody,
 } from 'reactstrap';
 import OfferTrade from '../offerTrade/offerTrade';
 import './listingDetails.scss';

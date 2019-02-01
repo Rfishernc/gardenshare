@@ -119,7 +119,11 @@ class userInfo extends React.Component {
       this.setState({ editingEmail: false });
       userInfoData.updateEmail(this.state.userName, { email: document.getElementById('emailInput').value })
         .then(() => {
-          this.refreshInfo();
+          const user = firebase.auth().currentUser;
+          user.updateEmail(document.getElementById('emailInput').value)
+            .then(() => {
+              this.refreshInfo();
+            });
         })
         .catch((err) => {
           console.log(err);

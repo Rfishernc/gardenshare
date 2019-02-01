@@ -3,6 +3,7 @@ import {
   Button, Modal, ModalHeader, ModalBody,
 } from 'reactstrap';
 import firebase from 'firebase/app';
+import moment from 'moment';
 import offerTradeData from '../../data/offerTradeData';
 import messagesData from '../../data/messagesData';
 import './offerTrade.scss';
@@ -109,7 +110,7 @@ class offerTrade extends React.Component {
     const tradeObject = {
       user1: this.state.userName,
       user2: this.props.userName,
-      dateSent: new Date(),
+      dateSent: moment().format('MM DD YYYY'),
       dateTrade: document.getElementById('dateInput').value,
       accepted: false,
       plantsUser1: user1Plants,
