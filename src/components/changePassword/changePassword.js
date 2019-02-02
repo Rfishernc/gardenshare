@@ -71,7 +71,7 @@ class changePassword extends React.Component {
   render() {
     return (
       <div>
-         <Button color="success" onClick={this.toggle}>Change Password</Button>
+         <Button color="success" onClick={this.toggle} className='btn btn-sml btn-info pwButton'>Update Pasword</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Update Password</ModalHeader>
           <ModalBody>

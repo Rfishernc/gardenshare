@@ -1,21 +1,11 @@
 import React from 'react';
 import {
-  Button, Modal, ModalHeader, ModalBody,
+  Modal, ModalHeader, ModalBody,
 } from 'reactstrap';
 import OfferTrade from '../offerTrade/offerTrade';
 import './listingDetails.scss';
 
 class listingDetails extends React.Component {
-  state = {
-    modal: false,
-  };
-
-  toggle = () => {
-    this.setState({
-      modal: !this.state.modal,
-    });
-  }
-
   plantsBuilder = () => {
     const plantsRender = [];
     if (this.props.plants !== null) {
@@ -36,8 +26,7 @@ class listingDetails extends React.Component {
     } = this.props;
     return (
       <div className='listingDetails'>
-        <Button color="success" onClick={this.toggle}>Details</Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+        <Modal isOpen={this.props.modal} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>{userName}</ModalHeader>
           <ModalBody>
           <div>

@@ -1,0 +1,21 @@
+.createAccountScreen {
+  width: 60%;
+}
+
+.createAccount {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.createAccountTitle {
+  font-size: 3em;
+  font-weight: 700;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: darkkhaki;
+  box-shadow: 2px 2px 0;
+}

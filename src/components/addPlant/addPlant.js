@@ -2,12 +2,15 @@ import React from 'react';
 import {
   Button, Modal, ModalHeader, ModalBody,
 } from 'reactstrap';
+import PlantSelector from '../plantSelector/plantSelector';
 import addPlantData from '../../data/addPlantData';
 import './addPlant.scss';
 
 class addPlant extends React.Component {
   state = {
     modal: false,
+    plantText: '',
+    plantSelection: '',
   };
 
   toggle = () => {
@@ -41,17 +44,36 @@ class addPlant extends React.Component {
       });
   }
 
+  plantText = (event) => {
+    event.preventDefault();
+    this.setState({ plantText: event.target.value });
+  }
+
+  selectorBuilder = () => {
+    if (this.state.plantText !== '') {
+      return <PlantSelector plantText={this.state.plantText} selection={this.selection} classMaker='plantSelectorMenu'/>;
+    }
+    return '';
+  }
+
+  selection = (plant) => {
+    this.setState({ plantSelection: plant, plantText: plant }, () => {
+      document.getElementById('plantInput').value = this.state.plantSelection;
+    });
+  }
+
   render() {
     return (
       <div className="addPlant">
-        <Button color="success" onClick={this.toggle}>Add a new plant</Button>
+        <Button className="addPlantButton" color="success" onClick={this.toggle}>Add</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Add A New Plant To Your Profile</ModalHeader>
           <ModalBody>
           <form>
             <div className="form-group">
               <label htmlFor="plantInput">Plant:</label>
-              <input type="email" className="form-control" id="plantInput" placeholder="Enter plant name"/>
+              <input type="email" className="form-control" id="plantInput" placeholder="Enter plant name" onChange={this.plantText}/>
+              {this.selectorBuilder()}
             </div>
             <div className="form-group">
               <label htmlFor="qtyInput">Quantity:</label>

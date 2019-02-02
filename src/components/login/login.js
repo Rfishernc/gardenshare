@@ -28,7 +28,8 @@ class login extends React.Component {
   render() {
     return (
       <div className="login">
-        <div className="jumbotron">
+        <p className='loginTitle'>Gardeners' Bazaar</p>
+        <div className="jumbotron loginScreen">
           <h1 className="display-4">Login to your account</h1>
           <form>
             <div className="form-group">

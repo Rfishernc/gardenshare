@@ -1,0 +1,64 @@
+.userProfile {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  border: 1px solid black;
+  width: 300px;
+}
+
+.userPicture, .userTitle {
+  width: 70%;
+  margin: auto;
+  border: 1.5px solid black;
+}
+
+.userPlantsList {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  border: 1px solid black;
+  overflow: auto;
+}
+
+.userPlants {
+  display: flex;
+  justify-content: left;
+}
+
+.plantsTitle {
+  font-size: 2em;
+}
+
+.plantInfo {
+  display: flex;
+  flex-flow: row;
+  margin-bottom: 0px;
+}
+
+.plantLi {
+  width: 150px;
+}
+
+.plantInfoLi {
+  background-color: darkkhaki;
+}
+
+.userTradesTitle, .pendingOfferTitle {
+  font-size: 2em;
+}
+
+.userHomeUpperDiv {
+  height: 18em;
+}
+
+.userTradesInfo {
+  display: flex;
+  flex-flow: row;
+  margin-bottom: 0px;
+}
+
+.tradeLi {
+  width: 120px;
+  font-size: 0.9em;
+  background-color: darkkhaki;
+}

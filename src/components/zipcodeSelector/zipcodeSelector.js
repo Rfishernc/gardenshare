@@ -7,7 +7,7 @@ import './zipcodeSelector.scss';
 class zipcodeSelector extends React.Component {
   state = {
     dropdownOpen: false,
-    selection: 0,
+    selection: '0',
   }
 
   toggle = () => {

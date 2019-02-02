@@ -1,0 +1,32 @@
+.detailsInfo {
+  display: flex;
+  flex-flow: row;
+  margin-bottom: 0;
+}
+
+.tradeModal {
+  max-width: 60%;
+}
+
+.detailsLi {
+  width: 150px;
+}
+
+.detailsTitleLi {
+  width: 150px;
+  background-color: darkkhaki;
+}
+
+.closeTradeButton {
+  margin-top: 10px;
+  margin-left: 25px;
+}
+
+.closeThis {
+  float: right;
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 1;
+  color: black;
+  text-shadow: 0 1px 0 #fff;
+}

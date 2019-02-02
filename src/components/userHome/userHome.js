@@ -119,18 +119,52 @@ class userHome extends React.Component {
 
   render() {
     return (
-      <div className="userHome">
+      <div className="userHome container-fluid">
         <Navbar/>
-        <div>
-          <img src={this.state.picture} className='userPicture' alt='profilepic'/>
-          <p className='userTitle'>{this.state.userName}</p>
+        <div className='row userHomeUpperDiv'>
+          <div className='userProfile col-3'>
+            <img src={this.state.picture} className='userPicture' alt='profilepic'/>
+            <p className='userTitle'>{this.state.userName}</p>
+          </div>
+          <div className='userPlantsList col-9'>
+            <p className='plantsTitle'>My Plants</p>
+            <div className='col userPlants'>
+              <ul className="plantInfo">
+                <li className="list-group-item plantLi plantInfoLi">Plant</li>
+                <li className="list-group-item plantLi plantInfoLi">Quantity</li>
+                <li className="list-group-item plantLi plantInfoLi">Surplus</li>
+                <li className="list-group-item plantLi plantInfoLi">Planting Date</li>
+                <li className="list-group-item plantLi plantInfoLi">Harvest Date</li>
+              </ul>
+              <AddPlant refreshPlants={this.refreshPlants} user={this.state.userName}/>
+            </div>
+            {this.userPlantsBuilder()}
+          </div>
         </div>
-        <div className='userPlantsList'>
-          {this.userPlantsBuilder()}
-          <AddPlant refreshPlants={this.refreshPlants} user={this.state.userName}/>
+        <div className='row offersInfo'>
+          <div className='userTradesList col'>
+            <p className='userTradesTitle'>Active Trades</p>
+            <ul className="userTradesInfo">
+                <li className="list-group-item tradeLi">User</li>
+                <li className="list-group-item tradeLi">Offer Date</li>
+                <li className="list-group-item tradeLi">Transaction Date</li>
+                <li className="list-group-item tradeLi">My Contribution</li>
+                <li className="list-group-item tradeLi">Their Contribution</li>
+              </ul>
+            {this.userTradesBuilder()}
+          </div>
+          <div className='pendingOfferList col'>
+            <p className='pendingOfferTitle'>Pending Offers</p>
+            <ul className="userTradesInfo">
+                <li className="list-group-item tradeLi">User</li>
+                <li className="list-group-item tradeLi">Offer Date</li>
+                <li className="list-group-item tradeLi">Transaction Date</li>
+                <li className="list-group-item tradeLi">My Contribution</li>
+                <li className="list-group-item tradeLi">Their Contribution</li>
+              </ul>
+            {this.pendingOfferBuilder()}
+          </div>
         </div>
-        <div className='userTradesList'>{this.userTradesBuilder()}</div>
-        <div className='pendingOfferList'>{this.pendingOfferBuilder()}</div>
       </div>
     );
   }
