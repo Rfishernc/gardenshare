@@ -42,7 +42,8 @@ class createAccount extends React.Component {
   render() {
     return (
       <div className="createAccount">
-        <div className="jumbotron">
+      <p className='createAccountTitle'>Gardeners' Bazaar</p>
+        <div className="jumbotron createAccountScreen">
             <h1 className="display-4">Create a new account</h1>
             <form>
               <div className="form-group">
