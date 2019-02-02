@@ -32,10 +32,10 @@ class userListing extends React.Component {
       picture, location, locationName, reliabilityRating, qualityRating, numRating, userName,
     } = this.props;
     return (
-      <div className="userListing" onClick={this.toggle}>
+      <div className={this.props.oddEven === 'odd' ? 'listingOdd' : 'listingEven'} onClick={this.toggle}>
         <div>
           <img src={picture} alt='profilePic' class='listingPic'/>
-          <p>{userName}</p>
+          <p className='listingName'>{userName}</p>
         </div>
         <div>
           <div className='listingUnit'>
@@ -53,14 +53,14 @@ class userListing extends React.Component {
         </div>
         <div className='listingPlantDiv'>
           <div className='listingPlantTitle'>
-            <p className='listingPlantItem'>Plant</p>
-            <p className='listingPlantItem'>Surplus</p>
-            <p className='listingPlantItem'>Harvest Date</p>
+            <p className='listingPlantItem itemTitle'>Plant</p>
+            <p className='listingPlantItem itemTitle'>Surplus</p>
+            <p className='listingPlantItem itemTitle'>Harvest Date</p>
           </div>
           {this.plantsBuilder()}
         </div>
         <ListingDetails userName={userName} picture={picture}
-        location={location} modal={this.state.modal}
+        location={location} modal={this.state.modal} toggle={this.toggle}
         locationName={locationName} reliabilityRating={reliabilityRating} plants={this.props.plants}
         qualityRating={qualityRating} numRating={numRating} key={userName}/>
       </div>

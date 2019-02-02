@@ -1,0 +1,50 @@
+.listingDInfo {
+  display: flex;
+}
+
+.listingDUnit {
+  display: flex;
+}
+
+.listingModal {
+  max-width: 50%;
+}
+
+.listingDUnitPar {
+  margin: 5px;
+}
+
+.listingDPic {
+  width: 265px;
+  border: 1.5px solid black;
+}
+
+.listingDProfile {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.listingDName {
+  border: 1.5px solid black;
+  border-radius: 2px;
+  margin-top: 3px;
+  padding: 3px;
+  width: 265px;
+  text-align: center;
+}
+
+.listingDPlantInfo {
+  display: flex;
+  justify-content: space-around;
+}
+
+.listingDPlantDiv {
+  display: flex;
+  justify-content: space-around;
+}
+
+.listingDPlantPar {
+  text-align: center;
+}

@@ -127,7 +127,7 @@ class userHome extends React.Component {
             <p className='userTitle'>{this.state.userName}</p>
           </div>
           <div className='userPlantsList col-9'>
-            <p className='plantsTitle'>My Plants</p>
+          <div className='fYouFlex'><p className='plantsTitle'>My Plants</p></div> 
             <div className='col userPlants'>
               <ul className="plantInfo">
                 <li className="list-group-item plantLi plantInfoLi">Plant</li>
@@ -143,7 +143,7 @@ class userHome extends React.Component {
         </div>
         <div className='row offersInfo'>
           <div className='userTradesList col'>
-            <p className='userTradesTitle'>Active Trades</p>
+            <div className='flexIsMyEnemy'><p className='userTradesTitle'>Active Trades</p></div>
             <ul className="userTradesInfo">
                 <li className="list-group-item tradeLi">User</li>
                 <li className="list-group-item tradeLi">Offer Date</li>
@@ -154,15 +154,17 @@ class userHome extends React.Component {
             {this.userTradesBuilder()}
           </div>
           <div className='pendingOfferList col'>
-            <p className='pendingOfferTitle'>Pending Offers</p>
-            <ul className="userTradesInfo">
-                <li className="list-group-item tradeLi">User</li>
-                <li className="list-group-item tradeLi">Offer Date</li>
-                <li className="list-group-item tradeLi">Transaction Date</li>
-                <li className="list-group-item tradeLi">My Contribution</li>
-                <li className="list-group-item tradeLi">Their Contribution</li>
-              </ul>
-            {this.pendingOfferBuilder()}
+            <div className='flexIHateYou'><p className='pendingOfferTitle'>Pending Offers</p></div>
+            <div className='stupidFlex'>
+              <ul className="userTradesInfo">
+                  <li className="list-group-item tradeLi">User</li>
+                  <li className="list-group-item tradeLi">Offer Date</li>
+                  <li className="list-group-item tradeLi">Transaction Date</li>
+                  <li className="list-group-item tradeLi">My Contribution</li>
+                  <li className="list-group-item tradeLi">Their Contribution</li>
+                </ul>
+              {this.pendingOfferBuilder()}
+            </div>
           </div>
         </div>
       </div>

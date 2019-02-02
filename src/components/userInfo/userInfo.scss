@@ -1,3 +1,5 @@
+@import '../../styles/var';
+
 .editLink {
   padding: 0;
   border: none;
@@ -15,6 +17,7 @@
   margin-left: 5px;
   margin-top: 5px;
   width: 150px;
+  color: wheat;
 }
 
 .userInfoUnitData, .userInfoUnitInput {
@@ -23,6 +26,7 @@
   padding: 3px;
   margin-top: 5px;
   width: 200px;
+  background-color: white;
 }
 
 .userInfo {
@@ -35,6 +39,7 @@
   border: 2px solid black;
   border-radius: 3px;
   box-shadow: 4px -4px 3px;
+  background-color: $varDGray;
 }
 
 .dataDiv {
@@ -61,6 +66,7 @@
 .userPicUnitTitle {
   text-align: left;
   margin-left: 30px;
+  color: wheat;
 }
 
 .cancelLink, .saveLink {

@@ -1,5 +1,6 @@
 @import '~bootstrap/scss/bootstrap';
+@import './styles/var';
 
 body {
-  background-color: green;
+  background-color: $varLBrown;
 }

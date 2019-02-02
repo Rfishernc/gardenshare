@@ -8,10 +8,14 @@
 }
 
 .offerMessage {
-  margin-left: 50px;
-  margin-right: 40px;
   display: flex;
   justify-content: space-between;
+  background-image:  url(../../images/background.jpg);
+  color: wheat;
+  border: 1.5px solid black;
+  border-radius: 5px;
+  margin-top: 3px;
+  width: 600px;
 }
 
 .tradePlants {
@@ -20,13 +24,30 @@
 }
 
 .messageUser {
-
+  margin-right: 10px;
+  margin-top: 5px;
+  margin-bottom: 0;
 }
 
 .message {
-
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: darkolivegreen;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .messageDate {
-  
+  margin-right: 10px;
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 0.5em;
+}
+
+.buttonDiv {
+  display: flex;
+  justify-content: flex-start;
 }

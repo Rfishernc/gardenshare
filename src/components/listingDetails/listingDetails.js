@@ -10,10 +10,10 @@ class listingDetails extends React.Component {
     const plantsRender = [];
     if (this.props.plants !== null) {
       this.props.plants.forEach((plantType) => {
-        plantsRender.push(<div>
-          <p>{plantType.plant}</p>
-          <p>{plantType.surplus}</p>
-          <p>{plantType.dateHarvest}</p>
+        plantsRender.push(<div className='listingDPlantDiv'>
+          <p className='listingDPlantPar'>{plantType.plant}</p>
+          <p className='listingDPlantPar'>{plantType.surplus}</p>
+          <p className='listingDPlantPar'>{plantType.dateHarvest}</p>
         </div>);
       });
     }
@@ -26,36 +26,41 @@ class listingDetails extends React.Component {
     } = this.props;
     return (
       <div className='listingDetails'>
-        <Modal isOpen={this.props.modal} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>{userName}</ModalHeader>
+        <Modal isOpen={this.props.modal} className='listingModal'>
+          <ModalHeader toggle={this.toggle}>
+            {userName}
+            <button type='button' className='close closeThis' onClick={this.props.toggle}>x</button>
+          </ModalHeader>
           <ModalBody>
-          <div>
-          <img src={picture} alt='profilePic'/>
-          <p>{userName}</p>
+          <div className='listingDProfile'>
+          <img src={picture} alt='profilePic' className='listingDPic'/>
+          <p className='listingDName'>{userName}</p>
+        </div>
+        <div className='listingDInfo'>
+          <div className='listingDUnit'>
+            <p className='listingDUnitPar'>Location: </p>
+            <p className='listingDUnitPar'>{locationName} {location}</p>
+          </div>
+          <div className='listingDUnit'>
+            <p className='listingDUnitPar'>Reliability Rating: </p>
+            <p className='listingDUnitPar'>{reliabilityRating} on {numRating} Ratings</p>
+          </div>
+          <div className='listingDUnit'>
+            <p className='listingDUnitPar'>Quality Rating: </p>
+            <p className='listingDUnitPar'>{qualityRating} on {numRating} Ratings</p>
+          </div>
         </div>
         <div>
-          <div>
-            <p>Location: </p>
-            <p>{locationName} {location}</p>
+          <div className='listingPlantInfo'>
+            <p className='listingPlantTitle'>Plant</p>
+            <p className='listingPlantTitle'>Surplus</p>
+            <p className='listingPlantTitle'>Harvest Date</p>
           </div>
-          <div>
-            <p>Reliability Rating: </p>
-            <p>{reliabilityRating} on {numRating} Ratings</p>
-          </div>
-          <div>
-            <p>Quality Rating: </p>
-            <p>{qualityRating} on {numRating} Ratings</p>
-          </div>
-        </div>
-        <div>
-          <p>Plant</p>
-          <p>Surplus</p>
-          <p>Harvest Date</p>
           {this.plantsBuilder()}
           <OfferTrade userName={userName} picture={picture} location={location}
           locationName={locationName} reliabilityRating={reliabilityRating}
           qualityRating={qualityRating} numRating={numRating} plants={this.props.plants}
-          key={userName} toggleParent={this.toggle}/>
+          key={userName} toggleParent={this.props.toggle}/>
         </div>
           </ModalBody>
         </Modal>

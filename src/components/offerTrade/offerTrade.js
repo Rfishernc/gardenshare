@@ -126,10 +126,7 @@ class offerTrade extends React.Component {
         this.props.toggleParent();
         offerTradeData.getTradeIdByMarker(marker)
           .then((tradeId) => {
-            this.setTradeId(tradeId)
-              .then(() => {
-                this.addMessage();
-              });
+            this.addMessage(tradeId);
           });
       })
       .catch((err) => {
@@ -163,21 +160,18 @@ class offerTrade extends React.Component {
     return requestsRender;
   }
 
-  addMessage = () => {
-    const newMessage = document.getElementById('messagesInput').value;
-    const newMessageObj = {
-      tradeId: this.state.tradeId,
-      user: this.state.userName,
-      message: newMessage,
-      date: new Date(),
-    };
-    messagesData.postMessage(newMessageObj);
+  addMessage = (tradeId) => {
+    this.setState({ tradeId }, () => {
+      const newMessage = document.getElementById('messagesInput').value;
+      const newMessageObj = {
+        tradeId: this.state.tradeId,
+        user: this.state.userName,
+        message: newMessage,
+        date: moment().format('MM DD YYYY'),
+      };
+      messagesData.postMessage(newMessageObj);
+    });
   }
-
-  setTradeId = tradeId => new Promise((resolve) => {
-    this.setState({ tradeId });
-    resolve();
-  })
 
   render() {
     return (
