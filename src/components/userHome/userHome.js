@@ -119,43 +119,36 @@ class userHome extends React.Component {
 
   render() {
     return (
-      <div className="userHome container-fluid">
+      <div className="userHome">
         <Navbar/>
-        <div className='row userHomeUpperDiv'>
-          <div className='userProfile col-3'>
-            <img src={this.state.picture} className='userPicture' alt='profilepic'/>
-            <p className='userTitle'>{this.state.userName}</p>
-          </div>
-          <div className='userPlantsList col-9'>
-          <div className='fYouFlex'><p className='plantsTitle'>My Plants</p></div> 
-            <div className='col userPlants'>
-              <ul className="plantInfo">
-                <li className="list-group-item plantLi plantInfoLi">Plant</li>
-                <li className="list-group-item plantLi plantInfoLi">Quantity</li>
-                <li className="list-group-item plantLi plantInfoLi">Surplus</li>
-                <li className="list-group-item plantLi plantInfoLi">Planting Date</li>
-                <li className="list-group-item plantLi plantInfoLi">Harvest Date</li>
-              </ul>
+        <div className='container-fluid'>
+          <div className='row userHomeUpperDiv'>
+            <div className='userProfile col-3'>
+              <img src={this.state.picture} className='userPicture' alt='profilepic'/>
+              <p className='userTitle'>{this.state.userName}</p>
+            </div>
+            <div className='col-1 addPlantButtonDiv'>
               <AddPlant refreshPlants={this.refreshPlants} user={this.state.userName}/>
             </div>
-            {this.userPlantsBuilder()}
+            <div className='userPlantsList col-8'>
+              <div className='fYouFlex'>
+                <p className='plantsTitle'>My Plants</p>
+              </div>
+              <div className='col userPlants'>
+                <ul className="plantInfo">
+                  <li className="list-group-item plantLi plantInfoLi">Plant</li>
+                  <li className="list-group-item plantLi plantInfoLi">Quantity</li>
+                  <li className="list-group-item plantLi plantInfoLi">Surplus</li>
+                  <li className="list-group-item plantLi plantInfoLi">Planting Date</li>
+                  <li className="list-group-item plantLi plantInfoLi">Harvest Date</li>
+                </ul>
+              </div>
+              {this.userPlantsBuilder()}
+            </div>
           </div>
-        </div>
-        <div className='row offersInfo'>
-          <div className='userTradesList col'>
-            <div className='flexIsMyEnemy'><p className='userTradesTitle'>Active Trades</p></div>
-            <ul className="userTradesInfo">
-                <li className="list-group-item tradeLi">User</li>
-                <li className="list-group-item tradeLi">Offer Date</li>
-                <li className="list-group-item tradeLi">Transaction Date</li>
-                <li className="list-group-item tradeLi">My Contribution</li>
-                <li className="list-group-item tradeLi">Their Contribution</li>
-              </ul>
-            {this.userTradesBuilder()}
-          </div>
-          <div className='pendingOfferList col'>
-            <div className='flexIHateYou'><p className='pendingOfferTitle'>Pending Offers</p></div>
-            <div className='stupidFlex'>
+          <div className='row offersInfo'>
+            <div className='userTradesList col'>
+              <div className='flexIsMyEnemy'><p className='userTradesTitle'>Active Trades</p></div>
               <ul className="userTradesInfo">
                   <li className="list-group-item tradeLi">User</li>
                   <li className="list-group-item tradeLi">Offer Date</li>
@@ -163,7 +156,20 @@ class userHome extends React.Component {
                   <li className="list-group-item tradeLi">My Contribution</li>
                   <li className="list-group-item tradeLi">Their Contribution</li>
                 </ul>
-              {this.pendingOfferBuilder()}
+              {this.userTradesBuilder()}
+            </div>
+            <div className='pendingOfferList col'>
+              <div className='flexIHateYou'><p className='pendingOfferTitle'>Pending Offers</p></div>
+              <div className='stupidFlex'>
+                <ul className="userTradesInfo">
+                    <li className="list-group-item tradeLi">User</li>
+                    <li className="list-group-item tradeLi">Offer Date</li>
+                    <li className="list-group-item tradeLi">Transaction Date</li>
+                    <li className="list-group-item tradeLi">My Contribution</li>
+                    <li className="list-group-item tradeLi">Their Contribution</li>
+                  </ul>
+                {this.pendingOfferBuilder()}
+              </div>
             </div>
           </div>
         </div>

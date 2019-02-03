@@ -9,6 +9,7 @@ import {
   NavLink,
 } from 'reactstrap';
 import loginData from '../../data/loginData';
+import gnomePic from '../../images/misc-npc-garden-gnome.png';
 import './navbar.scss';
 
 class navbar extends React.Component {
@@ -21,7 +22,10 @@ class navbar extends React.Component {
     return (
       <div className="navbar">
       <Navbar color="dark" dark expand="md">
-          <NavbarBrand className='navTitle' href="/">Gardenshare</NavbarBrand>
+          <NavbarBrand className='navTitle' href="/">
+            <img src={gnomePic} alt='logo' className='gnome'/>
+            Gardenshare
+          </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
             <Nav className="ml-auto" navbar>
               <NavItem className='navLinks'>

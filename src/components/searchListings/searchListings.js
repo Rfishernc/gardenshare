@@ -128,19 +128,21 @@ class searchListings extends React.Component {
 
   render() {
     return (
-      <div className="searchListings container-fluid">
+      <div className="searchListings">
         <Navbar/>
-        <div className='row'>
-          <div className='filterDiv col-3'>
-            {this.filtersBuilder()}
-            <div className='zipcodeRadiusDiv'>
-              <p className='radiusPar'>Search Radius</p>
-              <ZipcodeSelector zipcodeRadius={this.zipcodeRadius}/>
+        <div className='container-fluid'>
+          <div className='row'>
+            <div className='filterDiv col-3'>
+              {this.filtersBuilder()}
+              <div className='zipcodeRadiusDiv'>
+                <p className='radiusPar'>Search Radius</p>
+                <ZipcodeSelector zipcodeRadius={this.zipcodeRadius}/>
+              </div>
+              <button type='button' onClick={this.search} className='searchButton'>Search</button>
             </div>
-            <button type='button' onClick={this.search} className='searchButton'>Search</button>
-          </div>
-          <div className='listingsDiv col-9'>
-            {this.listingsBuilder()}
+            <div className='listingsDiv col-9'>
+              {this.listingsBuilder()}
+            </div>
           </div>
         </div>
       </div>
