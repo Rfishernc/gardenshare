@@ -73,6 +73,7 @@ class userHome extends React.Component {
       this.state.userPlants.forEach((plantO) => {
         plantsRender.push(<UserPlants dateHarvest={plantO.dateHarvest}
         datePlanted={plantO.datePlanted} qty={plantO.qty}
+        id={plantO.id} refreshPlants={this.refreshPlants}
         plant={plantO.plant} surplus={plantO.surplus} key={plantO.id}/>);
       });
     }

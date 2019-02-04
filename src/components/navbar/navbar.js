@@ -18,6 +18,16 @@ class navbar extends React.Component {
     loginData.logoutUser();
   }
 
+  hovered = (event) => {
+    event.preventDefault();
+    const link = event.target;
+    if (link.className.includes(' hovered')) {
+      link.className = link.className.replace(' hovered', '');
+    } else {
+      link.className += ' hovered';
+    }
+  }
+
   render() {
     return (
       <div className="navbar">
@@ -29,10 +39,13 @@ class navbar extends React.Component {
           <NavbarToggler onClick={this.toggle} />
             <Nav className="ml-auto" navbar>
               <NavItem className='navLinks'>
-                <NavLink tag={RRNavLink} to='/home'>Home</NavLink>
-                <NavLink tag={RRNavLink} to='/userInfo'>User Info</NavLink>
-                <NavLink tag={RRNavLink} to='/search'>Search Listings</NavLink>
-                <NavLink onClick={this.logoutClicked}>Logout</NavLink>
+                <NavLink tag={RRNavLink} to='/home' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>Home</NavLink>
+                <NavLink tag={RRNavLink} to='/userInfo' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>User Info</NavLink>
+                <NavLink tag={RRNavLink} to='/tradeHistory' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>Trade History</NavLink>
+                <NavLink tag={RRNavLink} to='/search' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>Search Listings</NavLink>
+                <NavLink tag={RRNavLink} to='/giveaways' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>Give-aways</NavLink>
+                <NavLink onClick={this.logoutClicked}
+                onMouseEnter={this.hovered} onMouseLeave={this.hovered}>Logout</NavLink>
               </NavItem>
             </Nav>
         </Navbar>

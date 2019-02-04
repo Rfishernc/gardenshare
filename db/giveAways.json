@@ -1,0 +1,11 @@
+{
+  "giveAway1": {
+    "userName": "Bobby Bobberson",
+    "startDate": "01-01-2019",
+    "endDate": "02-02-2019",
+    "address": "111 Giveaway Ln",
+    "startTime": "5:00 PM",
+    "endTime": "7:00 PM",
+    "plants": { "potato": "5", "potatoe": "4" }
+  }
+}

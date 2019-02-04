@@ -17,7 +17,6 @@
   margin-left: 5px;
   margin-top: 5px;
   width: 150px;
-  color: wheat;
 }
 
 .userInfoUnitData, .userInfoUnitInput {
@@ -39,7 +38,8 @@
   border: 2px solid black;
   border-radius: 3px;
   box-shadow: 4px -4px 3px;
-  background-color: $varDGray;
+  background-color: darkkhaki;
+  margin-top: 10px;
 }
 
 .dataDiv {
@@ -66,7 +66,6 @@
 .userPicUnitTitle {
   text-align: left;
   margin-left: 30px;
-  color: wheat;
 }
 
 .cancelLink, .saveLink {
