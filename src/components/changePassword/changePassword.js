@@ -40,12 +40,12 @@ class changePassword extends React.Component {
 
   modalBuilder = () => {
     if (this.state.updated) {
-      return <div>
+      return <div className='passwordBody'>
         <p>Password Successfully Updated</p>
         <button type='button' onClick={this.ok}>Ok</button>
       </div>;
     }
-    return <div>
+    return <div className='passwordBody'>
             <div>
               <p>Enter current password: </p>
               <input type='password' id='currentPWInput'/>
@@ -58,7 +58,7 @@ class changePassword extends React.Component {
               <p>Re-enter new password: </p>
               <input type='password' id='newPW2Input'/>
             </div>
-            <button type='button' onClick={this.updatePassword}>Update Password</button>
+            <button type='button' className='passwordButton' onClick={this.updatePassword}>Update Password</button>
           </div>;
   }
 

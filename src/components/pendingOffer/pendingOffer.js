@@ -52,20 +52,22 @@ class pendingOffer extends React.Component {
 
   buttonBuilder = () => {
     if (this.props.user1 === this.props.user) {
-      return <button className='btn btn-sml btn-danger' onClick={this.removeThisOffer}>Rescind Offer</button>;
+      return <button className='btn btn-sml btn-danger offersButton' onClick={this.removeThisOffer}>Rescind Offer</button>;
     }
     return <div className='offerButtons'>
-      <button className='btn btn-sml btn-success' onClick={this.acceptThisOffer}>Accept Offer</button>
-      <button className='btn btn-sml btn-danger' onClick={this.removeThisOffer}>Decline Offer</button>
+      <button className='btn btn-sml btn-success offersButton' onClick={this.acceptThisOffer}>Accept Offer</button>
+      <button className='btn btn-sml btn-danger offersButton' onClick={this.removeThisOffer}>Decline Offer</button>
     </div>;
   }
 
   messageBuilder = () => {
     if (this.state.message !== '') {
       return <div className='offerMessage'>
-      <p className='messageUser'>{this.state.message.user}</p>
       <p className='message'>{this.state.message.message}</p>
-      <p className='messageDate'>{this.state.message.date}</p>
+      <div>
+        <p className='messageUser'>{this.state.message.user}</p>
+        <p className='messageDate'>{this.state.message.date}</p>
+      </div>
     </div>;
     }
     return '';
@@ -95,7 +97,9 @@ class pendingOffer extends React.Component {
           </ul>
         </div>
         {this.messageBuilder()}
-        {this.buttonBuilder()}
+        <div className='buttonDiv'>
+          {this.buttonBuilder()}
+        </div>
       </div>
     );
   }

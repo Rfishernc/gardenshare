@@ -1,28 +1,37 @@
-.userListing {
+@import '../../styles/var';
+
+.listingEven, .listingOdd {
   display: flex;
   border: 1.5px solid black;
   border-radius: 2px;
   margin-bottom: 0.5px;
 }
 
+.listingEven {
+  background-color: $varDBrown;
+}
+
+.listingOdd {
+  background-color: darkkhaki;
+}
+
 .listingPic {
   width: 150px;
   border: 1.5px solid black;
   margin: 3px;
+  background-color: white;
 }
 
 .listingUnit {
   display: flex;
   justify-content: space-between;
+  margin-top: 15px;
 }
 
 .listingPlantDiv {
   display: flex;
   flex-flow: column;
-}
-
-.listingPlantTitle {
-  display: flex;
+  margin-top: 10px;
 }
 
 .listingPlantInfo {
@@ -37,5 +46,21 @@
 .listingPlantItem {
   padding: 15px;
   border: 1px solid black;
+  border-radius: 2px;
   margin: 0;
+  background-color: $varLGray;
+}
+
+.listingName {
+  border: 1.5px solid black;
+  border-radius: 5px;
+  background-color: $varLGray;
+}
+
+.listingPlantTitle {
+  display: flex;
+}
+
+.itemTitle {
+  background-color: darkkhaki;
 }

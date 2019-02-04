@@ -1,32 +1,31 @@
+@import '../../styles/var';
+
 .userProfile {
   display: flex;
   flex-flow: column;
   align-items: flex-start;
-  border: 1px solid black;
   width: 300px;
 }
 
 .userPicture, .userTitle {
   width: 70%;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   border: 1.5px solid black;
+  background-color: white;
+  border-radius: 2px;
+}
+
+.userPicture {
+  margin-top: 5px;
 }
 
 .userPlantsList {
   display: flex;
   flex-flow: column;
   align-items: center;
-  border: 1px solid black;
   overflow: auto;
-}
-
-.userPlants {
-  display: flex;
-  justify-content: left;
-}
-
-.plantsTitle {
-  font-size: 2em;
+  margin-top: 10px;
 }
 
 .plantInfo {
@@ -36,15 +35,32 @@
 }
 
 .plantLi {
-  width: 150px;
+  width: 135px;
 }
 
 .plantInfoLi {
   background-color: darkkhaki;
 }
 
-.userTradesTitle, .pendingOfferTitle {
+.userTradesTitle, .pendingOfferTitle, {
   font-size: 2em;
+  border: 1.5px solid black;
+  border-radius: 4px;
+  box-shadow: 0 2px 2px;
+  background-color: $varDBrown;
+  width: 50%;
+  text-align: center;
+}
+
+.plantsTitle {
+  font-size: 2em;
+  border: 1.5px solid black;
+  border-radius: 4px;
+  box-shadow: 0 2px 2px;
+  background-color: $varDBrown;
+  text-align: center;
+  padding-left: 35px;
+  padding-right: 35px;
 }
 
 .userHomeUpperDiv {
@@ -55,10 +71,44 @@
   display: flex;
   flex-flow: row;
   margin-bottom: 0px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.offerInfo {
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 0;
 }
 
 .tradeLi {
   width: 120px;
   font-size: 0.9em;
   background-color: darkkhaki;
+}
+
+.stupidFlex {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-end;
+}
+
+.flexIHateYou {
+  display: flex;
+  justify-content: center;
+  margin-left: 80px;
+  margin-top: 10px;
+}
+
+.flexIsMyEnemy {
+  display: flex;
+  justify-content: center;
+  margin-right: 80px;
+  margin-top: 10px;
+}
+
+.fYouFlex {
+  display: flex;
+  justify-content: center;
+  margin-right: 130px;
 }

@@ -1,7 +1,38 @@
+@import '../../styles/var';
+
 .navbar {
   width: 100%;
+  padding-bottom: 0;
+  padding-top: 0;
+  padding-right: 0;
+  padding-left: 0;
+  height: 60px;
+  background-color: seagreen !important;
 }
 
 .navLinks {
   display: flex;
+}
+
+.navTitle {
+  margin-left: 10px;
+}
+
+.gnome {
+  width: 35px;
+}
+
+.hovered {
+  background-color: $fresh !important;
+  color: black !important;
+}
+
+.nav-link {
+  height: 60px;
+  padding-top: 18px;
+}
+
+.active {
+  background-color: seagreen !important;
+  color: white !important;
 }

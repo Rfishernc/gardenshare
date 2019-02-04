@@ -29,6 +29,10 @@ class searchListings extends React.Component {
       });
   }
 
+  componentDidMount() {
+    this.search();
+  }
+
   newFilter = () => {
     this.setState({ filtersNum: this.state.filtersNum + 1 });
   }
@@ -45,11 +49,14 @@ class searchListings extends React.Component {
   listingsBuilder = () => {
     const listingsRender = [];
     if (this.state.usersWithPlants !== [] && this.state.usersWithPlants !== undefined) {
+      let counter = 0;
       this.state.usersWithPlants.forEach((user) => {
+        counter += 1;
         listingsRender.push(<UserListing key={user.id} location={user.location}
         locationName={user.locationName} picture={user.picture} numRating={user.numRating}
         qualityRating={user.qualityRating} reliabilityRating={user.reliabilityRating}
-        userName={user.userName} plants={user.plants}/>);
+        userName={user.userName} plants={user.plants}
+        oddEven={counter / 2 > Math.floor(counter / 2) ? 'odd' : 'even'}/>);
       });
     }
     return listingsRender;
@@ -122,19 +129,21 @@ class searchListings extends React.Component {
 
   render() {
     return (
-      <div className="searchListings container-fluid">
+      <div className="searchListings">
         <Navbar/>
-        <div className='row'>
-          <div className='filterDiv col-3'>
-            {this.filtersBuilder()}
-            <div className='zipcodeRadiusDiv'>
-              <p className='radiusPar'>Search Radius</p>
-              <ZipcodeSelector zipcodeRadius={this.zipcodeRadius}/>
+        <div className='container-fluid'>
+          <div className='row'>
+            <div className='filterDiv col-3'>
+              {this.filtersBuilder()}
+              <div className='zipcodeRadiusDiv'>
+                <p className='radiusPar'>Search Radius</p>
+                <ZipcodeSelector zipcodeRadius={this.zipcodeRadius}/>
+              </div>
+              <button type='button' onClick={this.search} className='searchButton'>Search</button>
             </div>
-            <button type='button' onClick={this.search} className='searchButton'>Search</button>
-          </div>
-          <div className='listingsDiv col-9'>
-            {this.listingsBuilder()}
+            <div className='listingsDiv col-9'>
+              {this.listingsBuilder()}
+            </div>
           </div>
         </div>
       </div>

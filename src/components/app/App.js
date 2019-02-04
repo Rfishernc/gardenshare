@@ -8,6 +8,8 @@ import Login from '../login/login';
 import UserHome from '../userHome/userHome';
 import CreateAccount from '../createAccount/createAccount';
 import UserInfo from '../userInfo/userInfo';
+import TradeHistory from '../tradeHistory/tradeHistory';
+import GiveAways from '../giveAways/giveAways';
 import SearchListings from '../searchListings/searchListings';
 import './App.scss';
 
@@ -61,6 +63,8 @@ class App extends React.Component {
               <PrivateRoute path='/' exact component={UserHome} loginStatus={this.state.loginStatus}/>
               <PrivateRoute path='/home' component={UserHome} loginStatus={this.state.loginStatus}/>
               <PrivateRoute path='/userInfo' component={UserInfo} loginStatus={this.state.loginStatus}/>
+              <PrivateRoute path='/tradeHistory' component={TradeHistory} loginStatus={this.state.loginStatus}/>
+              <PrivateRoute path='/giveaways' component={GiveAways} loginStatus={this.state.loginStatus}/>
               <PrivateRoute path='/search' component={SearchListings} loginStatus={this.state.loginStatus}/>
               <PublicRoute path='/login' component={Login} loginStatus={this.state.loginStatus}/>
               <PublicRoute path='/createAccount' component={CreateAccount} loginStatus={this.state.loginStatus}/>
