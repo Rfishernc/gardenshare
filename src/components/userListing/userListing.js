@@ -17,7 +17,7 @@ class userListing extends React.Component {
     const plantsRender = [];
     if (this.props.plants !== null) {
       for (let i = 0; i < 2; i += 1) {
-        plantsRender.push(<div className='listingPlantInfo'>
+        plantsRender.push(<div key={this.props.plants[i].plant} className='listingPlantInfo'>
           <p className='listingPlantItem'>{this.props.plants[i].plant}</p>
           <p className='listingPlantItem'>{this.props.plants[i].surplus}</p>
           <p className='listingPlantItem'>{this.props.plants[i].dateHarvest}</p>
@@ -34,7 +34,7 @@ class userListing extends React.Component {
     return (
       <div className={this.props.oddEven === 'odd' ? 'listingOdd' : 'listingEven'} onClick={this.toggle}>
         <div>
-          <img src={picture} alt='profilePic' class='listingPic'/>
+          <img src={picture} alt='profilePic' className='listingPic'/>
           <p className='listingName'>{userName}</p>
         </div>
         <div>

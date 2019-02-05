@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment';
 import apiKeys from './apiKeys';
 
 const URL = apiKeys.firebaseKeys.databaseURL;
@@ -31,7 +32,22 @@ const postMessage = messageOBj => new Promise((resolve, reject) => {
     });
 });
 
+const sortMessages = tradeId => new Promise((resolve, reject) => {
+  getMessages(tradeId)
+    .then((messagesArray) => {
+      let sortedArray = [];
+      if (messagesArray !== []) {
+        sortedArray = messagesArray.sort((a, b) => moment(a).unix() - moment(b).unix());
+      }
+      resolve(sortedArray);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
 export default {
   getMessages,
   postMessage,
+  sortMessages,
 };

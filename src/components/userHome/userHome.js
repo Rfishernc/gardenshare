@@ -87,7 +87,9 @@ class userHome extends React.Component {
         tradesRender.push(<UserTrades dateSent={trade.dateSent} dateTrade={trade.dateTrade}
         user1={trade.user1} user2={trade.user2} user={this.state.userName} id={trade.id}
         plantsUser1={trade.plantsUser1} plantsUser2={trade.plantsUser2}
-        refreshOffers={this.refreshOffers} key={trade.id}/>);
+        refreshOffers={this.refreshOffers} key={trade.id}
+        qualityRating1={trade.qualityRating1} reliabilityRating1={trade.reliabilityRating1}
+        qualityRating2={trade.qualityRating2} reliabilityRating2={trade.reliabilityRating2}/>);
       });
     }
     return tradesRender;
@@ -108,8 +110,8 @@ class userHome extends React.Component {
       this.state.receivedOffers.forEach((offer) => {
         receivedRender.push(<PendingOffer dateSent={offer.dateSent} dateTrade={offer.dateTrade}
           user1={offer.user1} user2={offer.user2} id={offer.id}
-          key={offer.id} refreshOffers={this.refreshOffers}
-          plantsUser1={offer.plantsUser1} plantsUser2={offer.plantsUser2}/>);
+          refreshOffers={this.refreshOffers}
+          plantsUser1={offer.plantsUser1} plantsUser2={offer.plantsUser2} key={offer.id}/>);
       });
     }
     return <div>

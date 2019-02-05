@@ -16,7 +16,7 @@ class tradeDetails extends React.Component {
     const plantsRender = [];
     const listingKeys = Object.keys(plants);
     listingKeys.forEach((key) => {
-      plantsRender.push(<div>
+      plantsRender.push(<div key={key}>
         <p>{key}</p>
         <p>{plants[key]}</p>
       </div>);
@@ -57,19 +57,48 @@ class tradeDetails extends React.Component {
         tradeDetailsData.updateRating(updatedUser, userData.id)
           .then(() => {
             const {
-              dateSent, dateTrade, plantsUser1, plantsUser2, user1, user2, id,
-            } = this.props;
-            const closedTrade = {
               dateSent,
               dateTrade,
               plantsUser1,
               plantsUser2,
               user1,
               user2,
-              qualityRating: quality,
-              reliabilityRating: reliability,
-              accepted: true,
-            };
+              id,
+              qualityRating1,
+              qualityRating2,
+              reliabilityRating1,
+              reliabilityRating2,
+            } = this.props;
+            let closedTrade;
+            if (otherUser() === user1) {
+              closedTrade = {
+                dateSent,
+                dateTrade,
+                plantsUser1,
+                plantsUser2,
+                user1,
+                user2,
+                qualityRating1: quality,
+                reliabilityRating1: reliability,
+                qualityRating2,
+                reliabilityRating2,
+                accepted: true,
+              };
+            } else {
+              closedTrade = {
+                dateSent,
+                dateTrade,
+                plantsUser1,
+                plantsUser2,
+                user1,
+                user2,
+                qualityRating1,
+                reliabilityRating1,
+                qualityRating2: quality,
+                reliabilityRating2: reliability,
+                accepted: true,
+              };
+            }
             tradeDetailsData.closeTrade(closedTrade, id)
               .then(() => {
                 this.props.refreshOffers();
@@ -125,7 +154,7 @@ class tradeDetails extends React.Component {
             <li className="list-group-item detailsLi">{this.plantsListBuilder(plantsUser2)}</li>
           </ul>
         </div>
-        <button type='button' onClick={this.closeTrade} class='closeTradeButton'>Close Trade</button>
+        <button type='button' onClick={this.closeTrade} className='closeTradeButton'>Close Trade</button>
         <Messages user={this.props.user} tradeId={this.props.id}/>
       </ModalBody>
     </div>;

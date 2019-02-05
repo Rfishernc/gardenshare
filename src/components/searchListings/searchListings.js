@@ -65,7 +65,7 @@ class searchListings extends React.Component {
   search = () => {
     zipcodeData.zipcodeRadius(this.state.userZip, this.state.zipcodeRadius)
       .then((zipcodesArray) => {
-        searchListingsData.getListingsByZipcodes([37090])
+        searchListingsData.getListingsByZipcodes(zipcodesArray)
           .then((usersArrayArray) => {
             const combinedUsersArray = [];
             usersArrayArray.forEach((array) => {

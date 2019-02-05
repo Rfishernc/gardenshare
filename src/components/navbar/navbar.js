@@ -39,13 +39,25 @@ class navbar extends React.Component {
           <NavbarToggler onClick={this.toggle} />
             <Nav className="ml-auto" navbar>
               <NavItem className='navLinks'>
-                <NavLink tag={RRNavLink} to='/home' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>Home</NavLink>
-                <NavLink tag={RRNavLink} to='/userInfo' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>User Info</NavLink>
-                <NavLink tag={RRNavLink} to='/tradeHistory' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>Trade History</NavLink>
-                <NavLink tag={RRNavLink} to='/search' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>Search Listings</NavLink>
-                <NavLink tag={RRNavLink} to='/giveaways' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>Give-aways</NavLink>
+                <NavLink tag={RRNavLink} to='/home' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>
+                  <i className="fas fa-home"></i> Home
+                </NavLink>
+                <NavLink tag={RRNavLink} to='/userInfo' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>
+                  <i className="fab fa-wpforms"></i> User Info
+                </NavLink>
+                <NavLink tag={RRNavLink} to='/tradeHistory' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>
+                  <i className="fas fa-history"></i> Trade History
+                </NavLink>
+                <NavLink tag={RRNavLink} to='/search' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>
+                  <i className="fas fa-search"></i> Search Listings
+                </NavLink>
+                <NavLink tag={RRNavLink} to='/giveaways' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>
+                  <i className="fas fa-gift"></i> Giveaways
+                </NavLink>
                 <NavLink onClick={this.logoutClicked}
-                onMouseEnter={this.hovered} onMouseLeave={this.hovered}>Logout</NavLink>
+                  onMouseEnter={this.hovered} onMouseLeave={this.hovered}>
+                  <i className="fas fa-sign-out-alt"></i> Logout
+                </NavLink>
               </NavItem>
             </Nav>
         </Navbar>
