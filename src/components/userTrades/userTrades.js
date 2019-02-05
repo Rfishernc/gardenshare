@@ -27,7 +27,19 @@ class userTrades extends React.Component {
 
   render() {
     const {
-      dateSent, dateTrade, user1, user2, plantsUser1, plantsUser2, user, id, refreshOffers,
+      dateSent,
+      dateTrade,
+      user1,
+      user2,
+      plantsUser1,
+      plantsUser2,
+      user,
+      id,
+      refreshOffers,
+      qualityRating1,
+      qualityRating2,
+      reliabilityRating1,
+      reliabilityRating2,
     } = this.props;
 
     const otherUser = () => {
@@ -50,7 +62,9 @@ class userTrades extends React.Component {
             <TradeDetails dateSent={dateSent} dateTrade={dateTrade}
             user1={user1} refreshOffers={refreshOffers}
             modal={this.state.modal} toggle={this.toggle}
-            user2={user2} plantsUser1={plantsUser1} plantsUser2={plantsUser2} user={user} id={id}/>
+            user2={user2} plantsUser1={plantsUser1} plantsUser2={plantsUser2} user={user} id={id}
+            qualityRating1={qualityRating1} reliabilityRating1={reliabilityRating1}
+            qualityRating2={qualityRating2} reliabilityRating2={reliabilityRating2}/>
           </div>
       </div>
     );

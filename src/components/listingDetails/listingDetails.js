@@ -10,7 +10,7 @@ class listingDetails extends React.Component {
     const plantsRender = [];
     if (this.props.plants !== null) {
       this.props.plants.forEach((plantType) => {
-        plantsRender.push(<div className='listingDPlantDiv'>
+        plantsRender.push(<div key={plantType.plant} className='listingDPlantDiv'>
           <p className='listingDPlantPar'>{plantType.plant}</p>
           <p className='listingDPlantPar'>{plantType.surplus}</p>
           <p className='listingDPlantPar'>{plantType.dateHarvest}</p>

@@ -115,8 +115,10 @@ class offerTrade extends React.Component {
       accepted: false,
       plantsUser1: user1Plants,
       plantsUser2: user2Plants,
-      reliabilityRating: false,
-      qualityRating: false,
+      reliabilityRating1: false,
+      reliabilityRating2: false,
+      qualityRating1: false,
+      qualityRating2: false,
       marker,
     };
     offerTradeData.postOffer(tradeObject)

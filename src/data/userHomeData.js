@@ -79,7 +79,12 @@ const getActiveTrades = user => new Promise((resolve, reject) => {
   getTradeRequests(user)
     .then((tradesArray) => {
       const filteredTrades = tradesArray.filter(trade => trade.accepted === true);
-      const openTrades = filteredTrades.filter(trade => trade.qualityRating === false);
+      const openTrades = filteredTrades.filter((trade) => {
+        if (user === trade.user1) {
+          return trade.qualityRating2 === false;
+        }
+        return trade.qualityRating1 === false;
+      });
       resolve(openTrades);
     })
     .catch((err) => {
