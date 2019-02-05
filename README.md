@@ -34,6 +34,10 @@ Listings search page
 
 ![search](src/images/screenshots/gardenSearch.PNG)
 
+## Site Link
+
+https://gardenshare-890ac.firebaseapp.com/
+
 ## How to run this project locally
 
 1. After cloning the repository, within your terminal, npm install.
