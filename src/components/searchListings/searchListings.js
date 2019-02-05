@@ -63,31 +63,31 @@ class searchListings extends React.Component {
   }
 
   search = () => {
-    // zipcodeData.zipcodeRadius(this.state.userZip, this.state.zipcodeRadius)
-    //   .then((zipcodesArray) => {
-    searchListingsData.getListingsByZipcodes([37090])
-      .then((usersArrayArray) => {
-        const combinedUsersArray = [];
-        usersArrayArray.forEach((array) => {
-          array.forEach((user) => {
-            combinedUsersArray.push(user);
-          });
-        });
-        this.setState({ usersArray: combinedUsersArray });
-        searchListingsData.getAllFilteredUsersPlants(this.state.usersArray)
-          .then((plantsArrayArray) => {
-            const usersWithPlantsArray = combinedUsersArray;
-            usersWithPlantsArray.forEach((user) => {
-              plantsArrayArray.forEach((plantArray) => {
-                if (user.userName === plantArray[0].user) {
-                  // eslint-disable-next-line no-param-reassign
-                  user.plants = plantArray;
-                }
+    zipcodeData.zipcodeRadius(this.state.userZip, this.state.zipcodeRadius)
+      .then((zipcodesArray) => {
+        searchListingsData.getListingsByZipcodes(zipcodesArray)
+          .then((usersArrayArray) => {
+            const combinedUsersArray = [];
+            usersArrayArray.forEach((array) => {
+              array.forEach((user) => {
+                combinedUsersArray.push(user);
               });
             });
-            this.applyFilters(usersWithPlantsArray);
+            this.setState({ usersArray: combinedUsersArray });
+            searchListingsData.getAllFilteredUsersPlants(this.state.usersArray)
+              .then((plantsArrayArray) => {
+                const usersWithPlantsArray = combinedUsersArray;
+                usersWithPlantsArray.forEach((user) => {
+                  plantsArrayArray.forEach((plantArray) => {
+                    if (user.userName === plantArray[0].user) {
+                      // eslint-disable-next-line no-param-reassign
+                      user.plants = plantArray;
+                    }
+                  });
+                });
+                this.applyFilters(usersWithPlantsArray);
+              });
           });
-        // });
       })
       .catch((err) => {
         console.log(err);
