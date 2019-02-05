@@ -7,8 +7,11 @@
     "accepted": false,
     "plantsUser1": { "potato": "5", "potatoe": "4" },
     "plantsUser2": { "tomato": "4", "tomatoe": "5" },
-    "reliabilityRating": false,
-    "qualityRating": false,
-    "id": "trade1"
+    "reliabilityRating1": false,
+    "reliabilityRating2": false,
+    "qualityRating1": false,
+    "qualityRating2": false,
+    "id": "trade1",
+    "marker": "12345"
     }
 }
