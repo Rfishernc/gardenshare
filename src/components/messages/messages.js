@@ -28,7 +28,7 @@ class messages extends React.Component {
     };
     if (this.state.messagesArray !== '') {
       this.state.messagesArray.forEach((message) => {
-        messagesRender.push(<div className={whichUser(message.user)}>
+        messagesRender.push(<div className={whichUser(message.user)} key={message.id}>
           <div className='msgInfo'>
             <p className='msgPar msgUser'>{message.user}</p>
             <p className='msgPar msgDate'>{message.date}</p>
