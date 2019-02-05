@@ -16,7 +16,7 @@ class tradeDetails extends React.Component {
     const plantsRender = [];
     const listingKeys = Object.keys(plants);
     listingKeys.forEach((key) => {
-      plantsRender.push(<div>
+      plantsRender.push(<div key={key}>
         <p>{key}</p>
         <p>{plants[key]}</p>
       </div>);
@@ -125,7 +125,7 @@ class tradeDetails extends React.Component {
             <li className="list-group-item detailsLi">{this.plantsListBuilder(plantsUser2)}</li>
           </ul>
         </div>
-        <button type='button' onClick={this.closeTrade} class='closeTradeButton'>Close Trade</button>
+        <button type='button' onClick={this.closeTrade} className='closeTradeButton'>Close Trade</button>
         <Messages user={this.props.user} tradeId={this.props.id}/>
       </ModalBody>
     </div>;

@@ -17,7 +17,7 @@ class userTrades extends React.Component {
     const plantsRender = [];
     const listingKeys = Object.keys(plants);
     listingKeys.forEach((key) => {
-      plantsRender.push(<div className='tradePlants'>
+      plantsRender.push(<div key={key} className='tradePlants'>
         <p>{key}</p>
         <p>{plants[key]}</p>
       </div>);

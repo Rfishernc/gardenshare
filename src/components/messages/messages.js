@@ -9,7 +9,7 @@ class messages extends React.Component {
   }
 
   componentWillMount() {
-    messagesData.getMessages(this.props.tradeId)
+    messagesData.sortMessages(this.props.tradeId)
       .then((messagesArray) => {
         this.setState({ messagesArray });
       })
@@ -51,6 +51,7 @@ class messages extends React.Component {
     };
     messagesData.postMessage(newMessageObj)
       .then(() => {
+        document.getElementById('messagesInput').value = '';
         this.refreshMessages();
       })
       .catch((err) => {
@@ -59,7 +60,7 @@ class messages extends React.Component {
   }
 
   refreshMessages = () => {
-    messagesData.getMessages(this.props.tradeId)
+    messagesData.sortMessages(this.props.tradeId)
       .then((messagesArray) => {
         this.setState({ messagesArray });
       })

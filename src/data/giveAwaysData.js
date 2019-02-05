@@ -96,9 +96,20 @@ const getPlantsByUser = user => new Promise((resolve, reject) => {
     });
 });
 
+const postGiveAway = giveAway => new Promise((resolve, reject) => {
+  axios.post(`${URL}/giveAways.json`, giveAway)
+    .then(() => {
+      resolve();
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
 export default {
   getGiveAways,
   getUsersForGiveAways,
   getUser,
   getPlantsByUser,
+  postGiveAway,
 };

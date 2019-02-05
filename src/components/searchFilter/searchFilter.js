@@ -58,7 +58,6 @@ class searchFilter extends React.Component {
   }
 
   checkChanged = (event) => {
-    event.preventDefault();
     const newInput = event.target.id.replace('checked', '');
     const eventId = event.target.id;
     this.setState({

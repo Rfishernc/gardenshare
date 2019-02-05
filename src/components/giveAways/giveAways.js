@@ -4,6 +4,7 @@ import giveAwaysData from '../../data/giveAwaysData';
 import Navbar from '../navbar/navbar';
 import GiveAwayListing from '../giveAwayListing/giveAwayListing';
 import GiveAwayPlants from '../giveAwayPlants/giveAwayPlants';
+import ZipcodeSelector from '../zipcodeSelector/zipcodeSelector';
 import './giveAways.scss';
 
 class giveAways extends React.Component {
@@ -11,6 +12,8 @@ class giveAways extends React.Component {
     giveAwaysArray: [],
     userName: '',
     userPlants: [],
+    selectedPlants: [],
+    zipcodeRadius: 0,
   }
 
   componentWillMount() {
@@ -52,8 +55,36 @@ class giveAways extends React.Component {
     return giveRender;
   }
 
+  selectPlants = (plantArray) => {
+    this.setState({ selectedPlants: plantArray });
+  }
+
   submitGiveAway = (event) => {
     event.preventDefault();
+    const selectedPLantsObj = {};
+    this.state.selectedPlants.forEach((plantOb) => {
+      selectedPLantsObj[plantOb.plant] = plantOb.qty;
+    });
+    const giveAwayOb = {
+      userName: this.state.userName,
+      startDate: document.getElementById('startDateInput').value,
+      endDate: document.getElementById('endDateInput').value,
+      address: document.getElementById('addressInput').value,
+      startTime: document.getElementById('timeStartInput').value,
+      endTime: document.getElementById('timeEndInput').value,
+      plants: selectedPLantsObj,
+      completed: false,
+      zipcode: document.getElementById('zipcodeInput').value,
+    };
+    giveAwaysData.postGiveAway(giveAwayOb);
+  }
+
+  zipcodeRadius = (radius) => {
+    this.setState({ zipcodeRadius: radius });
+  }
+
+  search = () => {
+
   }
 
   render() {
@@ -74,20 +105,29 @@ class giveAways extends React.Component {
                 <input type='date' id='endDateInput'/>
               </div>
             </div>
+            <p>Pick-up Hours</p>
             <div className='timeDiv'>
-              <div>
-                <p>Pick-up Hours</p>
-                <p>To </p>
-              </div>
+              <input type='time' id='timeStartInput' className='timeInput' defaultValue='12:00'/>
+              <p>To </p>
+              <input type='time' id='timeEndInput' className='timeInput' defaultValue='12:00'/>
             </div>
             <div className='addressDiv'>
               <p>Giveaway Location: </p>
               <input type='text' id='addressInput'/>
+              <p>Zip Code</p>
+              <input type='text' id ='zipcodeInput'/>
             </div>
-            <GiveAwayPlants plants={this.state.userPlants} userName={this.state.userName}/>
+            {this.state.userPlants.length > 0 ? <GiveAwayPlants plants={this.state.userPlants}
+            userName={this.state.userName}
+            selectPlants={this.selectPlants}/> : null }
             <button type='button' onClick={this.submitGiveAway}>Post Giveaway</button>
           </div>
           <div className='col-9'>
+            <div className='searchDiv'>
+              <p>Expand Search Radius</p>
+              <ZipcodeSelector zipcodeRadius={this.zipcodeRadius}/>
+              <button type='button' onClick={this.search}>Search</button>
+            </div>
             {this.giveAwaysBuilder()}
           </div>
         </div>

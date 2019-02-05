@@ -40,23 +40,23 @@ class navbar extends React.Component {
             <Nav className="ml-auto" navbar>
               <NavItem className='navLinks'>
                 <NavLink tag={RRNavLink} to='/home' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>
-                  <i class="fas fa-home"></i> Home
+                  <i className="fas fa-home"></i> Home
                 </NavLink>
                 <NavLink tag={RRNavLink} to='/userInfo' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>
-                  <i class="fab fa-wpforms"></i> User Info
+                  <i className="fab fa-wpforms"></i> User Info
                 </NavLink>
                 <NavLink tag={RRNavLink} to='/tradeHistory' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>
-                  <i class="fas fa-history"></i> Trade History
+                  <i className="fas fa-history"></i> Trade History
                 </NavLink>
                 <NavLink tag={RRNavLink} to='/search' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>
-                  <i class="fas fa-search"></i> Search Listings
+                  <i className="fas fa-search"></i> Search Listings
                 </NavLink>
                 <NavLink tag={RRNavLink} to='/giveaways' onMouseEnter={this.hovered} onMouseLeave={this.hovered}>
-                  <i class="fas fa-gift"></i> Giveaways
+                  <i className="fas fa-gift"></i> Giveaways
                 </NavLink>
                 <NavLink onClick={this.logoutClicked}
                   onMouseEnter={this.hovered} onMouseLeave={this.hovered}>
-                  <i class="fas fa-sign-out-alt"></i> Logout
+                  <i className="fas fa-sign-out-alt"></i> Logout
                 </NavLink>
               </NavItem>
             </Nav>

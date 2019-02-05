@@ -1,6 +1,7 @@
 {
   "giveAway1": {
     "userName": "Bobby Bobberson",
+    "zipcode": "12345",
     "startDate": "01-01-2019",
     "endDate": "02-02-2019",
     "address": "111 Giveaway Ln",
