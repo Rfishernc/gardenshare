@@ -36,6 +36,13 @@ class tradeDetails extends React.Component {
       }
       return this.props.user1;
     };
+
+    const sameUserPlants = () => {
+      if (this.props.user1 === this.props.user) {
+        return this.props.plantsUser1;
+      }
+      return this.props.plantsUser2;
+    };
     tradeDetailsData.getUserByUserName(otherUser())
       .then((userData) => {
         const oldQuality = parseInt(userData.qualityRating, 10);
@@ -101,7 +108,14 @@ class tradeDetails extends React.Component {
             }
             tradeDetailsData.closeTrade(closedTrade, id)
               .then(() => {
-                this.props.refreshOffers();
+                tradeDetailsData.updatePlantsQty(this.props.user, sameUserPlants())
+                  .then((updatedPlantsArray) => {
+                    tradeDetailsData.updatePlantsInDB(updatedPlantsArray)
+                      .then(() => {
+                        this.props.refreshOffers();
+                        this.props.refreshPlants();
+                      });
+                  });
               });
           });
       })
@@ -120,6 +134,20 @@ class tradeDetails extends React.Component {
         return user2;
       }
       return user1;
+    };
+
+    const otherUserPlants = () => {
+      if (user2 === user) {
+        return plantsUser1;
+      }
+      return plantsUser2;
+    };
+
+    const sameUserPlants = () => {
+      if (user1 === user) {
+        return plantsUser1;
+      }
+      return plantsUser2;
     };
 
     if (this.state.closing) {
@@ -150,8 +178,8 @@ class tradeDetails extends React.Component {
             <li className="list-group-item detailsLi">{otherUser()}</li>
             <li className="list-group-item detailsLi">{dateSent}</li>
             <li className="list-group-item detailsLi">{dateTrade}</li>
-            <li className="list-group-item detailsLi">{this.plantsListBuilder(plantsUser1)}</li>
-            <li className="list-group-item detailsLi">{this.plantsListBuilder(plantsUser2)}</li>
+            <li className="list-group-item detailsLi">{this.plantsListBuilder(sameUserPlants())}</li>
+            <li className="list-group-item detailsLi">{this.plantsListBuilder(otherUserPlants())}</li>
           </ul>
         </div>
         <button type='button' onClick={this.closeTrade} className='closeTradeButton'>Close Trade</button>

@@ -87,7 +87,7 @@ class userHome extends React.Component {
         tradesRender.push(<UserTrades dateSent={trade.dateSent} dateTrade={trade.dateTrade}
         user1={trade.user1} user2={trade.user2} user={this.state.userName} id={trade.id}
         plantsUser1={trade.plantsUser1} plantsUser2={trade.plantsUser2}
-        refreshOffers={this.refreshOffers} key={trade.id}
+        refreshOffers={this.refreshOffers} key={trade.id} refreshPlants={this.refreshPlants}
         qualityRating1={trade.qualityRating1} reliabilityRating1={trade.reliabilityRating1}
         qualityRating2={trade.qualityRating2} reliabilityRating2={trade.reliabilityRating2}/>);
       });

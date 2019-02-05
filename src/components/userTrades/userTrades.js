@@ -36,6 +36,7 @@ class userTrades extends React.Component {
       user,
       id,
       refreshOffers,
+      refreshPlants,
       qualityRating1,
       qualityRating2,
       reliabilityRating1,
@@ -60,7 +61,7 @@ class userTrades extends React.Component {
               <li className="list-group-item offerLi">{this.plantsListBuilder(plantsUser2)}</li>
             </ul>
             <TradeDetails dateSent={dateSent} dateTrade={dateTrade}
-            user1={user1} refreshOffers={refreshOffers}
+            user1={user1} refreshOffers={refreshOffers} refreshPlants={refreshPlants}
             modal={this.state.modal} toggle={this.toggle}
             user2={user2} plantsUser1={plantsUser1} plantsUser2={plantsUser2} user={user} id={id}
             qualityRating1={qualityRating1} reliabilityRating1={reliabilityRating1}
