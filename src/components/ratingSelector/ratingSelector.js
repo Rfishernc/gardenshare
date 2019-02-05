@@ -10,15 +10,15 @@ class ratingSelector extends React.Component {
     const renderArray = [];
     let starCounter = 0;
     for (let i = 1; i <= this.state.selection / 2; i += 1) {
-      renderArray.push(<i class="fas fa-star fa-2x" id={i} onClick={this.starClicked}></i>);
+      renderArray.push(<i className="fas fa-star fa-2x" id={i} onClick={this.starClicked}></i>);
       starCounter += 1;
     }
     if ((this.state.selection / 2) > Math.floor(this.state.selection / 2)) {
       starCounter += 1;
-      renderArray.push(<i class="fas fa-star-half-alt fa-2x" id={starCounter} onClick={this.starClicked}></i>);
+      renderArray.push(<i className="fas fa-star-half-alt fa-2x" id={starCounter} onClick={this.starClicked}></i>);
     }
     for (let i = 1; i <= (5 - starCounter); i += 1) {
-      renderArray.push(<i class="far fa-star fa-2x" id={i + starCounter} onClick={this.starClicked}></i>);
+      renderArray.push(<i className="far fa-star fa-2x" id={i + starCounter} onClick={this.starClicked}></i>);
     }
     return renderArray;
   }

@@ -140,7 +140,7 @@ class offerTrade extends React.Component {
     const offersRender = [];
     if (this.state.offerList !== []) {
       this.state.offerList.forEach((offer) => {
-        offersRender.push(<div>
+        offersRender.push(<div key={offer.plant}>
           <p>{offer.plant}</p>
           <p>{offer.qty}</p>
         </div>);
@@ -153,7 +153,7 @@ class offerTrade extends React.Component {
     const requestsRender = [];
     if (this.state.requestList !== []) {
       this.state.requestList.forEach((request) => {
-        requestsRender.push(<div>
+        requestsRender.push(<div key={request.plant}>
           <p>{request.plant}</p>
           <p>{request.qty}</p>
         </div>);

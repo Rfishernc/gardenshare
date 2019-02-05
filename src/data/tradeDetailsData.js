@@ -59,9 +59,10 @@ const getPlantsByUser = user => new Promise((resolve, reject) => {
 const makeTradedPlantsArray = (tradedPlants) => {
   const tradedPlantsArray = [];
   Object.keys(tradedPlants).forEach((key) => {
-    // eslint-disable-next-line no-param-reassign
-    tradedPlants[key].plant = key;
-    tradedPlantsArray.push(tradedPlants[key]);
+    tradedPlantsArray.push({
+      plant: key,
+      qty: tradedPlants[key],
+    });
   });
   return tradedPlantsArray;
 };
