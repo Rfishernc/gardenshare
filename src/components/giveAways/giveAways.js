@@ -1,10 +1,11 @@
 import React from 'react';
 import firebase from 'firebase/app';
-import giveAwaysData from '../../data/giveAwaysData';
 import Navbar from '../navbar/navbar';
 import GiveAwayListing from '../giveAwayListing/giveAwayListing';
 import GiveAwayPlants from '../giveAwayPlants/giveAwayPlants';
 import ZipcodeSelector from '../zipcodeSelector/zipcodeSelector';
+import giveAwaysData from '../../data/giveAwaysData';
+import zipcodeData from '../../data/zipcodeData';
 import './giveAways.scss';
 
 class giveAways extends React.Component {
@@ -20,18 +21,19 @@ class giveAways extends React.Component {
     const user = firebase.auth().currentUser;
     giveAwaysData.getUser(user.uid)
       .then((userData) => {
-        this.setState({ userName: userData.userName });
+        this.setState({ userName: userData.userName, userZip: userData.location }, () => {
+          giveAwaysData.getUsersForGiveAways([this.state.userZip])
+            .then((giveAwaysArray) => {
+              this.setState({ giveAwaysArray });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        });
         giveAwaysData.getPlantsByUser(userData.userName)
           .then((userPlants) => {
             this.setState({ userPlants });
           });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    giveAwaysData.getUsersForGiveAways()
-      .then((giveAwaysArray) => {
-        this.setState({ giveAwaysArray });
       })
       .catch((err) => {
         console.log(err);
@@ -84,7 +86,15 @@ class giveAways extends React.Component {
   }
 
   search = () => {
-
+    // zipcodeData.zipcodeRadius(this.state.userZip, this.state.zipcodeRadius)
+    //   .then((zipcodesArray) => {
+    giveAwaysData.getGiveAwaysByZips([37090])
+      .then((giveAwaysArray) => {
+        this.setState({ giveAwaysArray });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   render() {

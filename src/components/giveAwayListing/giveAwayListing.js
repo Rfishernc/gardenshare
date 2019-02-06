@@ -10,7 +10,7 @@ class giveAwayListing extends React.Component {
     return (
       <div className='giveAwayListing'>
         <div>
-          <img src={picture} alt='profilePic' class='listingPic'/>
+          <img src={picture} alt='profilePic' className='listingPic'/>
           <p className='listingName'>{userName}</p>
         </div>
         <div>

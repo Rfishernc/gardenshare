@@ -4,7 +4,7 @@ import apiKeys from './apiKeys';
 const URL = apiKeys.firebaseKeys.databaseURL;
 
 const getGiveAways = () => new Promise((resolve, reject) => {
-  axios.get(`${URL}/giveAways.json?orderBy="completed"&equalTo="false"`)
+  axios.get(`${URL}/giveAways.json?orderBy="completed"&equalTo=false`)
     .then((data) => {
       const giveAwaysObject = data.data;
       const giveAwaysArray = [];
@@ -27,8 +27,9 @@ const getUserByUserName = userName => new Promise((resolve, reject) => {
       const userObject = data.data;
       let user = '';
       if (userObject !== null) {
-        // eslint-disable-next-line prefer-destructuring
-        user = userObject[0];
+        Object.keys(userObject).forEach((key) => {
+          user = userObject[key];
+        });
       }
       resolve(user);
     })
@@ -37,8 +38,8 @@ const getUserByUserName = userName => new Promise((resolve, reject) => {
     });
 });
 
-const getUsersForGiveAways = () => new Promise((resolve, reject) => {
-  getGiveAways()
+const getUsersForGiveAways = zipcodes => new Promise((resolve, reject) => {
+  getGiveAwaysByZips(zipcodes)
     .then((giveAwaysArray) => {
       const promiseArray = [];
       if (giveAwaysArray !== []) {
@@ -106,10 +107,29 @@ const postGiveAway = giveAway => new Promise((resolve, reject) => {
     });
 });
 
+const getGiveAwaysByZips = zipcodes => new Promise((resolve, reject) => {
+  getGiveAways()
+    .then((giveAwaysArray) => {
+      const filteredArray = [];
+      giveAwaysArray.forEach((giveAway) => {
+        zipcodes.forEach((zipcode) => {
+          if (zipcode === giveAway.zipcode) {
+            filteredArray.push(giveAway);
+          }
+        });
+      });
+      resolve(filteredArray);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
 export default {
   getGiveAways,
   getUsersForGiveAways,
   getUser,
   getPlantsByUser,
   postGiveAway,
+  getGiveAwaysByZips,
 };
