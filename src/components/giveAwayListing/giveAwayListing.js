@@ -2,9 +2,31 @@ import React from 'react';
 import './giveAwayListing.scss';
 
 class giveAwayListing extends React.Component {
+  plantsBuilder = () => {
+    const plantsRender = [];
+    Object.keys(this.props.plants).forEach((plantKey) => {
+      plantsRender.push(<div key={plantKey}>
+        <p>{plantKey}</p>
+        <p>{this.props.plants[plantKey]}</p>
+      </div>);
+    });
+    return plantsRender;
+  }
+
   render() {
     const {
-      picture, userName, locationName, location, reliabilityRating, qualityRating, numRating,
+      picture,
+      userName,
+      locationName,
+      location,
+      reliabilityRating,
+      qualityRating,
+      numRating,
+      startDate,
+      endDate,
+      startTime,
+      endTime,
+      address,
     } = this.props;
 
     return (
@@ -27,12 +49,20 @@ class giveAwayListing extends React.Component {
             <p className='listingItem'>{qualityRating} on {numRating} Ratings</p>
           </div>
         </div>
+        <div>
+          <p>Giveaway Details</p>
+          <div>
+            <p>{address}</p>
+            <p>{startDate} through {endDate}</p>
+            <p>From {startTime} to {endTime}</p>
+          </div>
+        </div>
         <div className='listingPlantDiv'>
           <div className='listingPlantTitle'>
             <p className='listingPlantItem itemTitle'>Plant</p>
-            <p className='listingPlantItem itemTitle'>Surplus</p>
-            <p className='listingPlantItem itemTitle'>Harvest Date</p>
+            <p className='listingPlantItem itemTitle'>Quantity</p>
           </div>
+          {this.plantsBuilder()}
         </div>
       </div>
     );
