@@ -70,7 +70,7 @@ class giveAwayPlants extends React.Component {
   savePlants = (event) => {
     event.preventDefault();
     const plantArray = this.state.plantQty.filter(plant => plant.qty > 0);
-    this.props.selectPlant(plantArray);
+    this.props.selectPlants(plantArray);
     this.toggle();
   }
 
