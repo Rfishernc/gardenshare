@@ -24,6 +24,7 @@ const getTradesUser1 = userName => new Promise((resolve, reject) => {
       const tradesArray = [];
       if (tradesObject !== null) {
         Object.keys(tradesObject).forEach((key) => {
+          tradesObject[key].id = key;
           tradesArray.push(tradesObject[key]);
         });
       }
@@ -41,6 +42,7 @@ const getTradesUser2 = userName => new Promise((resolve, reject) => {
       const tradesArray = [];
       if (tradesObject !== null) {
         Object.keys(tradesObject).forEach((key) => {
+          tradesObject[key].id = key;
           tradesArray.push(tradesObject[key]);
         });
       }
@@ -57,7 +59,7 @@ const getTradeHistory = userName => new Promise((resolve, reject) => {
       getTradesUser2(userName)
         .then((tradesArray2) => {
           const tradesArray = tradesArray1.concat(tradesArray2);
-          const filteredTrades = tradesArray.filter(trade => trade.qualityRating !== false);
+          const filteredTrades = tradesArray.filter(trade => trade.qualityRating1 !== false);
           resolve(filteredTrades);
         });
     })
