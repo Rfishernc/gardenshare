@@ -43,7 +43,12 @@ class createAccount extends React.Component {
                 });
             })
             .catch((err) => {
-              console.log(err);
+              if (err.code === 'auth/email-already-in-use') {
+                this.setState({ error: 'Email already registered.  Use another email address' });
+              }
+              if (err.code === 'auth/weak-password') {
+                this.setState({ error: 'Password must be at least six characters' });
+              }
             });
         }
       });
@@ -81,7 +86,8 @@ class createAccount extends React.Component {
       this.setState({ error: 'Incorrect zip code format.  Use 5 digit code' });
     } else {
       splitZip.forEach((char) => {
-        if (char !== '0' || '1' || '2' || '3' || '4' || '5' || '6' || '7' || '8' || '9') {
+        if (char !== '0' && char !== '1' && char !== '2' && char !== '3' && char !== '4' && char !== '5'
+        && char !== '6' && char !== '7' && char !== '8' && char !== '9') {
           this.setState({ error: 'Incorrect zip code character input.' });
         }
       });
