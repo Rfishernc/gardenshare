@@ -27,6 +27,23 @@ class userListing extends React.Component {
     return plantsRender;
   }
 
+  ratingStarBuilder = (rating) => {
+    const renderArray = [];
+    let starCounter = 0;
+    for (let i = 1; i <= rating / 2; i += 1) {
+      renderArray.push(<i className="fas fa-star" id={i}></i>);
+      starCounter += 1;
+    }
+    if ((rating / 2) > Math.floor(rating / 2)) {
+      starCounter += 1;
+      renderArray.push(<i className="fas fa-star-half-alt" id={starCounter}></i>);
+    }
+    for (let i = 1; i <= (5 - starCounter); i += 1) {
+      renderArray.push(<i className="far fa-star" id={i + starCounter}></i>);
+    }
+    return renderArray;
+  }
+
   render() {
     const {
       picture, location, locationName, reliabilityRating, qualityRating, numRating, userName,
@@ -44,11 +61,11 @@ class userListing extends React.Component {
           </div>
           <div className='listingUnit'>
             <p className='listingItem'>Reliability Rating: </p>
-            <p className='listingItem'>{reliabilityRating} on {numRating} Ratings</p>
+            <p className='listingItem'>{this.ratingStarBuilder(reliabilityRating)} on {numRating} Ratings</p>
           </div>
           <div className='listingUnit'>
             <p className='listingItem'>Quality Rating: </p>
-            <p className='listingItem'>{qualityRating} on {numRating} Ratings</p>
+            <p className='listingItem'>{this.ratingStarBuilder(qualityRating)} on {numRating} Ratings</p>
           </div>
         </div>
         <div className='listingPlantDiv'>

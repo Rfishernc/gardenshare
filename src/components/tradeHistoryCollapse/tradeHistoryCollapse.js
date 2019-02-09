@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Collapse, Button, CardBody, Card,
+  Collapse, CardBody, Card,
 } from 'reactstrap';
 import './tradeHistoryCollapse.scss';
 
@@ -23,8 +23,8 @@ class tradeHistoryCollapse extends React.Component {
     };
     Object.keys(samePlants()).forEach((plant) => {
       plantsRender.push(<div key={plant}>
-        <p>{plant}</p>
-        <p>{samePlants()[plant]}</p>
+        <p className='THInfo'>{plant}</p>
+        <p className='THInfo'>{samePlants()[plant]}</p>
       </div>);
     });
     return plantsRender;
@@ -40,11 +40,28 @@ class tradeHistoryCollapse extends React.Component {
     };
     Object.keys(otherPlants()).forEach((plant) => {
       plantsRender.push(<div key={plant}>
-        <p>{plant}</p>
-        <p>{otherPlants()[plant]}</p>
+        <p className='THInfo'>{plant}</p>
+        <p className='THInfo'>{otherPlants()[plant]}</p>
       </div>);
     });
     return plantsRender;
+  }
+
+  ratingStarBuilder = (rating) => {
+    const renderArray = [];
+    let starCounter = 0;
+    for (let i = 1; i <= rating / 2; i += 1) {
+      renderArray.push(<i className="fas fa-star" id={i}></i>);
+      starCounter += 1;
+    }
+    if ((rating / 2) > Math.floor(rating / 2)) {
+      starCounter += 1;
+      renderArray.push(<i className="fas fa-star-half-alt" id={starCounter}></i>);
+    }
+    for (let i = 1; i <= (5 - starCounter); i += 1) {
+      renderArray.push(<i className="far fa-star" id={i + starCounter}></i>);
+    }
+    return renderArray;
   }
 
   render() {
@@ -96,28 +113,35 @@ class tradeHistoryCollapse extends React.Component {
 
     return (
       <div className='tradeHistoryCollapse'>
-        <Button color="primary" onClick={this.toggle}>{this.state.collapse ? 'Minimize' : 'Expand'}</Button>
-        <Collapse isOpen={this.state.collapse}>
-          <Card>
+        <Collapse isOpen={this.props.collapse}>
+          <Card className='THDetails'>
             <CardBody>
+              <p className='THInfoHeader'>Offer Sent on {dateSent}</p>
               <div>
-                <p>{otherUser()}'s Plants</p>
-                {this.otherPlantsBuilder()}
+                <p className='THInfoHeader'>{otherUser()}'s Plants</p>
+                <div className='THInfoDiv'>
+                  {this.otherPlantsBuilder()}
+                </div>
               </div>
               <div>
-                <p>My Plants</p>
-                {this.samePlantsBuilder()}
-              </div>
-              <p>Offer Sent on {dateSent}</p>
-              <div>
-                <p>{otherUser()}'s Ratings</p>
-                <p>Quality: {otherQuality()}</p>
-                <p>Reliability: {otherReliability()}</p>
+                <p className='THInfoHeader'>My Plants</p>
+                <div className='THInfoDiv'>
+                  {this.samePlantsBuilder()}
+                </div>
               </div>
               <div>
-                <p>My Ratings</p>
-                <p>Quality: {sameQuality()}</p>
-                <p>Reliability: {sameReliability()}</p>
+                <p className='THInfoHeader'>{otherUser()}'s Ratings</p>
+                <div className='THInfoDiv'>
+                  <p className='THInfo'>Quality: {this.ratingStarBuilder(otherQuality())}</p>
+                  <p className='THInfo'>Reliability: {this.ratingStarBuilder(otherReliability())}</p>
+                </div>
+              </div>
+              <div>
+                <p className='THInfoHeader'>My Ratings</p>
+                <div className='THInfoDiv'>
+                  <p className='THInfo'>Quality: {this.ratingStarBuilder(sameQuality())}</p>
+                  <p className='THInfo'>Reliability: {this.ratingStarBuilder(sameReliability())}</p>
+                </div>
               </div>
             </CardBody>
           </Card>

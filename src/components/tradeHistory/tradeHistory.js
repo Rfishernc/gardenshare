@@ -9,6 +9,11 @@ class tradeHistory extends React.Component {
   state = {
     tradesArray: '',
     user: '',
+    collapse: false,
+  }
+
+  toggle = () => {
+    this.setState({ collapse: !this.state.collapse });
   }
 
   componentWillMount() {
@@ -35,11 +40,13 @@ class tradeHistory extends React.Component {
           }
           return trade.user1;
         };
-        historyRender.push(<div key={trade.id}>
-          <p>{otherUser()}</p>
-          <p>{trade.dateTrade}</p>
+        historyRender.push(<div key={trade.id} className='THDiv' onClick={this.toggle}>
+          <div className='THHeading'>
+            <p className='THHeadingPar'>{otherUser()}</p>
+            <p className='THHeadingPar'>{trade.dateTrade}</p>
+          </div>
           <TradeHistoryCollapse key={trade.id} plants1={trade.plantsUser1}
-          plants2={trade.plantsUser2} quality1={trade.qualityRating1}
+          plants2={trade.plantsUser2} quality1={trade.qualityRating1} collapse={this.state.collapse}
           quality2={trade.qualityRating2} reliability1={trade.reliabilityRating1}
           reliability2={trade.reliabilityRating2} dateSent={trade.dateSent}
           user={this.state.user} user1={trade.user1} user2={trade.user2}/>
@@ -54,7 +61,9 @@ class tradeHistory extends React.Component {
       <div className='tradeHistory'>
         <Navbar/>
         <div className='container-fluid'>
-          {this.tradeHistoryBuilder()}
+          <div className='THContainer'>
+            {this.tradeHistoryBuilder()}
+          </div>
         </div>
       </div>
     );

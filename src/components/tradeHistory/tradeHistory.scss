@@ -1,0 +1,23 @@
+@import '../../styles/var';
+
+.THHeading {
+  display: flex;
+  justify-content: space-between;
+  border: 2px solid seagreen;
+  border-radius: 3px;
+  background-color: $fresh;
+}
+
+.THHeadingPar {
+  margin: 10px;
+}
+
+.THDiv {
+  width: 50%;
+}
+
+.THContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}

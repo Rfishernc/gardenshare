@@ -1,0 +1,58 @@
+@import '../../styles/var';
+
+.giveAwayListing {
+  border: 1.5px solid black;
+  background-color: $fresh;
+  margin-top: 5px;
+}
+
+.GALInfoDiv {
+  display: flex;
+  justify-content: space-around;
+}
+
+.GALInfoPar {
+  margin: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.GAListingPlantDiv {
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-around;
+}
+
+.GALPlantDiv {
+  display: flex;
+}
+
+.GALPlantPar {
+  margin: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.GAListingUnit {
+  display: flex;
+}
+
+.GAListingItem {
+  margin: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 35%;
+  text-align: left;
+}
+
+.GAListingName {
+  border: 1.5px solid black;
+  border-radius: 5px;
+  background-color: $varLGray;
+  font-size: 0.9em;
+}
+
+.GAListingTitle {
+  font-size: 1.3em;
+  font-style: italic;
+}

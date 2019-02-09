@@ -1,0 +1,20 @@
+.THDetails {
+  border: 2px solid seagreen;
+  background-color: springgreen;
+}
+
+.THInfoDiv {
+  display: flex;
+  justify-content: space-around;
+  border: ridge 2px black;
+}
+
+.THInfoHeader {
+  font-size: 1.3em;
+  font-style: italic;
+}
+
+.THInfo {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
