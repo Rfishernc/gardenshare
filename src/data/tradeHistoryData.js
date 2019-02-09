@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment';
 import apiKeys from './apiKeys';
 
 const URL = apiKeys.firebaseKeys.databaseURL;
@@ -60,7 +61,9 @@ const getTradeHistory = userName => new Promise((resolve, reject) => {
         .then((tradesArray2) => {
           const tradesArray = tradesArray1.concat(tradesArray2);
           const filteredTrades = tradesArray.filter(trade => trade.qualityRating1 !== false);
-          resolve(filteredTrades);
+          const sortedArray = filteredTrades.sort((a, b) => moment(a.dateTrade).unix()
+          - moment(b.dateTrade).unix());
+          resolve(sortedArray);
         });
     })
     .catch((err) => {

@@ -21,6 +21,9 @@ class userInfo extends React.Component {
     editingPicture: false,
     editingEmail: false,
     currentPicture: '',
+    locationError: false,
+    locationNameError: false,
+    emailError: false,
   }
 
   componentWillMount() {
@@ -96,38 +99,52 @@ class userInfo extends React.Component {
   }
 
   clickedSave = (event) => {
+    this.setState({ locationError: false, locationNameError: false, emailError: false });
     event.preventDefault();
     if (event.target.id === 'saveLocationName') {
-      this.setState({ editingLocationName: false });
-      userInfoData.updateUserInfo(this.state.dbKey, { locationName: document.getElementById('locationNameInput').value })
-        .then(() => {
-          this.refreshInfo();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      if (document.getElementById('locationNameInput').value === '') {
+        this.setState({ locationNameError: true });
+      } else {
+        this.setState({ editingLocationName: false });
+        userInfoData.updateUserInfo(this.state.dbKey, { locationName: document.getElementById('locationNameInput').value })
+          .then(() => {
+            this.refreshInfo();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     } else if (event.target.id === 'saveLocation') {
-      this.setState({ editingLocation: false });
-      userInfoData.updateUserInfo(this.state.dbKey, { location: document.getElementById('locationInput').value })
-        .then(() => {
-          this.refreshInfo();
-        })
-        .catch((err) => {
-          console.log(err);
+      this.zipcodeValidator()
+        .then((zip) => {
+          if (this.state.locationError === false) {
+            this.setState({ editingLocation: false });
+            userInfoData.updateUserInfo(this.state.dbKey, { location: zip })
+              .then(() => {
+                this.refreshInfo();
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
         });
     } else if (event.target.id === 'saveEmail') {
-      this.setState({ editingEmail: false });
-      userInfoData.updateEmail(this.state.userName, { email: document.getElementById('emailInput').value })
-        .then(() => {
-          const user = firebase.auth().currentUser;
-          user.updateEmail(document.getElementById('emailInput').value)
-            .then(() => {
-              this.refreshInfo();
-            });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      if (document.getElementById('emailInput').value === '') {
+        this.setState({ emailError: true });
+      } else {
+        this.setState({ editingEmail: false });
+        userInfoData.updateEmail(this.state.userName, { email: document.getElementById('emailInput').value })
+          .then(() => {
+            const user = firebase.auth().currentUser;
+            user.updateEmail(document.getElementById('emailInput').value)
+              .then(() => {
+                this.refreshInfo();
+              });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     } else {
       this.setState({ editingPicture: false });
       userInfoData.getPicture(this.state.userName)
@@ -144,6 +161,7 @@ class userInfo extends React.Component {
   }
 
   clickedCancel = (event) => {
+    this.setState({ locationError: false, locationNameError: false, emailError: false });
     event.preventDefault();
     if (event.target.id === 'cancelLocationName') {
       this.setState({ editingLocationName: false });
@@ -176,6 +194,7 @@ class userInfo extends React.Component {
         <input type='text' className='userInfoUnitInput' id='locationNameInput'/>
         <button type='button' className='saveLink' onClick={this.clickedSave} id='saveLocationName'>Save</button>
         <button type='button' className='cancelLink' onClick={this.clickedCancel} id='cancelLocationName'>Cancel</button>
+        <p className='errorMsg'>{this.state.locationNameError ? 'No location entered' : null}</p>
         </div>;
     }
     return <div className='dataDiv'>
@@ -190,6 +209,7 @@ class userInfo extends React.Component {
         <input type='text' className='userInfoUnitInput' id='locationInput'/>
         <button type='button' className='saveLink' onClick={this.clickedSave} id='saveLocation'>Save</button>
         <button type='button' className='cancelLink' onClick={this.clickedCancel} id='cancelLocation'>Cancel</button>
+        <p className='errorMsg'>{this.state.locationError ? this.state.locationError : null}</p>
         </div>;
     }
     return <div className='dataDiv'>
@@ -222,6 +242,7 @@ class userInfo extends React.Component {
       <input type='email' className='userInfoUnitInput' id='emailInput'/>
       <button type='button' className='saveLink' onClick={this.clickedSave} id='saveEmail'>Save</button>
       <button type='button' className='cancelLink' onClick={this.clickedCancel} id='cancelEmail'>Cancel</button>
+      <p className='errorMsg'>{this.state.emailError ? 'No email entered' : null}</p>
       </div>;
     }
     return <div className='dataDiv'>
@@ -229,6 +250,24 @@ class userInfo extends React.Component {
     <button type='button' className='editLink' onClick={this.clickedEdit} id='editEmail'>Edit</button>
     </div>;
   }
+
+  zipcodeValidator = () => new Promise((resolve) => {
+    const zip = document.getElementById('locationInput').value;
+    const splitZip = zip.split('');
+    if (zip === '') {
+      this.setState({ locationError: 'No zip code entered' });
+    } else if (splitZip.length !== 5) {
+      this.setState({ locationError: 'Incorrect zip code format.  Use 5 digit code' });
+    } else {
+      splitZip.forEach((char) => {
+        if (char !== '0' && char !== '1' && char !== '2' && char !== '3' && char !== '4' && char !== '5'
+        && char !== '6' && char !== '7' && char !== '8' && char !== '9') {
+          this.setState({ locationError: 'Incorrect zip code character input.' });
+        }
+      });
+    }
+    resolve(zip);
+  })
 
   render() {
     return (

@@ -96,7 +96,7 @@ class tradeHistoryCollapse extends React.Component {
 
     return (
       <div className='tradeHistoryCollapse'>
-        <Button color="primary" onClick={this.toggle}>Expand</Button>
+        <Button color="primary" onClick={this.toggle}>{this.state.collapse ? 'Minimize' : 'Expand'}</Button>
         <Collapse isOpen={this.state.collapse}>
           <Card>
             <CardBody>

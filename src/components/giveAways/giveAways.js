@@ -15,6 +15,7 @@ class giveAways extends React.Component {
     userPlants: [],
     selectedPlants: [],
     zipcodeRadius: 0,
+    error: false,
   }
 
   componentWillMount() {
@@ -63,22 +64,28 @@ class giveAways extends React.Component {
 
   submitGiveAway = (event) => {
     event.preventDefault();
-    const selectedPLantsObj = {};
-    this.state.selectedPlants.forEach((plantOb) => {
-      selectedPLantsObj[plantOb.plant] = plantOb.qty;
-    });
-    const giveAwayOb = {
-      userName: this.state.userName,
-      startDate: document.getElementById('startDateInput').value,
-      endDate: document.getElementById('endDateInput').value,
-      address: document.getElementById('addressInput').value,
-      startTime: document.getElementById('timeStartInput').value,
-      endTime: document.getElementById('timeEndInput').value,
-      plants: selectedPLantsObj,
-      completed: false,
-      zipcode: document.getElementById('zipcodeInput').value,
-    };
-    giveAwaysData.postGiveAway(giveAwayOb);
+    this.setState({ error: false });
+    this.validator()
+      .then(() => {
+        if (this.state.error === false) {
+          const selectedPLantsObj = {};
+          this.state.selectedPlants.forEach((plantOb) => {
+            selectedPLantsObj[plantOb.plant] = plantOb.qty;
+          });
+          const giveAwayOb = {
+            userName: this.state.userName,
+            startDate: document.getElementById('startDateInput').value,
+            endDate: document.getElementById('endDateInput').value,
+            address: document.getElementById('addressInput').value,
+            startTime: document.getElementById('timeStartInput').value,
+            endTime: document.getElementById('timeEndInput').value,
+            plants: selectedPLantsObj,
+            completed: false,
+            zipcode: document.getElementById('zipcodeInput').value,
+          };
+          giveAwaysData.postGiveAway(giveAwayOb);
+        }
+      });
   }
 
   zipcodeRadius = (radius) => {
@@ -97,6 +104,42 @@ class giveAways extends React.Component {
         console.log(err);
       });
   }
+
+  validator = () => new Promise((resolve) => {
+    const startDate = document.getElementById('startDateInput').value;
+    const endDate = document.getElementById('endDateInput').value;
+    const startTime = document.getElementById('timeStartInput').value;
+    const endTime = document.getElementById('timeEndInput').value;
+    const address = document.getElementById('addressInput').value;
+    const zip = document.getElementById('zipcodeInput').value;
+    const splitZip = zip.split('');
+    const plants = this.state.selectedPlants;
+    if (startDate === '') {
+      this.setState({ error: 'No starting date entered' });
+    } else if (endDate === '') {
+      this.setState({ error: 'No ending date entered' });
+    } else if (startDate > endDate) {
+      this.setState({ error: 'Ending date cannot pre-date starting date' });
+    } else if (startTime > endTime) {
+      this.setState({ error: 'Ending time cannot occur before starting time' });
+    } else if (address === '') {
+      this.setState({ error: 'No address entered' });
+    } else if (plants.length === 0) {
+      this.setState({ error: 'No plants selected' });
+    } else if (zip === '') {
+      this.setState({ error: 'No zip code entered' });
+    } else if (splitZip.length !== 5) {
+      this.setState({ error: 'Incorrect zip code format.  Use 5 digit code' });
+    } else {
+      splitZip.forEach((char) => {
+        if (char !== '0' && char !== '1' && char !== '2' && char !== '3' && char !== '4' && char !== '5'
+        && char !== '6' && char !== '7' && char !== '8' && char !== '9') {
+          this.setState({ error: 'Incorrect zip code character input.' });
+        }
+      });
+    }
+    resolve();
+  })
 
   render() {
     return (
@@ -133,6 +176,7 @@ class giveAways extends React.Component {
               userName={this.state.userName}
               selectPlants={this.selectPlants}/> : null }
               <button type='button' onClick={this.submitGiveAway}>Post Giveaway</button>
+              <p className='errorMsg'>{this.state.error ? this.state.error : null}</p>
               <div className='searchDiv'>
                 <p>Expand Search Radius</p>
                 <ZipcodeSelector zipcodeRadius={this.zipcodeRadius}/>
