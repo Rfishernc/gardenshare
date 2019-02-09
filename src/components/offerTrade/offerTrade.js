@@ -18,6 +18,7 @@ class offerTrade extends React.Component {
     offerList: [],
     requestList: [],
     tradeId: '',
+    tradeError: false,
   };
 
   toggle = () => {
@@ -75,8 +76,10 @@ class offerTrade extends React.Component {
           qty: this.state.currentQty,
         };
         const pushedList = this.state.offerList;
-        pushedList.push(currentAdd);
-        this.setState({ offerList: pushedList, currentPlant: '', currentQty: '' });
+        if (this.state.currentPlant !== '') {
+          pushedList.push(currentAdd);
+          this.setState({ offerList: pushedList, currentPlant: '', currentQty: '' });
+        }
       });
   }
 
@@ -89,50 +92,58 @@ class offerTrade extends React.Component {
           qty: this.state.currentQty,
         };
         const pushedList = this.state.requestList;
-        pushedList.push(currentAdd);
-        this.setState({ requestList: pushedList, currentPlant: '', currentQty: '' });
+        if (this.state.currentPlant !== '') {
+          pushedList.push(currentAdd);
+          this.setState({ requestList: pushedList, currentPlant: '', currentQty: '' });
+        }
       });
   }
 
   submitOffer = (event) => {
-    const user1Plants = {
-    };
-    this.state.offerList.forEach((offer) => {
-      user1Plants[offer.plant] = offer.qty;
-    });
-    const user2Plants = {
-    };
-    this.state.requestList.forEach((request) => {
-      user2Plants[request.plant] = request.qty;
-    });
-    event.preventDefault();
-    const marker = `${Math.random()}`;
-    const tradeObject = {
-      user1: this.state.userName,
-      user2: this.props.userName,
-      dateSent: moment().format('MM DD YYYY'),
-      dateTrade: document.getElementById('dateInput').value,
-      accepted: false,
-      plantsUser1: user1Plants,
-      plantsUser2: user2Plants,
-      reliabilityRating1: false,
-      reliabilityRating2: false,
-      qualityRating1: false,
-      qualityRating2: false,
-      marker,
-    };
-    offerTradeData.postOffer(tradeObject)
+    this.setState({ tradeError: false });
+    this.validateTrade()
       .then(() => {
-        this.setState({ offerList: [], requestList: [] });
-        this.toggle();
-        this.props.toggleParent();
-        offerTradeData.getTradeIdByMarker(marker)
-          .then((tradeId) => {
-            this.addMessage(tradeId);
+        if (this.state.tradeError === false) {
+          const user1Plants = {
+          };
+          this.state.offerList.forEach((offer) => {
+            user1Plants[offer.plant] = offer.qty;
           });
-      })
-      .catch((err) => {
-        console.log(err);
+          const user2Plants = {
+          };
+          this.state.requestList.forEach((request) => {
+            user2Plants[request.plant] = request.qty;
+          });
+          event.preventDefault();
+          const marker = `${Math.random()}`;
+          const tradeObject = {
+            user1: this.state.userName,
+            user2: this.props.userName,
+            dateSent: moment().format('MM DD YYYY'),
+            dateTrade: document.getElementById('dateInput').value,
+            accepted: false,
+            plantsUser1: user1Plants,
+            plantsUser2: user2Plants,
+            reliabilityRating1: false,
+            reliabilityRating2: false,
+            qualityRating1: false,
+            qualityRating2: false,
+            marker,
+          };
+          offerTradeData.postOffer(tradeObject)
+            .then(() => {
+              this.setState({ offerList: [], requestList: [] });
+              this.toggle();
+              this.props.toggleParent();
+              offerTradeData.getTradeIdByMarker(marker)
+                .then((tradeId) => {
+                  this.addMessage(tradeId);
+                });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
       });
   }
 
@@ -175,6 +186,18 @@ class offerTrade extends React.Component {
     });
   }
 
+  validateTrade = () => new Promise((resolve) => {
+    const msg = document.getElementById('messagesInput').value;
+    if (msg === '') {
+      this.setState({ tradeError: 'No message entered' });
+    } else if (this.state.offerList.length === 0) {
+      this.setState({ tradeError: 'No plants offered for trade' });
+    } else if (this.state.requestList.length === 0) {
+      this.setState({ tradeError: 'No plants requested for trade' });
+    }
+    resolve();
+  })
+
   render() {
     return (
       <div className="offerTrade">
@@ -210,6 +233,7 @@ class offerTrade extends React.Component {
               <p>Trade Date: </p>
               <input type='date' id='dateInput'/>
               <button type='button' onClick={this.submitOffer}>Submit</button>
+              <p className='errorMsg'>{this.state.tradeError ? this.state.tradeError : null}</p>
             </div>
           </ModalBody>
         </Modal>

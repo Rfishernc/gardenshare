@@ -33,6 +33,23 @@ const createEmailObject = newUserEmail => new Promise((resolve, reject) => {
     });
 });
 
+const getUserList = () => new Promise((resolve, reject) => {
+  axios.get(`${apiKeys.firebaseKeys.databaseURL}/users.json`)
+    .then((data) => {
+      const usersObject = data.data;
+      const usersArray = [];
+      if (usersObject !== null) {
+        Object.keys(usersObject).forEach((key) => {
+          usersArray.push(usersObject[key]);
+        });
+      }
+      resolve(usersArray);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
 const getNewUser = () => firebase.auth().currentUser;
 
 export default {
@@ -40,4 +57,5 @@ export default {
   createUserObject,
   getNewUser,
   createEmailObject,
+  getUserList,
 };
