@@ -1,12 +1,20 @@
 import React from 'react';
+import plantList from '../../data/plantList';
 import './giveAwayListing.scss';
 
 class giveAwayListing extends React.Component {
   plantsBuilder = () => {
     const plantsRender = [];
     Object.keys(this.props.plants).forEach((plantKey) => {
+      let img = '';
+      plantList.forEach((plant) => {
+        if (plantKey === plant.name) {
+          // eslint-disable-next-line prefer-destructuring
+          img = plant.img;
+        }
+      });
       plantsRender.push(<div key={plantKey} className='GALPlantDiv col-3'>
-        <p className='GALPlantPar'>{plantKey}</p>
+        <p className='GALPlantPar'><img alt='Img' className='plantIcon' src={img}/>{plantKey}</p>
         <p className='GALPlantPar'>{this.props.plants[plantKey]}</p>
       </div>);
     });
@@ -50,8 +58,10 @@ class giveAwayListing extends React.Component {
       <div className='giveAwayListing'>
         <div className='row'>
           <div className='col-2'>
-            <img src={picture} alt='profilePic' className='listingPic'/>
-            <p className='GAListingName'>{userName}</p>
+            <div className='GALProfile'>
+              <img src={picture} alt='profilePic' className='listingPic'/>
+              <p className='GAListingName'>{userName}</p>
+            </div>
           </div>
           <div className='col-8'>
             <p className='GAListingTitle'>User Information</p>
@@ -61,11 +71,11 @@ class giveAwayListing extends React.Component {
             </div>
             <div className='GAListingUnit'>
               <p className='GAListingItem'>Reliability Rating: </p>
-              <p className='GAListingItem'>{this.ratingStarBuilder(reliabilityRating)} on {numRating} Ratings</p>
+              <p className='GAListingItem reliability'>{this.ratingStarBuilder(reliabilityRating)} on {numRating} Ratings</p>
             </div>
             <div className='GAListingUnit'>
               <p className='GAListingItem'>Quality Rating: </p>
-              <p className='GAListingItem'>{this.ratingStarBuilder(qualityRating)} on {numRating} Ratings</p>
+              <p className='GAListingItem quality'>{this.ratingStarBuilder(qualityRating)} on {numRating} Ratings</p>
             </div>
             <div>
               <p className='GAListingTitle'>Giveaway Details</p>

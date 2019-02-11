@@ -20,7 +20,7 @@ class plantSelector extends React.Component {
     const plantRender = [];
     const plantTextSplit = this.props.plantText.split('');
     plantList.forEach((plant) => {
-      const plantSplit = plant.split('');
+      const plantSplit = plant.name.split('');
       let counter = 0;
       for (let i = 0; i < plantTextSplit.length; i += 1) {
         if (plantTextSplit[i] === plantSplit[i]) {
@@ -28,8 +28,8 @@ class plantSelector extends React.Component {
         }
       }
       if (counter === plantTextSplit.length && plantRender.length < 10) {
-        plantRender.push(<DropdownItem value={plant}
-          onClick={this.selection}>{plant}</DropdownItem>);
+        plantRender.push(<DropdownItem value={plant.name} key={plant.name}
+          onClick={this.selection}><img alt='plant' src={plant.img} className='plantIcon'/>{plant.name}</DropdownItem>);
       }
     });
     return plantRender;

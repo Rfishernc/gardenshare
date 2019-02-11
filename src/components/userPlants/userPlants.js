@@ -1,8 +1,21 @@
 import React from 'react';
 import userPlantsData from '../../data/userPlantsData';
+import plantList from '../../data/plantList';
 import './userPlants.scss';
 
 class userPlants extends React.Component {
+  state = {
+    img: '',
+  }
+
+  componentDidMount() {
+    plantList.forEach((plant) => {
+      if (this.props.plant === plant.name) {
+        this.setState({ img: plant.img });
+      }
+    });
+  }
+
   removePlant = (event) => {
     event.preventDefault();
     userPlantsData.deletePlant(this.props.id)
@@ -23,7 +36,7 @@ class userPlants extends React.Component {
       <div className="userPlants col">
         <div>
           <ul className="plantInfo">
-            <li className="list-group-item plantLi">{plant}</li>
+            <li className="list-group-item plantLi"><img alt='Img' src={this.state.img} className='plantIcon'/>{plant}</li>
             <li className="list-group-item plantLi">{qty}</li>
             <li className="list-group-item plantLi">{surplus}</li>
             <li className="list-group-item plantLi">{datePlanted}</li>

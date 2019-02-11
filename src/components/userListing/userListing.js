@@ -1,5 +1,6 @@
 import React from 'react';
 import ListingDetails from '../listingDetails/listingDetails';
+import plantList from '../../data/plantList';
 import './userListing.scss';
 
 class userListing extends React.Component {
@@ -17,8 +18,15 @@ class userListing extends React.Component {
     const plantsRender = [];
     if (this.props.plants !== null) {
       for (let i = 0; i < 2; i += 1) {
+        let img = '';
+        plantList.forEach((plant) => {
+          if (this.props.plants[i].plant === plant.name) {
+            // eslint-disable-next-line prefer-destructuring
+            img = plant.img;
+          }
+        });
         plantsRender.push(<div key={this.props.plants[i].plant} className='listingPlantInfo'>
-          <p className='listingPlantItem'>{this.props.plants[i].plant}</p>
+          <p className='listingPlantItem'><img alt='Img' className='plantIcon' src={img}/>{this.props.plants[i].plant}</p>
           <p className='listingPlantItem'>{this.props.plants[i].surplus}</p>
           <p className='listingPlantItem'>{this.props.plants[i].dateHarvest}</p>
         </div>);

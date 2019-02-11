@@ -3,6 +3,7 @@ import {
   Modal, ModalHeader, ModalBody,
 } from 'reactstrap';
 import OfferTrade from '../offerTrade/offerTrade';
+import plantList from '../../data/plantList';
 import './listingDetails.scss';
 
 class listingDetails extends React.Component {
@@ -10,8 +11,15 @@ class listingDetails extends React.Component {
     const plantsRender = [];
     if (this.props.plants !== null) {
       this.props.plants.forEach((plantType) => {
+        let img = '';
+        plantList.forEach((plant) => {
+          if (plantType.plant === plant.name) {
+            // eslint-disable-next-line prefer-destructuring
+            img = plant.img;
+          }
+        });
         plantsRender.push(<div key={plantType.plant} className='listingDPlantDiv'>
-          <p className='listingDPlantPar'>{plantType.plant}</p>
+          <p className='listingDPlantPar'><img alt='Img' className='plantIcon' src={img}/>{plantType.plant}</p>
           <p className='listingDPlantPar'>{plantType.surplus}</p>
           <p className='listingDPlantPar'>{plantType.dateHarvest}</p>
         </div>);

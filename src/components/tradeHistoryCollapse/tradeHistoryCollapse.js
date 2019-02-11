@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Collapse, CardBody, Card,
 } from 'reactstrap';
+import plantList from '../../data/plantList';
 import './tradeHistoryCollapse.scss';
 
 class tradeHistoryCollapse extends React.Component {
@@ -22,8 +23,15 @@ class tradeHistoryCollapse extends React.Component {
       return this.props.plants1;
     };
     Object.keys(samePlants()).forEach((plant) => {
+      let img = '';
+      plantList.forEach((plantType) => {
+        if (plant === plantType.name) {
+          // eslint-disable-next-line prefer-destructuring
+          img = plantType.img;
+        }
+      });
       plantsRender.push(<div key={plant}>
-        <p className='THInfo'>{plant}</p>
+        <p className='THInfo'><img alt='Img' className='plantIcon' src={img}/>{plant}</p>
         <p className='THInfo'>{samePlants()[plant]}</p>
       </div>);
     });
@@ -39,8 +47,15 @@ class tradeHistoryCollapse extends React.Component {
       return this.props.plants1;
     };
     Object.keys(otherPlants()).forEach((plant) => {
+      let img = '';
+      plantList.forEach((plantType) => {
+        if (plant === plantType.name) {
+          // eslint-disable-next-line prefer-destructuring
+          img = plantType.img;
+        }
+      });
       plantsRender.push(<div key={plant}>
-        <p className='THInfo'>{plant}</p>
+        <p className='THInfo'><img alt='Img' className='plantIcon' src={img}/>{plant}</p>
         <p className='THInfo'>{otherPlants()[plant]}</p>
       </div>);
     });

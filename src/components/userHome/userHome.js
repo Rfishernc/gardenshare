@@ -6,7 +6,6 @@ import UserPlants from '../userPlants/userPlants';
 import PendingOffer from '../pendingOffer/pendingOffer';
 import UserTrades from '../userTrades/userTrades';
 import AddPlant from '../addPlant/addPlant';
-
 import './userHome.scss';
 
 class userHome extends React.Component {

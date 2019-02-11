@@ -5,6 +5,7 @@ import {
 import RatingScreen from '../ratingScreen/ratingScreen';
 import Messages from '../messages/messages';
 import tradeDetailsData from '../../data/tradeDetailsData';
+import plantList from '../../data/plantList';
 import './tradeDetails.scss';
 
 class tradeDetails extends React.Component {
@@ -16,8 +17,15 @@ class tradeDetails extends React.Component {
     const plantsRender = [];
     const listingKeys = Object.keys(plants);
     listingKeys.forEach((key) => {
+      let img = '';
+      plantList.forEach((plant) => {
+        if (key === plant.name) {
+          // eslint-disable-next-line prefer-destructuring
+          img = plant.img;
+        }
+      });
       plantsRender.push(<div key={key}>
-        <p>{key}</p>
+        <p><img alt='Img' className='plantIcon' src={img}/>{key}</p>
         <p>{plants[key]}</p>
       </div>);
     });

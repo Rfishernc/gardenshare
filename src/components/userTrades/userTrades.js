@@ -1,5 +1,6 @@
 import React from 'react';
 import TradeDetails from '../tradeDetails/tradeDetails';
+import plantList from '../../data/plantList';
 import './userTrades.scss';
 
 class userTrades extends React.Component {
@@ -17,8 +18,15 @@ class userTrades extends React.Component {
     const plantsRender = [];
     const listingKeys = Object.keys(plants);
     listingKeys.forEach((key) => {
+      let img = '';
+      plantList.forEach((plantType) => {
+        if (key === plantType.name) {
+          // eslint-disable-next-line prefer-destructuring
+          img = plantType.img;
+        }
+      });
       plantsRender.push(<div key={key} className='tradePlants'>
-        <p>{key}</p>
+        <p><img src={img} alt='Img' className='plantIcon'/>{key}</p>
         <p>{plants[key]}</p>
       </div>);
     });

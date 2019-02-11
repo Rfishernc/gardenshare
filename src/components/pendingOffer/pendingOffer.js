@@ -1,6 +1,7 @@
 import React from 'react';
 import pendingOfferData from '../../data/pendingOfferData';
 import messagesData from '../../data/messagesData';
+import plantList from '../../data/plantList';
 import './pendingOffer.scss';
 
 class pendingOffer extends React.Component {
@@ -22,8 +23,15 @@ class pendingOffer extends React.Component {
     const plantsRender = [];
     const listingKeys = Object.keys(plants);
     listingKeys.forEach((key) => {
+      let img = '';
+      plantList.forEach((plantType) => {
+        if (key === plantType.name) {
+          // eslint-disable-next-line prefer-destructuring
+          img = plantType.img;
+        }
+      });
       plantsRender.push(<div key={key} className='tradePlants'>
-        <p>{key}</p>
+        <p><img alt='Img' className='plantIcon' src={img}/>{key}</p>
         <p>{plants[key]}</p>
       </div>);
     });

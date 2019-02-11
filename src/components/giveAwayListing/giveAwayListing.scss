@@ -50,9 +50,23 @@
   border-radius: 5px;
   background-color: $varLGray;
   font-size: 0.9em;
+  width: 100%;
+  margin-left: 3px;
 }
 
 .GAListingTitle {
   font-size: 1.3em;
   font-style: italic;
+}
+
+.GALProfile {
+  width: 150px;
+}
+
+.quality {
+  color: seagreen;
+}
+
+.reliability {
+  color: blue;
 }
