@@ -132,6 +132,19 @@ class tradeDetails extends React.Component {
       });
   }
 
+  buttonBuilder = () => {
+    if (this.props.pending) {
+      if (this.props.user1 === this.props.user) {
+        return <button className='btn btn-sml btn-danger offersButton' onClick={this.removeThisOffer}>Rescind Offer</button>;
+      }
+      return <div className='offerButtons'>
+        <button className='btn btn-sml btn-success offersButton' onClick={this.acceptThisOffer}>Accept Offer</button>
+        <button className='btn btn-sml btn-danger offersButton' onClick={this.removeThisOffer}>Decline Offer</button>
+      </div>;
+    }
+    return <button type='button' onClick={this.closeTrade} className='closeTradeButton'>Close Trade</button>;
+  }
+
   modalBuilder = () => {
     const {
       dateSent, dateTrade, plantsUser1, plantsUser2, user1, user2, user,
@@ -190,7 +203,7 @@ class tradeDetails extends React.Component {
             <li className="list-group-item detailsLi">{this.plantsListBuilder(otherUserPlants())}</li>
           </ul>
         </div>
-        <button type='button' onClick={this.closeTrade} className='closeTradeButton'>Close Trade</button>
+        {this.buttonBuilder()}
         <Messages user={this.props.user} tradeId={this.props.id}/>
       </ModalBody>
     </div>;

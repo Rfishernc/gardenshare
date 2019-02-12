@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'reactstrap';
 import firebase from 'firebase/app';
 import userHomeData from '../../data/userHomeData';
 import Navbar from '../navbar/navbar';
@@ -16,6 +17,8 @@ class userHome extends React.Component {
     trades: '',
     sentOffers: '',
     receivedOffers: '',
+    removing: false,
+    uploading: false,
   }
 
   componentWillMount() {
@@ -73,7 +76,8 @@ class userHome extends React.Component {
         plantsRender.push(<UserPlants dateHarvest={plantO.dateHarvest}
         datePlanted={plantO.datePlanted} qty={plantO.qty}
         id={plantO.id} refreshPlants={this.refreshPlants}
-        plant={plantO.plant} surplus={plantO.surplus} key={plantO.id}/>);
+        plant={plantO.plant} surplus={plantO.surplus} key={plantO.id}
+        removing={this.state.removing} endRemoverMode={this.endRemoverMode}/>);
       });
     }
     return plantsRender;
@@ -102,15 +106,19 @@ class userHome extends React.Component {
         sentRender.push(<PendingOffer dateSent={offer.dateSent} dateTrade={offer.dateTrade}
         user1={offer.user1} user2={offer.user2} user={this.state.userName} id={offer.id}
         plantsUser1={offer.plantsUser1} plantsUser2={offer.plantsUser2}
-        refreshOffers={this.refreshOffers} key={offer.id}/>);
+        refreshOffers={this.refreshOffers} key={offer.id} refreshPlants={this.refreshPlants}
+        qualityRating1={offer.qualityRating1} reliabilityRating1={offer.reliabilityRating1}
+        qualityRating2={offer.qualityRating2} reliabilityRating2={offer.reliabilityRating2}/>);
       });
     }
     if (this.state.receivedOffers !== '') {
       this.state.receivedOffers.forEach((offer) => {
         receivedRender.push(<PendingOffer dateSent={offer.dateSent} dateTrade={offer.dateTrade}
           user1={offer.user1} user2={offer.user2} id={offer.id}
-          refreshOffers={this.refreshOffers}
-          plantsUser1={offer.plantsUser1} plantsUser2={offer.plantsUser2} key={offer.id}/>);
+          refreshOffers={this.refreshOffers} refreshPlants={this.refreshPlants}
+          plantsUser1={offer.plantsUser1} plantsUser2={offer.plantsUser2} key={offer.id}
+          qualityRating1={offer.qualityRating1} reliabilityRating1={offer.reliabilityRating1}
+          qualityRating2={offer.qualityRating2} reliabilityRating2={offer.reliabilityRating2}/>);
       });
     }
     return <div>
@@ -119,22 +127,65 @@ class userHome extends React.Component {
           </div>;
   }
 
+  showOffers = (event) => {
+    event.preventDefault();
+    document.getElementById('userTradesList').style.display = 'none';
+    document.getElementById('pendingOfferList').style.display = 'flex';
+    if (document.getElementById('offerBut').className.includes(' currentTradesButton') === false) {
+      document.getElementById('offerBut').className += ' currentTradesButton';
+      document.getElementById('tradeBut').className = document.getElementById('tradeBut').className.replace(' currentTradesButton', '');
+    }
+  }
+
+  showTrades = (event) => {
+    event.preventDefault();
+    document.getElementById('pendingOfferList').style.display = 'none';
+    document.getElementById('userTradesList').style.display = 'flex';
+    if (document.getElementById('tradeBut').className.includes(' currentTradesButton') === false) {
+      document.getElementById('tradeBut').className += ' currentTradesButton';
+      document.getElementById('offerBut').className = document.getElementById('offerBut').className.replace(' currentTradesButton', '');
+    }
+  }
+
+  removerMode = (event) => {
+    event.preventDefault();
+    this.setState({ removing: true });
+  }
+
+  endRemoverMode = () => {
+    this.setState({ removing: false });
+  }
+
+  clickedOff = (event) => {
+    event.preventDefault();
+    if (this.state.removing && event.target.className.includes('deleteMeLi') === false) {
+      this.setState({ removing: false });
+    }
+  }
+
+  uploadPhoto = (event) => {
+    event.preventDefault();
+    this.setState({ uploading: true });
+  }
+
   render() {
     return (
-      <div className="userHome">
+      <div className="userHome" onClick={this.clickedOff}>
         <Navbar/>
         <div className='container-fluid'>
           <div className='row userHomeUpperDiv'>
-            <div className='userProfile col-3'>
+            <div className='userProfile col-4'>
               <img src={this.state.picture} className='userPicture' alt='profilepic'/>
               <p className='userTitle'>{this.state.userName}</p>
-            </div>
-            <div className='col-1 addPlantButtonDiv'>
-              <AddPlant refreshPlants={this.refreshPlants} user={this.state.userName}/>
             </div>
             <div className='userPlantsList col-8'>
               <div className='fYouFlex'>
                 <p className='plantsTitle'>My Plants</p>
+              </div>
+              <div className='plantButtsDiv'>
+                <AddPlant refreshPlants={this.refreshPlants} user={this.state.userName}/>
+                <Button className='plantButton' id='removeBut' onClick={this.removerMode}>Remove</Button>
+                <Button className='plantButton' id='uploadBut' onClick={this.uploadPhoto}>Upload Photos</Button>
               </div>
               <div className='col userPlants'>
                 <ul className="plantInfo">
@@ -148,31 +199,32 @@ class userHome extends React.Component {
               {this.userPlantsBuilder()}
             </div>
           </div>
-          <div className='row offersInfo'>
-            <div className='userTradesList col'>
-              <div className='flexIsMyEnemy'><p className='userTradesTitle'>Active Trades</p></div>
-              <ul className="userTradesInfo">
-                  <li className="list-group-item tradeLi">User</li>
-                  <li className="list-group-item tradeLi">Offer Date</li>
-                  <li className="list-group-item tradeLi">Transaction Date</li>
-                  <li className="list-group-item tradeLi">My Contribution</li>
-                  <li className="list-group-item tradeLi">Their Contribution</li>
-                </ul>
-              {this.userTradesBuilder()}
+          <div className='row'>
+          <div className='offersInfo col-4'>
+            <p className='tradesTitle'>My Trades</p>
+            <div className='buttonsOffers'>
+              <button type='button' onClick={this.showOffers} className='inactiveButton currentTradesButton' id='offerBut'>Pending Offers</button>
+              <button type='button' onClick={this.showTrades} className='inactiveButton' id='tradeBut'>Active Trades</button>
             </div>
-            <div className='pendingOfferList col'>
-              <div className='flexIHateYou'><p className='pendingOfferTitle'>Pending Offers</p></div>
-              <div className='stupidFlex'>
+            <div className='pendingOfferList' id='pendingOfferList'>
+              <div>
                 <ul className="userTradesInfo">
                     <li className="list-group-item tradeLi">User</li>
                     <li className="list-group-item tradeLi">Offer Date</li>
                     <li className="list-group-item tradeLi">Transaction Date</li>
-                    <li className="list-group-item tradeLi">My Contribution</li>
-                    <li className="list-group-item tradeLi">Their Contribution</li>
                   </ul>
-                {this.pendingOfferBuilder()}
               </div>
+              {this.pendingOfferBuilder()}
             </div>
+            <div className='userTradesList' id='userTradesList'>
+              <ul className="userTradesInfo">
+                  <li className="list-group-item tradeLi">User</li>
+                  <li className="list-group-item tradeLi">Offer Date</li>
+                  <li className="list-group-item tradeLi">Transaction Date</li>
+                </ul>
+              {this.userTradesBuilder()}
+            </div>
+          </div>
           </div>
         </div>
       </div>

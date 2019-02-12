@@ -3,12 +3,12 @@
 .userProfile {
   display: flex;
   flex-flow: column;
-  align-items: flex-start;
+  align-items: center;
   width: 300px;
 }
 
 .userPicture, .userTitle {
-  width: 70%;
+  width: 50%;
   margin-left: auto;
   margin-right: auto;
   border: 1.5px solid black;
@@ -26,17 +26,17 @@
   align-items: center;
   overflow: auto;
   margin-top: 10px;
-  max-height: 100%;
 }
 
 .plantInfo {
   display: flex;
   flex-flow: row;
   margin-bottom: 0px;
+  padding-left: 0;
 }
 
 .plantLi {
-  width: 135px;
+  width: 20%;
 }
 
 .plantInfoLi {
@@ -64,6 +64,18 @@
   padding-right: 35px;
 }
 
+.tradesTitle {
+  font-size: 2em;
+  border: 1.5px solid black;
+  border-radius: 4px;
+  box-shadow: 0 2px 2px;
+  background-color: $varDBrown;
+  text-align: center;
+  padding-left: 35px;
+  padding-right: 35px;
+  margin-top: 20px;
+}
+
 .userHomeUpperDiv {
   height: 18em;
 }
@@ -83,33 +95,54 @@
 }
 
 .tradeLi {
-  width: 120px;
+  width: 100%;
   font-size: 0.9em;
   background-color: darkkhaki;
-}
-
-.stupidFlex {
-  display: flex;
-  flex-flow: column;
-  align-items: flex-end;
-}
-
-.flexIHateYou {
-  display: flex;
-  justify-content: center;
-  margin-left: 80px;
-  margin-top: 10px;
-}
-
-.flexIsMyEnemy {
-  display: flex;
-  justify-content: center;
-  margin-right: 80px;
-  margin-top: 10px;
 }
 
 .fYouFlex {
   display: flex;
   justify-content: center;
-  margin-right: 130px;
+}
+
+#userTradesList {
+  display: none;
+}
+
+#pendingOfferList {
+  display: flex;
+  flex-flow: column;
+}
+
+.offersInfo {
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+}
+
+.currentTradesButton {
+  background-color: seagreen !important;
+  color: white !important;
+  border-color: seagreen !important;
+}
+
+.plantButtsDiv {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+#removeBut {
+  background-color: $fresh;
+  color: black;
+}
+
+#uploadBut {
+  background-color: $sunshine;
+}
+
+.inactiveButton {
+  background-color: $fresh;
+  color: black;
+  border-color: $fresh;
 }

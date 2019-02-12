@@ -203,8 +203,8 @@ class offerTrade extends React.Component {
       <div className="offerTrade">
       <Button color="success" onClick={this.toggle}>Request Trade</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>Trade Details</ModalHeader>
-          <ModalBody>
+          <ModalHeader toggle={this.toggle} className='modalH'>Trade Details</ModalHeader>
+          <ModalBody className='modalB'>
             <div>
               <p>Offer</p>
               <p>Plant: </p>

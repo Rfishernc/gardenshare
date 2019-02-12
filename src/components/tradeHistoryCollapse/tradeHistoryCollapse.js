@@ -134,28 +134,28 @@ class tradeHistoryCollapse extends React.Component {
               <p className='THInfoHeader'>Offer Sent on {dateSent}</p>
               <div>
                 <p className='THInfoHeader'>{otherUser()}'s Plants</p>
-                <div className='THInfoDiv'>
+                <div className='THInfoDiv THPlantDiv'>
                   {this.otherPlantsBuilder()}
                 </div>
               </div>
               <div>
                 <p className='THInfoHeader'>My Plants</p>
-                <div className='THInfoDiv'>
+                <div className='THInfoDiv THPlantDiv'>
                   {this.samePlantsBuilder()}
                 </div>
               </div>
               <div>
                 <p className='THInfoHeader'>{otherUser()}'s Ratings</p>
                 <div className='THInfoDiv'>
-                  <p className='THInfo'>Quality: {this.ratingStarBuilder(otherQuality())}</p>
-                  <p className='THInfo'>Reliability: {this.ratingStarBuilder(otherReliability())}</p>
+                  <p className='THInfo quality'>Quality: {this.ratingStarBuilder(otherQuality())}</p>
+                  <p className='THInfo reliability'>Reliability: {this.ratingStarBuilder(otherReliability())}</p>
                 </div>
               </div>
               <div>
                 <p className='THInfoHeader'>My Ratings</p>
                 <div className='THInfoDiv'>
-                  <p className='THInfo'>Quality: {this.ratingStarBuilder(sameQuality())}</p>
-                  <p className='THInfo'>Reliability: {this.ratingStarBuilder(sameReliability())}</p>
+                  <p className='THInfo quality'>Quality: {this.ratingStarBuilder(sameQuality())}</p>
+                  <p className='THInfo reliability'>Reliability: {this.ratingStarBuilder(sameReliability())}</p>
                 </div>
               </div>
             </CardBody>

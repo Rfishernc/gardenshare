@@ -8,11 +8,11 @@
 }
 
 .listingEven {
-  background-color: $varDBrown;
+  background-color: $fresh;
 }
 
 .listingOdd {
-  background-color: darkkhaki;
+  background-color: $varLBrown;
 }
 
 .listingPic {
@@ -48,7 +48,7 @@
   border: 1px solid black;
   border-radius: 2px;
   margin: 0;
-  background-color: $varLGray;
+  background-color: white;
 }
 
 .listingName {

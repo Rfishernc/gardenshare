@@ -20,8 +20,8 @@ class listingDetails extends React.Component {
         });
         plantsRender.push(<div key={plantType.plant} className='listingDPlantDiv'>
           <p className='listingDPlantPar'><img alt='Img' className='plantIcon' src={img}/>{plantType.plant}</p>
-          <p className='listingDPlantPar'>{plantType.surplus}</p>
-          <p className='listingDPlantPar'>{plantType.dateHarvest}</p>
+          <p className='listingDQtyPar'>{plantType.surplus}</p>
+          <p className='listingDQtyPar'>{plantType.dateHarvest}</p>
         </div>);
       });
     }
@@ -35,11 +35,11 @@ class listingDetails extends React.Component {
     return (
       <div className='listingDetails'>
         <Modal isOpen={this.props.modal} className='listingModal'>
-          <ModalHeader toggle={this.toggle}>
+          <ModalHeader toggle={this.toggle} className='modalH'>
             {userName}
             <button type='button' className='close closeThis' onClick={this.props.toggle}>x</button>
           </ModalHeader>
-          <ModalBody>
+          <ModalBody className='modalB'>
           <div className='listingDProfile'>
           <img src={picture} alt='profilePic' className='listingDPic'/>
           <p className='listingDName'>{userName}</p>
@@ -59,10 +59,10 @@ class listingDetails extends React.Component {
           </div>
         </div>
         <div>
-          <div className='listingPlantInfo'>
-            <p className='listingPlantTitle'>Plant</p>
-            <p className='listingPlantTitle'>Surplus</p>
-            <p className='listingPlantTitle'>Harvest Date</p>
+          <div className='listingDPlantInfo'>
+          <div className='listingPlantTitle'><p className='LDPar'>Plant</p></div>
+          <div className='listingPlantTitle'><p className='LDPar'>Surplus</p></div>
+          <div className='listingPlantTitle'><p className='LDPar'>Harvest Date</p></div>
           </div>
           {this.plantsBuilder()}
           <OfferTrade userName={userName} picture={picture} location={location}

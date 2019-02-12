@@ -1,3 +1,5 @@
+@import '../../styles/var';
+
 .listingDInfo {
   display: flex;
 }
@@ -33,18 +35,42 @@
   padding: 3px;
   width: 265px;
   text-align: center;
+  background-color: $vermillion;
 }
 
 .listingDPlantInfo {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .listingDPlantDiv {
   display: flex;
+  background-color: white;
+  border-radius: 4px;
+  padding: 5px;
+  margin-bottom: 5px;
   justify-content: space-around;
 }
 
 .listingDPlantPar {
+  text-align: left;
+  width: 33%;
+}
+
+.listingDQtyPar {
   text-align: center;
+  width: 33%;
+}
+
+.listingPlantTitle {
+  display: flex;
+  justify-content: center;
+  border: 1px solid white;
+  border-radius: 3px;
+  width: 100%;
+}
+
+.LDPar {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }

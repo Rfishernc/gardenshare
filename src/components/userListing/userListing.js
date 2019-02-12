@@ -69,11 +69,11 @@ class userListing extends React.Component {
           </div>
           <div className='listingUnit'>
             <p className='listingItem'>Reliability Rating: </p>
-            <p className='listingItem'>{this.ratingStarBuilder(reliabilityRating)} on {numRating} Ratings</p>
+            <p className='listingItem reliability'>{this.ratingStarBuilder(reliabilityRating)} on {numRating} Ratings</p>
           </div>
           <div className='listingUnit'>
             <p className='listingItem'>Quality Rating: </p>
-            <p className='listingItem'>{this.ratingStarBuilder(qualityRating)} on {numRating} Ratings</p>
+            <p className='listingItem quality'>{this.ratingStarBuilder(qualityRating)} on {numRating} Ratings</p>
           </div>
         </div>
         <div className='listingPlantDiv'>
