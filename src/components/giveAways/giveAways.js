@@ -93,12 +93,12 @@ class giveAways extends React.Component {
   }
 
   search = () => {
-    // zipcodeData.zipcodeRadius(this.state.userZip, this.state.zipcodeRadius)
-    //   .then((zipcodesArray) => {
-    giveAwaysData.getGiveAwaysByZips([37090])
-      .then((giveAwaysArray) => {
-        this.setState({ giveAwaysArray });
-        // });
+    zipcodeData.zipcodeRadius(this.state.userZip, this.state.zipcodeRadius)
+      .then((zipcodesArray) => {
+        giveAwaysData.getGiveAwaysByZips([zipcodesArray])
+          .then((giveAwaysArray) => {
+            this.setState({ giveAwaysArray });
+          });
       })
       .catch((err) => {
         console.log(err);
