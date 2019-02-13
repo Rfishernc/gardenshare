@@ -3,10 +3,26 @@ import {
   Modal, ModalHeader, ModalBody,
 } from 'reactstrap';
 import OfferTrade from '../offerTrade/offerTrade';
+import PlantPhotos from '../plantPhotos/plantPhotos';
 import plantList from '../../data/plantList';
 import './listingDetails.scss';
 
 class listingDetails extends React.Component {
+  state = {
+    modal: false,
+    currentPlant: false,
+  }
+
+  toggle = (event) => {
+    event.preventDefault();
+    const currentPlant = event.currentTarget.id;
+    console.log(currentPlant);
+    this.setState({
+      modal: !this.state.modal,
+      currentPlant,
+    });
+  }
+
   plantsBuilder = () => {
     const plantsRender = [];
     if (this.props.plants !== null) {
@@ -18,10 +34,12 @@ class listingDetails extends React.Component {
             img = plant.img;
           }
         });
-        plantsRender.push(<div key={plantType.plant} className='listingDPlantDiv'>
+        plantsRender.push(<div key={plantType.id} className='listingDPlantDiv' id={plantType.id} onClick={this.toggle}>
           <p className='listingDPlantPar'><img alt='Img' className='plantIcon' src={img}/>{plantType.plant}</p>
           <p className='listingDQtyPar'>{plantType.surplus}</p>
           <p className='listingDQtyPar'>{plantType.dateHarvest}</p>
+          <PlantPhotos key={plantType.id} modal={this.state.modal} toggle={this.toggle}
+          user={plantType.userName} id={plantType.id} currentPlant={this.state.currentPlant}/>
         </div>);
       });
     }
@@ -35,7 +53,7 @@ class listingDetails extends React.Component {
     return (
       <div className='listingDetails'>
         <Modal isOpen={this.props.modal} className='listingModal'>
-          <ModalHeader toggle={this.toggle} className='modalH'>
+          <ModalHeader className='modalH'>
             {userName}
             <button type='button' className='close closeThis' onClick={this.props.toggle}>x</button>
           </ModalHeader>

@@ -68,10 +68,17 @@ class plantPhotos extends React.Component {
       });
   }
 
+  shouldIBeOpen = () => {
+    if (this.props.currentPlant === this.props.id) {
+      return this.props.modal;
+    }
+    return false;
+  }
+
   render() {
     return (
       <div className='plantPhotos'>
-        <Modal isOpen={this.props.modal} toggle={this.toggle} className={this.props.className}>
+        <Modal isOpen={this.shouldIBeOpen()} toggle={this.toggle} className={this.props.className}>
           <ModalHeader className='modalH'>Photos
             <button type='button' className='close closeThis' onClick={this.props.toggle}>x</button>
           </ModalHeader>

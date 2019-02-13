@@ -57,7 +57,7 @@ class userPlants extends React.Component {
           </ul>
         </div>
         <PlantPhotos modal={this.state.modal} toggle={this.toggle}
-        user={this.props.user} id={this.props.id}/>
+        user={this.props.user} id={this.props.id} currentPlant={this.props.id}/>
       </div>
     );
   }
