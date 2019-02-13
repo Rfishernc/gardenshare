@@ -1,11 +1,20 @@
 import React from 'react';
 import pendingOfferData from '../../data/pendingOfferData';
 import messagesData from '../../data/messagesData';
+import TradeDetails from '../tradeDetails/tradeDetails';
 import './pendingOffer.scss';
 
 class pendingOffer extends React.Component {
   state = {
+    modal: false,
     message: '',
+    pending: true,
+  }
+
+  toggle = () => {
+    this.setState({
+      modal: !this.state.modal,
+    });
   }
 
   componentWillMount() {
@@ -16,18 +25,6 @@ class pendingOffer extends React.Component {
       .catch((err) => {
         console.log(err);
       });
-  }
-
-  plantsListBuilder = (plants) => {
-    const plantsRender = [];
-    const listingKeys = Object.keys(plants);
-    listingKeys.forEach((key) => {
-      plantsRender.push(<div key={key} className='tradePlants'>
-        <p>{key}</p>
-        <p>{plants[key]}</p>
-      </div>);
-    });
-    return plantsRender;
   }
 
   acceptThisOffer = () => {
@@ -50,32 +47,36 @@ class pendingOffer extends React.Component {
       });
   }
 
-  buttonBuilder = () => {
-    if (this.props.user1 === this.props.user) {
-      return <button className='btn btn-sml btn-danger offersButton' onClick={this.removeThisOffer}>Rescind Offer</button>;
+  mousedIn =(event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hovering') === false) {
+      tar.className += ' hovering';
     }
-    return <div className='offerButtons'>
-      <button className='btn btn-sml btn-success offersButton' onClick={this.acceptThisOffer}>Accept Offer</button>
-      <button className='btn btn-sml btn-danger offersButton' onClick={this.removeThisOffer}>Decline Offer</button>
-    </div>;
   }
 
-  messageBuilder = () => {
-    if (this.state.message !== '') {
-      return <div className='offerMessage'>
-      <p className='message'>{this.state.message.message}</p>
-      <div>
-        <p className='messageUser'>{this.state.message.user}</p>
-        <p className='messageDate'>{this.state.message.date}</p>
-      </div>
-    </div>;
+  mousedOut = (event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hovering')) {
+      tar.className = tar.className.replace(' hovering', '');
     }
-    return '';
   }
 
   render() {
     const {
-      dateSent, dateTrade, user1, user2, plantsUser1, plantsUser2, user,
+      dateSent,
+      dateTrade,
+      user1,
+      user2,
+      user,
+      plantsUser1,
+      plantsUser2,
+      qualityRating1,
+      qualityRating2,
+      reliabilityRating1,
+      reliabilityRating2,
+      refreshOffers,
+      refreshPlants,
+      id,
     } = this.props;
 
     const otherUser = () => {
@@ -86,20 +87,22 @@ class pendingOffer extends React.Component {
     };
 
     return (
-      <div className="pendingOffer">
+      <div className="pendingOffer" onClick={this.toggle} onMouseEnter={this.mousedIn} onMouseLeave={this.mousedOut}>
         <div>
           <ul className="offerInfo">
             <li className="list-group-item offerLi">{otherUser()}</li>
             <li className="list-group-item offerLi">{dateSent}</li>
             <li className="list-group-item offerLi">{dateTrade}</li>
-            <li className="list-group-item offerLi">{this.plantsListBuilder(plantsUser1)}</li>
-            <li className="list-group-item offerLi">{this.plantsListBuilder(plantsUser2)}</li>
           </ul>
         </div>
-        {this.messageBuilder()}
         <div className='buttonDiv'>
-          {this.buttonBuilder()}
         </div>
+        <TradeDetails dateSent={dateSent} dateTrade={dateTrade}
+            user1={user1} refreshOffers={refreshOffers} refreshPlants={refreshPlants}
+            modal={this.state.modal} toggle={this.toggle} pending={this.state.pending}
+            user2={user2} plantsUser1={plantsUser1} plantsUser2={plantsUser2} user={user} id={id}
+            qualityRating1={qualityRating1} reliabilityRating1={reliabilityRating1}
+            qualityRating2={qualityRating2} reliabilityRating2={reliabilityRating2}/>
       </div>
     );
   }

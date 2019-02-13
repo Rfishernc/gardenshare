@@ -1,3 +1,5 @@
+@import '../../styles/var';
+
 .timeStartDiv, .timeEndDiv {
   display: flex;
   align-items: center;
@@ -5,8 +7,69 @@
 
 .timeDiv {
   display: flex;
+  justify-content: space-between;
+  margin: 5px;
+  margin-right: 10px;
+}
+
+.timeInput {
+  font-size: 0.75em;
+  width: 28%;
 }
 
 .searchDiv {
   display: flex;
+  border: 2px solid black;
+  margin-top: 10px;
+  background-color: seagreen;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 2px;
+}
+
+.createGiveAway {
+  border: 2px solid black;
+  background-color: $fresh;
+  border-radius: 2px;
+  margin-top: 20px;
+}
+
+.giveAwayTitle {
+  font-size: 1.3em;
+}
+
+.scheduleTitle {
+  font-size: 1.2em;
+}
+
+.GAInfoDiv {
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: wrap;
+  width: 100%;
+  margin: 5px;
+}
+
+.GAInput {
+  width: 50%;
+}
+
+.GAPar {
+  width: 45%;
+  text-align: left;
+}
+
+.GATimePar {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#postButton {
+  margin-left: 10%;
+}
+
+.GASearchPar {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 5px;
 }

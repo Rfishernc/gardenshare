@@ -1,3 +1,5 @@
+@import '../../styles/var';
+
 .detailsInfo {
   display: flex;
   flex-flow: row;
@@ -29,4 +31,30 @@
   line-height: 1;
   color: black;
   text-shadow: 0 1px 0 #fff;
+}
+
+
+.modalB {
+  background-color: $fresh;
+  border: 1px solid white;
+}
+
+.modalH {
+  background-color: $vermillion;
+  border: 1px solid white;
+}
+
+.modal-title {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: space-between !important;
+}
+
+.modal-content {
+  border: none !important;
+}
+
+.offersButton {
+  margin-top: 5px;
+  margin-left: 26px;
 }

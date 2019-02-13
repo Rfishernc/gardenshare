@@ -79,8 +79,8 @@ class giveAwayPlants extends React.Component {
       <div className='givAwayPlants'>
         <Button className="giveAwayPlantsButton" color="success" onClick={this.toggle}>Select Plants</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>Select Plants for Giveaway</ModalHeader>
-          <ModalBody>
+          <ModalHeader toggle={this.toggle} className='modalH'>Select Plants for Giveaway</ModalHeader>
+          <ModalBody className='modalB'>
             {this.plantsBuilder()}
             <button type='button' onClick={this.savePlants}>Save</button>
           </ModalBody>

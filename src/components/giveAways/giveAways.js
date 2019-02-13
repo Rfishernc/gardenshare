@@ -95,7 +95,7 @@ class giveAways extends React.Component {
   search = () => {
     zipcodeData.zipcodeRadius(this.state.userZip, this.state.zipcodeRadius)
       .then((zipcodesArray) => {
-        giveAwaysData.getGiveAwaysByZips(zipcodesArray)
+        giveAwaysData.getGiveAwaysByZips([zipcodesArray])
           .then((giveAwaysArray) => {
             this.setState({ giveAwaysArray });
           });
@@ -148,37 +148,45 @@ class giveAways extends React.Component {
         <div className='container-fluid'>
           <div className='row'>
             <div className='col-3'>
-              <p>Create a Giveaway</p>
-              <div className='scheduleDiv'>
-                <p>Giveaway Schedule</p>
-                <div>
-                  <p>Start Date: </p>
-                  <input type='date' id='startDateInput'/>
+              <div className='createGiveAway'>
+                <p className='giveAwayTitle'>Create a Giveaway</p>
+                <div className='scheduleDiv'>
+                  <p className='scheduleTitle'>Giveaway Schedule</p>
+                  <div className='GAInfoDiv'>
+                    <p className='GAPar'>Start Date: </p>
+                    <input type='date' id='startDateInput' className='GAInput'/>
+                  </div>
+                  <div className='GAInfoDiv'>
+                    <p className='GAPar'>End Date: </p>
+                    <input type='date' id='endDateInput' className='GAInput'/>
+                  </div>
                 </div>
-                <div>
-                  <p>End Date: </p>
-                  <input type='date' id='endDateInput'/>
+                <div className='timeDiv'>
+                  <p className='GATimePar'>Pick-up Hours</p>
+                  <input type='time' id='timeStartInput' className='timeInput' defaultValue='12:00'/>
+                  <p className='GATimePar'>To </p>
+                  <input type='time' id='timeEndInput' className='timeInput' defaultValue='12:00'/>
                 </div>
+                <div className='GAInfoDiv'>
+                  <div className='GAInfoDiv'>
+                    <p className='GAPar'>Giveaway Location: </p>
+                    <input type='text' id='addressInput' className='GAInput'/>
+                  </div>
+                  <div className='GAInfoDiv'>
+                    <p className='GAPar'>Zip Code: </p>
+                    <input type='text' id ='zipcodeInput' className='GAInput'/>
+                  </div>
+                </div>
+                <div className='GAInfoDiv'>
+                  {this.state.userPlants.length > 0 ? <GiveAwayPlants plants={this.state.userPlants}
+                  userName={this.state.userName}
+                  selectPlants={this.selectPlants}/> : null }
+                  <button type='button' onClick={this.submitGiveAway} id='postButton'>Post Giveaway</button>
+                </div>
+                <p className='errorMsg'>{this.state.error ? this.state.error : null}</p>
               </div>
-              <p>Pick-up Hours</p>
-              <div className='timeDiv'>
-                <input type='time' id='timeStartInput' className='timeInput' defaultValue='12:00'/>
-                <p>To </p>
-                <input type='time' id='timeEndInput' className='timeInput' defaultValue='12:00'/>
-              </div>
-              <div className='addressDiv'>
-                <p>Giveaway Location: </p>
-                <input type='text' id='addressInput'/>
-                <p>Zip Code</p>
-                <input type='text' id ='zipcodeInput'/>
-              </div>
-              {this.state.userPlants.length > 0 ? <GiveAwayPlants plants={this.state.userPlants}
-              userName={this.state.userName}
-              selectPlants={this.selectPlants}/> : null }
-              <button type='button' onClick={this.submitGiveAway}>Post Giveaway</button>
-              <p className='errorMsg'>{this.state.error ? this.state.error : null}</p>
               <div className='searchDiv'>
-                <p>Expand Search Radius</p>
+                <p className='GASearchPar'>Expand Search Radius</p>
                 <ZipcodeSelector zipcodeRadius={this.zipcodeRadius}/>
                 <button type='button' onClick={this.search}>Search</button>
               </div>

@@ -3,21 +3,62 @@ import {
   Modal, ModalHeader, ModalBody,
 } from 'reactstrap';
 import OfferTrade from '../offerTrade/offerTrade';
+import PlantPhotos from '../plantPhotos/plantPhotos';
+import plantList from '../../data/plantList';
 import './listingDetails.scss';
 
 class listingDetails extends React.Component {
+  state = {
+    modal: false,
+    currentPlant: false,
+  }
+
+  toggle = (event) => {
+    event.preventDefault();
+    const currentPlant = event.currentTarget.id;
+    console.log(currentPlant);
+    this.setState({
+      modal: !this.state.modal,
+      currentPlant,
+    });
+  }
+
   plantsBuilder = () => {
     const plantsRender = [];
     if (this.props.plants !== null) {
       this.props.plants.forEach((plantType) => {
-        plantsRender.push(<div key={plantType.plant} className='listingDPlantDiv'>
-          <p className='listingDPlantPar'>{plantType.plant}</p>
-          <p className='listingDPlantPar'>{plantType.surplus}</p>
-          <p className='listingDPlantPar'>{plantType.dateHarvest}</p>
+        let img = '';
+        plantList.forEach((plant) => {
+          if (plantType.plant === plant.name) {
+            // eslint-disable-next-line prefer-destructuring
+            img = plant.img;
+          }
+        });
+        plantsRender.push(<div key={plantType.id} className='listingDPlantDiv' id={plantType.id}
+        onClick={this.toggle} onMouseEnter={this.mousedIn} onMouseLeave={this.mousedOut}>
+          <p className='listingDPlantPar'><img alt='Img' className='plantIcon' src={img}/>{plantType.plant}</p>
+          <p className='listingDQtyPar'>{plantType.surplus}</p>
+          <p className='listingDQtyPar'>{plantType.dateHarvest}</p>
+          <PlantPhotos key={plantType.id} modal={this.state.modal} toggle={this.toggle}
+          user={plantType.userName} id={plantType.id} currentPlant={this.state.currentPlant}/>
         </div>);
       });
     }
     return plantsRender;
+  }
+
+  mousedIn =(event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hovering') === false) {
+      tar.className += ' hovering';
+    }
+  }
+
+  mousedOut = (event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hovering')) {
+      tar.className = tar.className.replace(' hovering', '');
+    }
   }
 
   render() {
@@ -27,11 +68,11 @@ class listingDetails extends React.Component {
     return (
       <div className='listingDetails'>
         <Modal isOpen={this.props.modal} className='listingModal'>
-          <ModalHeader toggle={this.toggle}>
+          <ModalHeader className='modalH'>
             {userName}
             <button type='button' className='close closeThis' onClick={this.props.toggle}>x</button>
           </ModalHeader>
-          <ModalBody>
+          <ModalBody className='modalB'>
           <div className='listingDProfile'>
           <img src={picture} alt='profilePic' className='listingDPic'/>
           <p className='listingDName'>{userName}</p>
@@ -51,10 +92,10 @@ class listingDetails extends React.Component {
           </div>
         </div>
         <div>
-          <div className='listingPlantInfo'>
-            <p className='listingPlantTitle'>Plant</p>
-            <p className='listingPlantTitle'>Surplus</p>
-            <p className='listingPlantTitle'>Harvest Date</p>
+          <div className='listingDPlantInfo'>
+          <div className='listingPlantTitle'><p className='LDPar'>Plant</p></div>
+          <div className='listingPlantTitle'><p className='LDPar'>Surplus</p></div>
+          <div className='listingPlantTitle'><p className='LDPar'>Harvest Date</p></div>
           </div>
           {this.plantsBuilder()}
           <OfferTrade userName={userName} picture={picture} location={location}

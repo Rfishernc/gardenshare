@@ -44,7 +44,7 @@ class ratingSelector extends React.Component {
 
   render() {
     return (
-      <div className='ratingSelector'>
+      <div className={`${this.props.rating} ratingSelector`}>
         {this.ratingStarBuilder()}
       </div>
     );

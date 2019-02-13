@@ -1,5 +1,6 @@
 import React from 'react';
 import ListingDetails from '../listingDetails/listingDetails';
+import plantList from '../../data/plantList';
 import './userListing.scss';
 
 class userListing extends React.Component {
@@ -17,8 +18,15 @@ class userListing extends React.Component {
     const plantsRender = [];
     if (this.props.plants !== null) {
       for (let i = 0; i < 2; i += 1) {
+        let img = '';
+        plantList.forEach((plant) => {
+          if (this.props.plants[i].plant === plant.name) {
+            // eslint-disable-next-line prefer-destructuring
+            img = plant.img;
+          }
+        });
         plantsRender.push(<div key={this.props.plants[i].plant} className='listingPlantInfo'>
-          <p className='listingPlantItem'>{this.props.plants[i].plant}</p>
+          <p className='listingPlantItem'><img alt='Img' className='plantIcon' src={img}/>{this.props.plants[i].plant}</p>
           <p className='listingPlantItem'>{this.props.plants[i].surplus}</p>
           <p className='listingPlantItem'>{this.props.plants[i].dateHarvest}</p>
         </div>);
@@ -27,12 +35,44 @@ class userListing extends React.Component {
     return plantsRender;
   }
 
+  ratingStarBuilder = (rating) => {
+    const renderArray = [];
+    let starCounter = 0;
+    for (let i = 1; i <= rating / 2; i += 1) {
+      renderArray.push(<i className="fas fa-star" id={i}></i>);
+      starCounter += 1;
+    }
+    if ((rating / 2) > Math.floor(rating / 2)) {
+      starCounter += 1;
+      renderArray.push(<i className="fas fa-star-half-alt" id={starCounter}></i>);
+    }
+    for (let i = 1; i <= (5 - starCounter); i += 1) {
+      renderArray.push(<i className="far fa-star" id={i + starCounter}></i>);
+    }
+    return renderArray;
+  }
+
+  mousedIn =(event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hoveringListing') === false) {
+      tar.className += ' hoveringListing';
+    }
+  }
+
+  mousedOut = (event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hoveringListing')) {
+      tar.className = tar.className.replace(' hoveringListing', '');
+    }
+  }
+
   render() {
     const {
       picture, location, locationName, reliabilityRating, qualityRating, numRating, userName,
     } = this.props;
     return (
-      <div className={this.props.oddEven === 'odd' ? 'listingOdd' : 'listingEven'} onClick={this.toggle}>
+      <div className={this.props.oddEven === 'odd' ? 'listingOdd' : 'listingEven'}
+      onClick={this.toggle} onMouseEnter={this.mousedIn} onMouseLeave={this.mousedOut}>
         <div>
           <img src={picture} alt='profilePic' className='listingPic'/>
           <p className='listingName'>{userName}</p>
@@ -44,11 +84,11 @@ class userListing extends React.Component {
           </div>
           <div className='listingUnit'>
             <p className='listingItem'>Reliability Rating: </p>
-            <p className='listingItem'>{reliabilityRating} on {numRating} Ratings</p>
+            <p className='listingItem reliability'>{this.ratingStarBuilder(reliabilityRating)} on {numRating} Ratings</p>
           </div>
           <div className='listingUnit'>
             <p className='listingItem'>Quality Rating: </p>
-            <p className='listingItem'>{qualityRating} on {numRating} Ratings</p>
+            <p className='listingItem quality'>{this.ratingStarBuilder(qualityRating)} on {numRating} Ratings</p>
           </div>
         </div>
         <div className='listingPlantDiv'>

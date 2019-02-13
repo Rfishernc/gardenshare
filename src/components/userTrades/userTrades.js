@@ -5,6 +5,7 @@ import './userTrades.scss';
 class userTrades extends React.Component {
   state = {
     modal: false,
+    pending: false,
   }
 
   toggle = () => {
@@ -13,16 +14,18 @@ class userTrades extends React.Component {
     });
   }
 
-  plantsListBuilder = (plants) => {
-    const plantsRender = [];
-    const listingKeys = Object.keys(plants);
-    listingKeys.forEach((key) => {
-      plantsRender.push(<div key={key} className='tradePlants'>
-        <p>{key}</p>
-        <p>{plants[key]}</p>
-      </div>);
-    });
-    return plantsRender;
+  mousedIn =(event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hovering') === false) {
+      tar.className += ' hovering';
+    }
+  }
+
+  mousedOut = (event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hovering')) {
+      tar.className = tar.className.replace(' hovering', '');
+    }
   }
 
   render() {
@@ -52,17 +55,15 @@ class userTrades extends React.Component {
 
     return (
       <div className="userTrades">
-        <div className="offerInfo" onClick={this.toggle}>
+        <div className="offerInfo" onClick={this.toggle} onMouseEnter={this.mousedIn} onMouseLeave={this.mousedOut}>
             <ul className="offerInfo">
               <li className="list-group-item offerLi">{otherUser()}</li>
               <li className="list-group-item offerLi">{dateSent}</li>
               <li className="list-group-item offerLi">{dateTrade}</li>
-              <li className="list-group-item offerLi">{this.plantsListBuilder(plantsUser1)}</li>
-              <li className="list-group-item offerLi">{this.plantsListBuilder(plantsUser2)}</li>
             </ul>
             <TradeDetails dateSent={dateSent} dateTrade={dateTrade}
             user1={user1} refreshOffers={refreshOffers} refreshPlants={refreshPlants}
-            modal={this.state.modal} toggle={this.toggle}
+            modal={this.state.modal} toggle={this.toggle} pending={this.state.pending}
             user2={user2} plantsUser1={plantsUser1} plantsUser2={plantsUser2} user={user} id={id}
             qualityRating1={qualityRating1} reliabilityRating1={reliabilityRating1}
             qualityRating2={qualityRating2} reliabilityRating2={reliabilityRating2}/>

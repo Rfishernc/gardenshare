@@ -1,6 +1,5 @@
 .plantLi {
   height: 75px;
-  padding-top: 25px;
 }
 
 .butts {
@@ -8,9 +7,16 @@
   border: 0;
 }
 
-.removePlant {
-  border-radius: 4px;
-  background-color: seagreen;
-  border: 1px solid seagreen;
-  color: white;
+.deleteMe {
+  border: 2px dashed red;
+}
+
+.deleteMeLi {
+  background-color: yellow;
+}
+
+.userPlants {
+  padding-left: 0;
+  padding-right: 0;
+  border: 1.5px solid white;
 }
