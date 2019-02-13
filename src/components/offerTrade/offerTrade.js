@@ -175,7 +175,7 @@ class offerTrade extends React.Component {
 
   addMessage = (tradeId) => {
     this.setState({ tradeId }, () => {
-      const newMessage = document.getElementById('messagesInput').value;
+      const newMessage = document.getElementById('messagesTradeInput').value;
       const newMessageObj = {
         tradeId: this.state.tradeId,
         user: this.state.userName,
@@ -187,7 +187,7 @@ class offerTrade extends React.Component {
   }
 
   validateTrade = () => new Promise((resolve) => {
-    const msg = document.getElementById('messagesInput').value;
+    const msg = document.getElementById('messagesTradeInput').value;
     if (msg === '') {
       this.setState({ tradeError: 'No message entered' });
     } else if (this.state.offerList.length === 0) {
@@ -228,7 +228,7 @@ class offerTrade extends React.Component {
               <p>My Requests</p>
               {this.myRequestsBuilder()}
             </div>
-              <input type='text' id='messagesInput'/>
+              <input type='text' id='messagesTradeInput'/>
             <div>
               <p>Trade Date: </p>
               <input type='date' id='dateInput'/>

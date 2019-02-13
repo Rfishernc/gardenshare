@@ -1,5 +1,6 @@
 import React from 'react';
 import firebase from 'firebase/app';
+import moment from 'moment';
 import Navbar from '../navbar/navbar';
 import SearchFilter from '../searchFilter/searchFilter';
 import UserListing from '../userListing/userListing';
@@ -121,6 +122,8 @@ class searchListings extends React.Component {
         filteredArray = baseArray.filter(user => user.qualityRating >= filter.info);
       } if (filter.type === 'Reliability') {
         filteredArray = baseArray.filter(user => user.reliabilityRating >= filter.info);
+      } if (filter.type === 'Harvest') {
+        filteredArray = baseArray.filter(user => user.plants.filter(plant => moment(plant.dateHarvest).unix() <= moment(filter.info).unix()).length > 0);
       }
       baseArray = filteredArray;
     });

@@ -1,11 +1,19 @@
 import React from 'react';
 import userPlantsData from '../../data/userPlantsData';
 import plantList from '../../data/plantList';
+import PlantPhotos from '../plantPhotos/plantPhotos';
 import './userPlants.scss';
 
 class userPlants extends React.Component {
   state = {
     img: '',
+    modal: false,
+  }
+
+  toggle = () => {
+    this.setState({
+      modal: !this.state.modal,
+    });
   }
 
   componentDidMount() {
@@ -30,20 +38,13 @@ class userPlants extends React.Component {
     }
   }
 
-  uploadPhoto = (event) => {
-    event.preventDefault();
-    if (this.props.uploading) {
-      
-    }
-  }
-
   render() {
     const {
       qty, surplus, datePlanted, dateHarvest, plant,
     } = this.props;
 
     return (
-      <div className="userPlants col" onClick={this.uploadPhoto}>
+      <div className="userPlants col" onClick={this.toggle}>
         <div>
           <ul className={this.props.removing ? 'plantInfo deleteMe' : 'plantInfo'} onClick={this.removePlant}>
             <li className={this.props.removing ? 'list-group-item plantLi deleteMe' : 'list-group-item plantLi'}>
@@ -55,6 +56,8 @@ class userPlants extends React.Component {
             <li className={this.props.removing ? 'list-group-item plantLi deleteMeLi' : 'list-group-item plantLi'}>{dateHarvest}</li>
           </ul>
         </div>
+        <PlantPhotos modal={this.state.modal} toggle={this.toggle}
+        user={this.props.user} id={this.props.id}/>
       </div>
     );
   }

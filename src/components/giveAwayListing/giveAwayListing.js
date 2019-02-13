@@ -13,7 +13,7 @@ class giveAwayListing extends React.Component {
           img = plant.img;
         }
       });
-      plantsRender.push(<div key={plantKey} className='GALPlantDiv col-3'>
+      plantsRender.push(<div key={plantKey} className='GALPlantDiv col-4'>
         <p className='GALPlantPar'><img alt='Img' className='plantIcon' src={img}/>{plantKey}</p>
         <p className='GALPlantPar'>{this.props.plants[plantKey]}</p>
       </div>);
@@ -86,7 +86,7 @@ class giveAwayListing extends React.Component {
               </div>
             </div>
             <div className='GAListingPlantDiv row'>
-              {this.plantsBuilder()}
+                {this.plantsBuilder()}
             </div>
           </div>
         </div>

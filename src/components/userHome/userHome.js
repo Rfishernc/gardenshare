@@ -74,7 +74,7 @@ class userHome extends React.Component {
     if (this.state.userPlants !== '') {
       this.state.userPlants.forEach((plantO) => {
         plantsRender.push(<UserPlants dateHarvest={plantO.dateHarvest}
-        datePlanted={plantO.datePlanted} qty={plantO.qty}
+        datePlanted={plantO.datePlanted} qty={plantO.qty} user={this.state.userName}
         id={plantO.id} refreshPlants={this.refreshPlants}
         plant={plantO.plant} surplus={plantO.surplus} key={plantO.id}
         removing={this.state.removing} endRemoverMode={this.endRemoverMode}/>);
@@ -185,7 +185,6 @@ class userHome extends React.Component {
               <div className='plantButtsDiv'>
                 <AddPlant refreshPlants={this.refreshPlants} user={this.state.userName}/>
                 <Button className='plantButton' id='removeBut' onClick={this.removerMode}>Remove</Button>
-                <Button className='plantButton' id='uploadBut' onClick={this.uploadPhoto}>Upload Photos</Button>
               </div>
               <div className='col userPlants'>
                 <ul className="plantInfo">
