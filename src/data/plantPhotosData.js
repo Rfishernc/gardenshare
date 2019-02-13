@@ -46,6 +46,7 @@ const getPhotoDatabaseRef = plantId => new Promise((resolve, reject) => {
       const refArray = [];
       if (refObject !== null) {
         Object.keys(refObject).forEach((key) => {
+          refObject[key].id = key;
           refArray.push(refObject[key]);
         });
       }
@@ -61,7 +62,11 @@ const getPhoto = ref => new Promise((resolve, reject) => {
   const mainRef = storage.ref();
   mainRef.child(ref.fileName).getDownloadURL()
     .then((path) => {
-      resolve(path);
+      const refObject = {
+        path,
+        id: ref.id,
+      };
+      resolve(refObject);
     })
     .catch((err) => {
       reject(err);
@@ -87,12 +92,42 @@ const getAllPhotosForPlant = plantId => new Promise((resolve, reject) => {
     });
 });
 
-const removePhotoRef = plantId => new Promise((resolve, reject) => {
-  getPhotoDatabaseRef(plantId)
-    .then((ref) => {
-      axios.delete(`${URL}/pictureRef/${ref.dbKey}.json`)
+const removePhotoRef = refId => new Promise((resolve, reject) => {
+  axios.delete(`${URL}/pictureRef/${refId}.json`)
+    .then(() => {
+      resolve();
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
+const getRefById = refId => new Promise((resolve, reject) => {
+  axios.get(`${URL}/pictureRef/${refId}.json`)
+    .then((data) => {
+      const refObject = data.data;
+      let refPath;
+      if (refObject !== null) {
+        refPath = refObject.fileName;
+      }
+      resolve(refPath);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
+const removePhoto = refId => new Promise((resolve, reject) => {
+  const storage = firebase.storage();
+  const mainRef = storage.ref();
+  getRefById(refId)
+    .then((refPath) => {
+      removePhotoRef(refId)
         .then(() => {
-          resolve();
+          mainRef.child(refPath).delete()
+            .then(() => {
+              resolve();
+            });
         });
     })
     .catch((err) => {
@@ -105,4 +140,5 @@ export default {
   getPhoto,
   removePhotoRef,
   getAllPhotosForPlant,
+  removePhoto,
 };

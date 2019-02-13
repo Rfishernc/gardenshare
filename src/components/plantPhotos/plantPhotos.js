@@ -37,10 +37,25 @@ class plantPhotos extends React.Component {
     const photoRender = [];
     if (this.state.photoArray.length > 0) {
       this.state.photoArray.forEach((photo) => {
-        photoRender.push(<img alt='plantPhoto' src={photo} key={photo} className='plantPhoto'/>);
+        photoRender.push(<div key={photo.id}>
+          <img alt='plantPhoto' src={photo.path} className='plantPhoto'/>
+          <button type='button' id={photo.id} className='xButton' onClick={this.removePhoto}>x</button>
+        </div>);
       });
     }
     return photoRender;
+  }
+
+  removePhoto = (event) => {
+    event.preventDefault();
+    const refId = event.target.id;
+    plantPhotosData.removePhoto(refId)
+      .then(() => {
+        this.refreshPhotos();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   refreshPhotos = () => {
