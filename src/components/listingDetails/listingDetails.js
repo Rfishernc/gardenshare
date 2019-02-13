@@ -34,7 +34,8 @@ class listingDetails extends React.Component {
             img = plant.img;
           }
         });
-        plantsRender.push(<div key={plantType.id} className='listingDPlantDiv' id={plantType.id} onClick={this.toggle}>
+        plantsRender.push(<div key={plantType.id} className='listingDPlantDiv' id={plantType.id}
+        onClick={this.toggle} onMouseEnter={this.mousedIn} onMouseLeave={this.mousedOut}>
           <p className='listingDPlantPar'><img alt='Img' className='plantIcon' src={img}/>{plantType.plant}</p>
           <p className='listingDQtyPar'>{plantType.surplus}</p>
           <p className='listingDQtyPar'>{plantType.dateHarvest}</p>
@@ -44,6 +45,20 @@ class listingDetails extends React.Component {
       });
     }
     return plantsRender;
+  }
+
+  mousedIn =(event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hovering') === false) {
+      tar.className += ' hovering';
+    }
+  }
+
+  mousedOut = (event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hovering')) {
+      tar.className = tar.className.replace(' hovering', '');
+    }
   }
 
   render() {

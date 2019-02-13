@@ -14,6 +14,20 @@ class userTrades extends React.Component {
     });
   }
 
+  mousedIn =(event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hovering') === false) {
+      tar.className += ' hovering';
+    }
+  }
+
+  mousedOut = (event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hovering')) {
+      tar.className = tar.className.replace(' hovering', '');
+    }
+  }
+
   render() {
     const {
       dateSent,
@@ -41,7 +55,7 @@ class userTrades extends React.Component {
 
     return (
       <div className="userTrades">
-        <div className="offerInfo" onClick={this.toggle}>
+        <div className="offerInfo" onClick={this.toggle} onMouseEnter={this.mousedIn} onMouseLeave={this.mousedOut}>
             <ul className="offerInfo">
               <li className="list-group-item offerLi">{otherUser()}</li>
               <li className="list-group-item offerLi">{dateSent}</li>

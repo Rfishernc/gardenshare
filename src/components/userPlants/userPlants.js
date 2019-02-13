@@ -38,13 +38,27 @@ class userPlants extends React.Component {
     }
   }
 
+  mousedIn =(event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hovering') === false) {
+      tar.className += ' hovering';
+    }
+  }
+
+  mousedOut = (event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hovering')) {
+      tar.className = tar.className.replace(' hovering', '');
+    }
+  }
+
   render() {
     const {
       qty, surplus, datePlanted, dateHarvest, plant,
     } = this.props;
 
     return (
-      <div className="userPlants col" onClick={this.toggle}>
+      <div className="userPlants col" onClick={this.toggle} onMouseEnter={this.mousedIn} onMouseLeave={this.mousedOut}>
         <div>
           <ul className={this.props.removing ? 'plantInfo deleteMe' : 'plantInfo'} onClick={this.removePlant}>
             <li className={this.props.removing ? 'list-group-item plantLi deleteMe' : 'list-group-item plantLi'}>

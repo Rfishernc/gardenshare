@@ -146,3 +146,13 @@
   color: black;
   border-color: $fresh;
 }
+
+.hovering {
+  border: 1.5px solid white;
+  color: white;
+  background-color: seagreen !important;
+  li {
+    background-color: seagreen;
+    color: white;
+  }
+}

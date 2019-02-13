@@ -47,6 +47,20 @@ class pendingOffer extends React.Component {
       });
   }
 
+  mousedIn =(event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hovering') === false) {
+      tar.className += ' hovering';
+    }
+  }
+
+  mousedOut = (event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hovering')) {
+      tar.className = tar.className.replace(' hovering', '');
+    }
+  }
+
   render() {
     const {
       dateSent,
@@ -73,7 +87,7 @@ class pendingOffer extends React.Component {
     };
 
     return (
-      <div className="pendingOffer" onClick={this.toggle}>
+      <div className="pendingOffer" onClick={this.toggle} onMouseEnter={this.mousedIn} onMouseLeave={this.mousedOut}>
         <div>
           <ul className="offerInfo">
             <li className="list-group-item offerLi">{otherUser()}</li>

@@ -52,12 +52,27 @@ class userListing extends React.Component {
     return renderArray;
   }
 
+  mousedIn =(event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hoveringListing') === false) {
+      tar.className += ' hoveringListing';
+    }
+  }
+
+  mousedOut = (event) => {
+    const tar = event.currentTarget;
+    if (tar.className.includes('hoveringListing')) {
+      tar.className = tar.className.replace(' hoveringListing', '');
+    }
+  }
+
   render() {
     const {
       picture, location, locationName, reliabilityRating, qualityRating, numRating, userName,
     } = this.props;
     return (
-      <div className={this.props.oddEven === 'odd' ? 'listingOdd' : 'listingEven'} onClick={this.toggle}>
+      <div className={this.props.oddEven === 'odd' ? 'listingOdd' : 'listingEven'}
+      onClick={this.toggle} onMouseEnter={this.mousedIn} onMouseLeave={this.mousedOut}>
         <div>
           <img src={picture} alt='profilePic' className='listingPic'/>
           <p className='listingName'>{userName}</p>
