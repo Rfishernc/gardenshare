@@ -17,13 +17,14 @@ class searchListings extends React.Component {
     usersWithPlants: [],
     zipcodeRadius: 0,
     filterInfo: [],
+    userName: '',
   }
 
   componentWillMount() {
     const user = firebase.auth().currentUser;
     searchListingsData.getUser(user.uid)
       .then((userData) => {
-        this.setState({ userZip: userData.location });
+        this.setState({ userZip: userData.location, userName: userData.userName });
       })
       .catch((err) => {
         console.log(err);
@@ -126,6 +127,7 @@ class searchListings extends React.Component {
         filteredArray = baseArray.filter(user => user.plants.filter(plant => moment(plant.dateHarvest).unix() <= moment(filter.info).unix()).length > 0);
       }
       baseArray = filteredArray;
+      baseArray = baseArray.filter(user => user.userName !== this.state.userName);
     });
     this.setState({ usersWithPlants: baseArray });
   }
