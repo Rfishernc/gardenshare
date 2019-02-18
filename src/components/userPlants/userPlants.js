@@ -70,7 +70,7 @@ class userPlants extends React.Component {
             <li className={this.props.removing ? 'list-group-item plantLi deleteMeLi' : 'list-group-item plantLi'}>{dateHarvest}</li>
           </ul>
         </div>
-        <PlantPhotos modal={this.state.modal} toggle={this.toggle}
+        <PlantPhotos modal={this.state.modal} toggle={this.toggle} canAdd={true}
         user={this.props.user} id={this.props.id} currentPlant={this.props.id}/>
       </div>
     );

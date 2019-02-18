@@ -69,7 +69,7 @@ class changePassword extends React.Component {
             <p className='errorMsg'>{this.state.newPWInccorect ? 'New passwords do not match' : null}</p>
             <p className='errorMsg'>{this.state.missingInfo ? 'Missing required information' : null}</p>
             <p className='errorMsg'>{this.state.oldPwIncorrect ? 'Incorrect password entered' : null}</p>
-            <button type='button' className='passwordButton' onClick={this.updatePassword}>Update Password</button>
+            <button type='button' className='passwordButton buttonsGeneric' onClick={this.updatePassword}>Update Password</button>
           </div>;
   }
 
@@ -82,7 +82,7 @@ class changePassword extends React.Component {
   render() {
     return (
       <div>
-         <Button color="success" onClick={this.toggle} className='btn btn-sml btn-info pwButton'>Update Pasword</Button>
+         <Button onClick={this.toggle} className='btn btn-sml btn-info pwButton buttonsGeneric'>Update Pasword</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle} className='modalH'>Update Password</ModalHeader>
           <ModalBody className='modalB'>

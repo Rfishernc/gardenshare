@@ -65,7 +65,7 @@ class addPlant extends React.Component {
   render() {
     return (
       <div className="addPlant">
-        <Button className="plantButton" onClick={this.toggle}>Add</Button>
+        <Button className="plantButton buttonsGeneric" onClick={this.toggle}>Add</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle} className='modalH'>Add A New Plant To Your Profile</ModalHeader>
           <ModalBody className='modalB'>

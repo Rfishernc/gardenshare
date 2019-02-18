@@ -75,6 +75,16 @@ class plantPhotos extends React.Component {
     return false;
   }
 
+  buttonBuilder = () => {
+    if (this.props.canAdd) {
+      return <div>
+      <button type='button' onClick={this.uploadPhoto}>Upload Photo</button>
+      <input type='file' id='photoInput'/>
+    </div>;
+    }
+    return null;
+  }
+
   render() {
     return (
       <div className='plantPhotos'>
@@ -83,10 +93,7 @@ class plantPhotos extends React.Component {
             <button type='button' className='close closeThis' onClick={this.props.toggle}>x</button>
           </ModalHeader>
           <ModalBody className='modalB'>
-            <div>
-              <button type='button' onClick={this.uploadPhoto}>Upload Photo</button>
-              <input type='file' id='photoInput'/>
-            </div>
+            {this.buttonBuilder()}
             <div className='photoContainer'>
               {this.photoBuilder()}
             </div>

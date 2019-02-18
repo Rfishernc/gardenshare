@@ -181,14 +181,14 @@ class giveAways extends React.Component {
                   {this.state.userPlants.length > 0 ? <GiveAwayPlants plants={this.state.userPlants}
                   userName={this.state.userName}
                   selectPlants={this.selectPlants}/> : null }
-                  <button type='button' onClick={this.submitGiveAway} id='postButton'>Post Giveaway</button>
+                  <button type='button' onClick={this.submitGiveAway} className='buttonsGeneric' id='postButton'>Post Giveaway</button>
                 </div>
                 <p className='errorMsg'>{this.state.error ? this.state.error : null}</p>
               </div>
               <div className='searchDiv'>
                 <p className='GASearchPar'>Expand Search Radius</p>
                 <ZipcodeSelector zipcodeRadius={this.zipcodeRadius}/>
-                <button type='button' onClick={this.search}>Search</button>
+                <button type='button' className='buttonsGeneric' onClick={this.search}>Search</button>
               </div>
             </div>
             <div className='col-9'>

@@ -2,7 +2,7 @@
 
 .listingEven, .listingOdd {
   display: flex;
-  border: 1.5px solid black;
+  border: 1.5px solid white;
   border-radius: 2px;
   margin-bottom: 0.5px;
 }
@@ -17,9 +17,10 @@
 
 .listingPic {
   width: 150px;
-  border: 1.5px solid black;
+  border: 1.5px solid white;
   margin: 3px;
   background-color: white;
+  margin-bottom: 0;
 }
 
 .listingUnit {
@@ -52,9 +53,10 @@
 }
 
 .listingName {
-  border: 1.5px solid black;
-  border-radius: 5px;
-  background-color: $varLGray;
+  border: 1.5px solid white;
+  background-color: $vermillion;
+  margin: 3px;
+  margin-top: 0;
 }
 
 .listingPlantTitle {
