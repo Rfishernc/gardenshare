@@ -91,7 +91,7 @@ class addPlant extends React.Component {
               <label htmlFor="dateHarvestInput">Estimated Harvest Date:</label>
               <input type="date" className="form-control" id="dateHarvestInput" placeholder="Password"/>
             </div>
-            <button type="submit" className="btn btn-primary" onClick={this.addNewPlant}>Add</button>
+            <button type="submit" className="buttonsGeneric" onClick={this.addNewPlant}>Add</button>
           </form>
           </ModalBody>
         </Modal>
