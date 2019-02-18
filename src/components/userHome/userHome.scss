@@ -4,14 +4,18 @@
   display: flex;
   flex-flow: column;
   align-items: center;
-  width: 300px;
+  width: 220px;
+  height: 100%;
+  background-image: url('../../images/Autumn-Border--Arvin61r58.png');
+  background-size: cover;
+  margin-left: 8.5%;
 }
 
 .userPicture, .userTitle {
-  width: 50%;
+  width: 85%;
   margin-left: auto;
   margin-right: auto;
-  border: 1.5px solid black;
+  border: 1.5px solid white;
   background-color: white;
   border-radius: 2px;
 }
@@ -19,10 +23,12 @@
 .userTitle {
   background-color: $vermillion !important;
   margin-top: 0;
+  margin-bottom: auto;
 }
 
 .userPicture {
-  margin-top: 5px;
+  margin-top: auto;
+  max-height: 90%;
 }
 
 .userPlantsList {

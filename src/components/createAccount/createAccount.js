@@ -1,6 +1,7 @@
 import React from 'react';
 import createAccountData from '../../data/createAccountData';
 import './createAccount.scss';
+import gnome from '../../images/misc-npc-garden-gnome.png';
 
 class createAccount extends React.Component {
   state = {
@@ -98,7 +99,11 @@ class createAccount extends React.Component {
   render() {
     return (
       <div className="createAccount">
-      <p className='createAccountTitle'>Gardeners' Bazaar</p>
+        <div className='titleBlock'>
+          <img src={gnome} alt='gnome' className='gnomeTitle'/>
+          <p className='loginTitle'>Gardeners' Bazaar</p>
+          <img src={gnome} alt='gnome' className='gnomeTitle'/>
+        </div>
         <div className="jumbotron createAccountScreen">
             <h1 className="display-4">Create a new account</h1>
             <form>
@@ -122,7 +127,7 @@ class createAccount extends React.Component {
                 <label htmlFor="pwInput">Password</label>
                 <input type="password" className="form-control" id="pwInput" placeholder="Password"/>
               </div>
-              <button type="submit" className="btn btn-primary" onClick={this.createUser}>Create Account</button>
+              <button type="submit" className="inactiveButton createActBut" onClick={this.createUser}>Create Account</button>
               <p className='errorMsg'>{this.state.error ? this.state.error : null}</p>
             </form>
           </div>

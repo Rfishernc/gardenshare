@@ -36,8 +36,8 @@ class giveAwayPlants extends React.Component {
       this.props.plants.forEach((plantOb) => {
         plantsRender.push(<div key={plantOb.plant} className='giveAwayPlantDiv'>
           <div className='plantChooser'>
-            <input type='checkBox' id={`${plantOb.plant}Check`} onClick={this.plantChecked}/>
-            <p>{plantOb.plant}</p>
+            <input type='checkBox' className='GACheck' id={`${plantOb.plant}Check`} onClick={this.plantChecked}/>
+            <p className='GACheckPlant'>{plantOb.plant}</p>
           </div>
           <input type='number' max={plantOb.surplus} defaultValue='0'
           id={`${plantOb.plant}Input`} className='plantQtyInput hideMe' onChange={this.updateQty}/>
@@ -82,7 +82,7 @@ class giveAwayPlants extends React.Component {
           <ModalHeader toggle={this.toggle} className='modalH'>Select Plants for Giveaway</ModalHeader>
           <ModalBody className='modalB'>
             {this.plantsBuilder()}
-            <button type='button' onClick={this.savePlants}>Save</button>
+            <button type='button' className='buttonsGeneric' onClick={this.savePlants}>Save</button>
           </ModalBody>
         </Modal>
       </div>

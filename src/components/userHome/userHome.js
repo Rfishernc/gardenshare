@@ -174,11 +174,12 @@ class userHome extends React.Component {
         <Navbar/>
         <div className='container-fluid'>
           <div className='row userHomeUpperDiv'>
-            <div className='userProfile col-4'>
+            <div className='userProfile'>
               <img src={this.state.picture} className='userPicture' alt='profilepic'/>
               <p className='userTitle'>{this.state.userName}</p>
             </div>
-            <div className='userPlantsList col-8'>
+            <div className='col-2'></div>
+            <div className='userPlantsList col-7'>
               <div className='fYouFlex'>
                 <p className='plantsTitle'>My Plants</p>
               </div>
