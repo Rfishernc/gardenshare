@@ -1,6 +1,7 @@
 import React from 'react';
 import './login.scss';
 import loginData from '../../data/loginData';
+import gnome from '../../images/misc-npc-garden-gnome.png';
 
 class login extends React.Component {
   state = {
@@ -54,7 +55,11 @@ class login extends React.Component {
   render() {
     return (
       <div className="login">
-        <p className='loginTitle'>Gardeners' Bazaar</p>
+        <div className='titleBlock'>
+          <img src={gnome} alt='gnome' className='gnomeTitle'/>
+          <p className='loginTitle'>Gardeners' Bazaar</p>
+          <img src={gnome} alt='gnome' className='gnomeTitle'/>
+        </div>
         <div className="jumbotron loginScreen">
           <h1 className="display-4">Login to your account</h1>
           <form>
@@ -66,7 +71,7 @@ class login extends React.Component {
               <label htmlFor="pwInput">Password</label>
               <input type="password" className="form-control" id="pwInput" placeholder="Password"/>
             </div>
-            <button type="submit" className="btn btn-primary" onClick={this.loginUser}>Sign In</button>
+            <button type="submit" className="inactiveButton signInBut" onClick={this.loginUser}>Sign In</button>
           </form>
           <p className='errorMsg'>{this.state.error ? this.state.error : null}</p>
           <button type='button' className='createAccountLink' onClick={this.clickedCreate}>Create a new Account</button>

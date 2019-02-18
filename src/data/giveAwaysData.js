@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment';
 import apiKeys from './apiKeys';
 
 const URL = apiKeys.firebaseKeys.databaseURL;
@@ -57,7 +58,8 @@ const getUsersForGiveAways = zipcodes => new Promise((resolve, reject) => {
               }
             });
           });
-          resolve(giveAwaysArray);
+          const filteredArray = giveAwaysArray.filter(giveAway => moment().unix() < moment(giveAway.endDate).unix());
+          resolve(filteredArray);
         });
     })
     .catch((err) => {

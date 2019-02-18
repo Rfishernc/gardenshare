@@ -201,7 +201,7 @@ class offerTrade extends React.Component {
   render() {
     return (
       <div className="offerTrade">
-      <Button color="success" onClick={this.toggle}>Request Trade</Button>
+      <Button className='buttonsGeneric' onClick={this.toggle}>Request Trade</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle} className='modalH'>Trade Details</ModalHeader>
           <ModalBody className='modalB'>
@@ -211,7 +211,7 @@ class offerTrade extends React.Component {
               <input type='text' id='offerPlantInput'/>
               <p>Quantity: </p>
               <input type='number' id='offerQtyInput'/>
-              <button type='button' onClick={this.addPlantOffer}>Add</button>
+              <button type='button' className='buttonsGeneric OTButton' onClick={this.addPlantOffer}>Add</button>
             </div>
             <div>
               <p>Request</p>
@@ -219,7 +219,7 @@ class offerTrade extends React.Component {
               <input type='text' id='requestPlantInput'/>
               <p>Quantity: </p>
               <input type='number' id='requestQtyInput'/>
-              <button type='button' onClick={this.addPlantRequest}>Add</button>
+              <button type='button' className='buttonsGeneric OTButton' onClick={this.addPlantRequest}>Add</button>
             </div>
             <div>
               <p>Offer List</p>
@@ -232,7 +232,7 @@ class offerTrade extends React.Component {
             <div>
               <p>Trade Date: </p>
               <input type='date' id='dateInput'/>
-              <button type='button' onClick={this.submitOffer}>Submit</button>
+              <button type='button' className='buttonsGeneric OTButton' onClick={this.submitOffer}>Send Offer</button>
               <p className='errorMsg'>{this.state.tradeError ? this.state.tradeError : null}</p>
             </div>
           </ModalBody>

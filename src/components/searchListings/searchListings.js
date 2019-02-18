@@ -17,13 +17,14 @@ class searchListings extends React.Component {
     usersWithPlants: [],
     zipcodeRadius: 0,
     filterInfo: [],
+    userName: '',
   }
 
   componentWillMount() {
     const user = firebase.auth().currentUser;
     searchListingsData.getUser(user.uid)
       .then((userData) => {
-        this.setState({ userZip: userData.location });
+        this.setState({ userZip: userData.location, userName: userData.userName });
       })
       .catch((err) => {
         console.log(err);
@@ -66,7 +67,7 @@ class searchListings extends React.Component {
   search = () => {
     zipcodeData.zipcodeRadius(this.state.userZip, this.state.zipcodeRadius)
       .then((zipcodesArray) => {
-        searchListingsData.getListingsByZipcodes([zipcodesArray])
+        searchListingsData.getListingsByZipcodes([37090])
           .then((usersArrayArray) => {
             const combinedUsersArray = [];
             usersArrayArray.forEach((array) => {
@@ -126,6 +127,7 @@ class searchListings extends React.Component {
         filteredArray = baseArray.filter(user => user.plants.filter(plant => moment(plant.dateHarvest).unix() <= moment(filter.info).unix()).length > 0);
       }
       baseArray = filteredArray;
+      baseArray = baseArray.filter(user => user.userName !== this.state.userName);
     });
     this.setState({ usersWithPlants: baseArray });
   }
@@ -142,7 +144,7 @@ class searchListings extends React.Component {
                 <p className='radiusPar'>Search Radius</p>
                 <ZipcodeSelector zipcodeRadius={this.zipcodeRadius}/>
               </div>
-              <button type='button' onClick={this.search} className='searchButton'>Search</button>
+              <button type='button' onClick={this.search} className='searchButton buttonsGeneric'>Search</button>
             </div>
             <div className='listingsDiv col-9'>
               {this.listingsBuilder()}

@@ -131,9 +131,9 @@ class userHome extends React.Component {
     event.preventDefault();
     document.getElementById('userTradesList').style.display = 'none';
     document.getElementById('pendingOfferList').style.display = 'flex';
-    if (document.getElementById('offerBut').className.includes(' currentTradesButton') === false) {
-      document.getElementById('offerBut').className += ' currentTradesButton';
-      document.getElementById('tradeBut').className = document.getElementById('tradeBut').className.replace(' currentTradesButton', '');
+    if (document.getElementById('offerBut').className.includes(' buttonsGeneric') === false) {
+      document.getElementById('offerBut').className += ' buttonsGeneric';
+      document.getElementById('tradeBut').className = document.getElementById('tradeBut').className.replace(' buttonsGeneric', '');
     }
   }
 
@@ -141,9 +141,9 @@ class userHome extends React.Component {
     event.preventDefault();
     document.getElementById('pendingOfferList').style.display = 'none';
     document.getElementById('userTradesList').style.display = 'flex';
-    if (document.getElementById('tradeBut').className.includes(' currentTradesButton') === false) {
-      document.getElementById('tradeBut').className += ' currentTradesButton';
-      document.getElementById('offerBut').className = document.getElementById('offerBut').className.replace(' currentTradesButton', '');
+    if (document.getElementById('tradeBut').className.includes(' buttonsGeneric') === false) {
+      document.getElementById('tradeBut').className += ' buttonsGeneric';
+      document.getElementById('offerBut').className = document.getElementById('offerBut').className.replace(' buttonsGeneric', '');
     }
   }
 
@@ -174,17 +174,18 @@ class userHome extends React.Component {
         <Navbar/>
         <div className='container-fluid'>
           <div className='row userHomeUpperDiv'>
-            <div className='userProfile col-4'>
+            <div className='userProfile'>
               <img src={this.state.picture} className='userPicture' alt='profilepic'/>
               <p className='userTitle'>{this.state.userName}</p>
             </div>
-            <div className='userPlantsList col-8'>
+            <div className='col-2'></div>
+            <div className='userPlantsList col-7'>
               <div className='fYouFlex'>
                 <p className='plantsTitle'>My Plants</p>
               </div>
               <div className='plantButtsDiv'>
                 <AddPlant refreshPlants={this.refreshPlants} user={this.state.userName}/>
-                <Button className='plantButton' id='removeBut' onClick={this.removerMode}>Remove</Button>
+                <Button className='plantButton inactiveButton' id='removeBut' onClick={this.removerMode}>Remove</Button>
               </div>
               <div className='col userPlants'>
                 <ul className="plantInfo">
@@ -202,7 +203,7 @@ class userHome extends React.Component {
           <div className='offersInfo col-4'>
             <p className='tradesTitle'>My Trades</p>
             <div className='buttonsOffers'>
-              <button type='button' onClick={this.showOffers} className='inactiveButton currentTradesButton' id='offerBut'>Pending Offers</button>
+              <button type='button' onClick={this.showOffers} className='inactiveButton buttonsGeneric' id='offerBut'>Pending Offers</button>
               <button type='button' onClick={this.showTrades} className='inactiveButton' id='tradeBut'>Active Trades</button>
             </div>
             <div className='pendingOfferList' id='pendingOfferList'>

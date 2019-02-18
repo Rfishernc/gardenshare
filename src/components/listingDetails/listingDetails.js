@@ -16,7 +16,6 @@ class listingDetails extends React.Component {
   toggle = (event) => {
     event.preventDefault();
     const currentPlant = event.currentTarget.id;
-    console.log(currentPlant);
     this.setState({
       modal: !this.state.modal,
       currentPlant,
@@ -39,7 +38,8 @@ class listingDetails extends React.Component {
           <p className='listingDPlantPar'><img alt='Img' className='plantIcon' src={img}/>{plantType.plant}</p>
           <p className='listingDQtyPar'>{plantType.surplus}</p>
           <p className='listingDQtyPar'>{plantType.dateHarvest}</p>
-          <PlantPhotos key={plantType.id} modal={this.state.modal} toggle={this.toggle}
+          <PlantPhotos key={plantType.id} modal={this.state.modal}
+          toggle={this.toggle} canAdd={false}
           user={plantType.userName} id={plantType.id} currentPlant={this.state.currentPlant}/>
         </div>);
       });

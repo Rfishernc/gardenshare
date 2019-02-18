@@ -37,7 +37,7 @@ class plantPhotos extends React.Component {
     const photoRender = [];
     if (this.state.photoArray.length > 0) {
       this.state.photoArray.forEach((photo) => {
-        photoRender.push(<div key={photo.id}>
+        photoRender.push(<div key={photo.id} className='photoDiv'>
           <img alt='plantPhoto' src={photo.path} className='plantPhoto'/>
           <button type='button' id={photo.id} className='xButton' onClick={this.removePhoto}>x</button>
         </div>);
@@ -75,17 +75,28 @@ class plantPhotos extends React.Component {
     return false;
   }
 
+  buttonBuilder = () => {
+    if (this.props.canAdd) {
+      return <div>
+      <button type='button' onClick={this.uploadPhoto}>Upload Photo</button>
+      <input type='file' id='photoInput'/>
+    </div>;
+    }
+    return null;
+  }
+
   render() {
     return (
       <div className='plantPhotos'>
-        <Modal isOpen={this.shouldIBeOpen()} toggle={this.toggle} className={this.props.className}>
+        <Modal isOpen={this.shouldIBeOpen()} toggle={this.toggle} className='photoModal'>
           <ModalHeader className='modalH'>Photos
             <button type='button' className='close closeThis' onClick={this.props.toggle}>x</button>
           </ModalHeader>
           <ModalBody className='modalB'>
-            <button type='button' onClick={this.uploadPhoto}>Upload Photo</button>
-            <input type='file' id='photoInput'/>
-            {this.photoBuilder()}
+            {this.buttonBuilder()}
+            <div className='photoContainer'>
+              {this.photoBuilder()}
+            </div>
           </ModalBody>
         </Modal>
       </div>

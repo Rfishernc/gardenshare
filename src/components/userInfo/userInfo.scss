@@ -12,7 +12,7 @@
   display: flex;
 }
 
-.userInfoUnitTitle, {
+.userInfoUnitTitle {
   margin-right: 10px;
   margin-left: 5px;
   margin-top: 5px;
@@ -35,10 +35,10 @@
 }
 
 .userInfoContainer {
-  border: 2px solid black;
+  border: 2px solid white;
   border-radius: 3px;
-  box-shadow: 4px -4px 3px;
-  background-color: darkkhaki;
+  box-shadow: 2px -2px 2px white;
+  background-color: $fresh;
   margin-top: 10px;
 }
 

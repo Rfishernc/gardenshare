@@ -4,7 +4,6 @@
 }
 
 .listingsDiv {
-  border: 1.5px solid black;
   border-radius: 3px;
   overflow: auto;
   padding-left: 0;
@@ -20,3 +19,8 @@
   display: flex;
   justify-content: flex-start;
 }
+
+// body {
+//   background-image: url('../../images/garden2.jpg');
+//   background-size: cover;
+// }

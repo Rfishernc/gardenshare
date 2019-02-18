@@ -4,20 +4,31 @@
   display: flex;
   flex-flow: column;
   align-items: center;
-  width: 300px;
+  width: 220px;
+  height: 100%;
+  background-image: url('../../images/Autumn-Border--Arvin61r58.png');
+  background-size: cover;
+  margin-left: 8.5%;
 }
 
 .userPicture, .userTitle {
-  width: 50%;
+  width: 85%;
   margin-left: auto;
   margin-right: auto;
-  border: 1.5px solid black;
+  border: 1.5px solid white;
   background-color: white;
   border-radius: 2px;
 }
 
+.userTitle {
+  background-color: $vermillion !important;
+  margin-top: 0;
+  margin-bottom: auto;
+}
+
 .userPicture {
-  margin-top: 5px;
+  margin-top: auto;
+  max-height: 90%;
 }
 
 .userPlantsList {
@@ -43,7 +54,7 @@
   background-color: darkkhaki;
 }
 
-.userTradesTitle, .pendingOfferTitle, {
+.userTradesTitle, .pendingOfferTitle {
   font-size: 2em;
   border: 1.5px solid black;
   border-radius: 4px;
@@ -58,10 +69,14 @@
   border: 1.5px solid black;
   border-radius: 4px;
   box-shadow: 0 2px 2px;
-  background-color: $varDBrown;
+  background-image: url(../../images/border.png);
+  background-size: cover;
+  background-color: $vermillion;
   text-align: center;
   padding-left: 35px;
   padding-right: 35px;
+  font-family: 'Pacifico', cursive;
+  padding-top: 5px;
 }
 
 .tradesTitle {
@@ -69,11 +84,15 @@
   border: 1.5px solid black;
   border-radius: 4px;
   box-shadow: 0 2px 2px;
-  background-color: $varDBrown;
+  background-image: url(../../images/border.png);
+  background-size: cover;
+  background-color: $vermillion;
   text-align: center;
   padding-left: 35px;
   padding-right: 35px;
   margin-top: 20px;
+  font-family: 'Pacifico', cursive;
+  padding-top: 5px;
 }
 
 .userHomeUpperDiv {
@@ -120,12 +139,6 @@
   flex-flow: column;
 }
 
-.currentTradesButton {
-  background-color: seagreen !important;
-  color: white !important;
-  border-color: seagreen !important;
-}
-
 .plantButtsDiv {
   display: flex;
   justify-content: center;
@@ -141,12 +154,6 @@
   background-color: $sunshine;
 }
 
-.inactiveButton {
-  background-color: $fresh;
-  color: black;
-  border-color: $fresh;
-}
-
 .hovering {
   border: 1.5px solid white;
   color: white;
@@ -155,4 +162,79 @@
     background-color: seagreen;
     color: white;
   }
+}
+
+.buttonsGeneric {
+	box-shadow: 4px 4px 3px 0px seagreen !important;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5)) !important;
+	background:-moz-linear-gradient(top, seagreen 5%, $vermillion 100%) !important;
+	background:-webkit-linear-gradient(top, seagreen 5%, $vermillion 100%) !important;
+	background:-o-linear-gradient(top, seagreen 5%, $vermillion 100%) !important;
+	background:-ms-linear-gradient(top, seagreen 5%, $vermillion 100%) !important;
+	background:linear-gradient(to bottom, seagreen 5%, $vermillion 100%) !important;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='seagreen', endColorstr='$vermillion',GradientType=0) !important;
+	background-color: seagreen;
+	border-radius:3px;
+	border:1px solid #337bc4;
+	display:inline-block;
+	cursor:pointer;
+	font-family:Impact;
+	text-decoration:none;
+  text-shadow:0px 0px 50px #528ecc;
+  color: white !important
+}
+
+.buttonsGeneric:hover {
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff)) !important;
+	background:-moz-linear-gradient(top, $vermillion 5%, seagreen 100%) !important;
+	background:-webkit-linear-gradient(top, $vermillion 5%, seagreen 100%) !important;
+	background:-o-linear-gradient(top, $vermillion 5%, seagreen 100%) !important;
+	background:-ms-linear-gradient(top, $vermillion 5%, seagreen 100%) !important;
+	background:linear-gradient(to bottom, $vermillion 5%, seagreen 100%) !important;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='$vermillion', endColorstr='seagreen',GradientType=0) !important;
+	background-color:$vermillion;
+}
+
+.buttonsGeneric:active {
+  position:relative;
+	top:1px;
+}
+
+.inactiveButton {
+  box-shadow: 4px 4px 3px 0px seagreen !important;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5));
+	background:-moz-linear-gradient(top, $fresh 5%, gold 100%);
+	background:-webkit-linear-gradient(top, $fresh 5%, gold 100%);
+	background:-o-linear-gradient(top, $fresh 5%, gold 100%);
+	background:-ms-linear-gradient(top, $fresh 5%, gold 100%);
+	background:linear-gradient(to bottom, $fresh 5%, gold 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='$fresh', endColorstr='gold',GradientType=0);
+	background-color: $fresh;
+	border-radius:3px;
+	border:1px solid #337bc4;
+	display:inline-block;
+	cursor:pointer;
+	font-family:Impact;
+	text-decoration:none;
+	text-shadow:0px 0px 50px #528ecc;
+}
+
+.inactiveButton:hover {
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff));
+	background:-moz-linear-gradient(top, 5%, $fresh 100%);
+	background:-webkit-linear-gradient(top, gold 5%, $fresh 100%);
+	background:-o-linear-gradient(top, gold 5%, $fresh 100%);
+	background:-ms-linear-gradient(top, gold 5%, $fresh 100%);
+	background:linear-gradient(to bottom, gold 5%, $fresh 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='gold', endColorstr='$fresh',GradientType=0);
+	background-color:$vermillion;
+}
+
+.inactiveButton:active {
+  position:relative;
+  top:1px;
+}
+
+.plantButton {
+  margin-left: 2px;
 }

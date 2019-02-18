@@ -1,4 +1,35 @@
+@import '../../styles/var';
+
 .plantPhoto {
   width: 200px;
   height: 200px;
+  border: 1.5px solid $vermillion;
+}
+
+.photoDiv {
+  margin: 5px;
+}
+
+.xButton {
+  position: relative;
+  width: 25px;
+  height: 30px;
+  left: -26.5px;
+  top: 86px;
+}
+
+.photoModal {
+  display: inline !important;
+  margin-left: 10% !important;
+  margin-right: 10% !important;
+  .modal-content {
+    width: 80% !important;
+    margin-left: 10% !important;
+    margin-right: 10% !important;
+  }
+}
+
+.photoContainer {
+  display: flex;
+  flex-flow: wrap;
 }

@@ -1,3 +1,5 @@
+@import '../../styles/var';
+
 .createAccountLink {
   padding: 0;
   border: none;
@@ -8,6 +10,8 @@
 
 .loginScreen {
   width: 60%;
+  background-color: seagreen;
+  color: white;
 }
 
 .login {
@@ -20,10 +24,28 @@
 
 .loginTitle {
   font-size: 3em;
-  font-weight: 700;
-  padding: 10px;
-  border: 2px solid black;
-  border-radius: 5px;
-  background-color: darkkhaki;
-  box-shadow: 2px 2px 0;
+  border: 1.5px solid black;
+  border-radius: 4px;
+  box-shadow: 0 2px 2px;
+  background-image: url(../../images/border.png);
+  background-size: cover;
+  background-color: $vermillion;
+  text-align: center;
+  padding-left: 35px;
+  padding-right: 35px;
+  font-family: 'Pacifico', cursive;
+  padding-top: 5px;
+}
+
+.signInBut {
+  height: 40px;
+}
+
+.titleBlock {
+  display: flex;
+}
+
+.gnomeTitle {
+  height: 100px;
+  margin-left: 10px;
 }
