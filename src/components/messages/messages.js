@@ -77,7 +77,7 @@ class messages extends React.Component {
         </div>
         <div className='messageNew'>
           <input type='text' id='messagesInput' onSubmit={this.addMessage}/>
-          <button type='button' onClick={this.addMessage}>Send</button>
+          <button type='button' className='buttonsGeneric' onClick={this.addMessage}>Send</button>
         </div>
       </div>
     );

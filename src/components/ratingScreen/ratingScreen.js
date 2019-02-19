@@ -29,7 +29,7 @@ class ratingScreen extends React.Component {
           <p className='ratingTitle'>Reliability</p>
           <RatingSelector key='reliability' rating='reliability' selection={this.selection}/>
         </div>
-        <button type='button' onClick={this.submitRating}>Submit</button>
+        <button type='button' className='buttonsGeneric' onClick={this.submitRating}>Submit</button>
       </div>
     );
   }

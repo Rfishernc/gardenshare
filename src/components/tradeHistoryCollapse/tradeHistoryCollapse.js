@@ -79,6 +79,13 @@ class tradeHistoryCollapse extends React.Component {
     return renderArray;
   }
 
+  shouldIBeOpen = () => {
+    if (this.props.currentHistory === this.props.id) {
+      return this.props.collapse;
+    }
+    return false;
+  }
+
   render() {
     const {
       user,
@@ -128,7 +135,7 @@ class tradeHistoryCollapse extends React.Component {
 
     return (
       <div className='tradeHistoryCollapse'>
-        <Collapse isOpen={this.props.collapse}>
+        <Collapse isOpen={this.shouldIBeOpen()}>
           <Card className='THDetails'>
             <CardBody>
               <p className='THInfoHeader'>Offer Sent on {dateSent}</p>

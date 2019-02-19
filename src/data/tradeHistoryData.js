@@ -61,8 +61,8 @@ const getTradeHistory = userName => new Promise((resolve, reject) => {
         .then((tradesArray2) => {
           const tradesArray = tradesArray1.concat(tradesArray2);
           const filteredTrades = tradesArray.filter(trade => trade.qualityRating1 !== false);
-          const sortedArray = filteredTrades.sort((a, b) => moment(a.dateTrade).unix()
-          - moment(b.dateTrade).unix());
+          const sortedArray = filteredTrades.sort((a, b) => moment(b.dateTrade).unix()
+          - moment(a.dateTrade).unix());
           resolve(sortedArray);
         });
     })

@@ -12,3 +12,16 @@
   display: flex;
   justify-content: space-around;
 }
+
+.buttonDiv {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.userTrades {
+  border: 1.5px solid white;
+}
+
+#userTradesList {
+  flex-flow: column;
+}

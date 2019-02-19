@@ -27,26 +27,6 @@ class pendingOffer extends React.Component {
       });
   }
 
-  acceptThisOffer = () => {
-    pendingOfferData.acceptOffer(this.props.id)
-      .then(() => {
-        this.props.refreshOffers();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  removeThisOffer = () => {
-    pendingOfferData.removeOffer(this.props.id)
-      .then(() => {
-        this.props.refreshOffers();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
   mousedIn =(event) => {
     const tar = event.currentTarget;
     if (tar.className.includes('hovering') === false) {

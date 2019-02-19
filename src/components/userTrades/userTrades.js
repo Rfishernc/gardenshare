@@ -67,7 +67,7 @@ class userTrades extends React.Component {
             user2={user2} plantsUser1={plantsUser1} plantsUser2={plantsUser2} user={user} id={id}
             qualityRating1={qualityRating1} reliabilityRating1={reliabilityRating1}
             qualityRating2={qualityRating2} reliabilityRating2={reliabilityRating2}/>
-          </div>
+        </div>
       </div>
     );
   }

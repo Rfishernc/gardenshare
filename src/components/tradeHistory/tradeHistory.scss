@@ -18,6 +18,8 @@
 
 .THContainer {
   display: flex;
+  flex-flow: column;
   justify-content: center;
+  align-items: center;
   margin-top: 20px;
 }
