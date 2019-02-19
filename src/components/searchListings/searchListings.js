@@ -15,24 +15,22 @@ class searchListings extends React.Component {
     usersArray: '',
     userZip: '',
     usersWithPlants: [],
-    zipcodeRadius: 0,
+    zipcodeRadius: 1,
     filterInfo: [],
     userName: '',
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const user = firebase.auth().currentUser;
     searchListingsData.getUser(user.uid)
       .then((userData) => {
-        this.setState({ userZip: userData.location, userName: userData.userName });
+        this.setState({ userZip: userData.location, userName: userData.userName }, () => {
+          this.search();
+        });
       })
       .catch((err) => {
         console.log(err);
       });
-  }
-
-  componentDidMount() {
-    this.search();
   }
 
   newFilter = () => {
@@ -67,28 +65,33 @@ class searchListings extends React.Component {
   search = () => {
     zipcodeData.zipcodeRadius(this.state.userZip, this.state.zipcodeRadius)
       .then((zipcodesArray) => {
-        searchListingsData.getListingsByZipcodes([37090])
+        searchListingsData.getListingsByZipcodes(zipcodesArray)
           .then((usersArrayArray) => {
             const combinedUsersArray = [];
             usersArrayArray.forEach((array) => {
-              array.forEach((user) => {
-                combinedUsersArray.push(user);
-              });
-            });
-            this.setState({ usersArray: combinedUsersArray });
-            searchListingsData.getAllFilteredUsersPlants(this.state.usersArray)
-              .then((plantsArrayArray) => {
-                const usersWithPlantsArray = combinedUsersArray;
-                usersWithPlantsArray.forEach((user) => {
-                  plantsArrayArray.forEach((plantArray) => {
-                    if (user.userName === plantArray[0].user) {
-                      // eslint-disable-next-line no-param-reassign
-                      user.plants = plantArray;
-                    }
-                  });
+              if (array.length > 0) {
+                array.forEach((user) => {
+                  combinedUsersArray.push(user);
                 });
-                this.applyFilters(usersWithPlantsArray);
-              });
+              }
+            });
+            this.setState({ usersArray: combinedUsersArray }, () => {
+              searchListingsData.getAllFilteredUsersPlants(this.state.usersArray)
+                .then((plantsArrayArray) => {
+                  const usersWithPlantsArray = combinedUsersArray;
+                  usersWithPlantsArray.forEach((user) => {
+                    plantsArrayArray.forEach((plantArray) => {
+                      if (plantArray.length > 0) {
+                        if (user.userName === plantArray[0].user) {
+                          // eslint-disable-next-line no-param-reassign
+                          user.plants = plantArray;
+                        }
+                      }
+                    });
+                  });
+                  this.applyFilters(usersWithPlantsArray);
+                });
+            });
           });
       })
       .catch((err) => {

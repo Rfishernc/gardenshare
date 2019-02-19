@@ -1,4 +1,7 @@
+@import '../../styles/var';
+
 .ratingScreen {
+  background-color: $fresh;
   display: flex;
   justify-content: center;
   flex-flow: column;

@@ -7,11 +7,12 @@ import UserPlants from '../userPlants/userPlants';
 import PendingOffer from '../pendingOffer/pendingOffer';
 import UserTrades from '../userTrades/userTrades';
 import AddPlant from '../addPlant/addPlant';
+import farmerPic from '../../images/farmer-garden-fork.png';
 import './userHome.scss';
 
 class userHome extends React.Component {
   state = {
-    picture: '',
+    picture: farmerPic,
     userName: '',
     userPlants: '',
     trades: '',
@@ -21,7 +22,7 @@ class userHome extends React.Component {
     uploading: false,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const user = firebase.auth().currentUser;
     userHomeData.getUser(user.uid)
       .then((userData) => {
@@ -216,7 +217,7 @@ class userHome extends React.Component {
               </div>
               {this.pendingOfferBuilder()}
             </div>
-            <div className='userTradesList' id='userTradesList'>
+            <div className='pendingOfferList' id='userTradesList'>
               <ul className="userTradesInfo">
                   <li className="list-group-item tradeLi">User</li>
                   <li className="list-group-item tradeLi">Offer Date</li>

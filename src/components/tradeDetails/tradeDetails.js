@@ -6,6 +6,7 @@ import RatingScreen from '../ratingScreen/ratingScreen';
 import Messages from '../messages/messages';
 import tradeDetailsData from '../../data/tradeDetailsData';
 import plantList from '../../data/plantList';
+import pendingOfferData from '../../data/pendingOfferData';
 import './tradeDetails.scss';
 
 class tradeDetails extends React.Component {
@@ -132,6 +133,26 @@ class tradeDetails extends React.Component {
       });
   }
 
+  acceptThisOffer = () => {
+    pendingOfferData.acceptOffer(this.props.id)
+      .then(() => {
+        this.props.refreshOffers();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  removeThisOffer = () => {
+    pendingOfferData.removeOffer(this.props.id)
+      .then(() => {
+        this.props.refreshOffers();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   buttonBuilder = () => {
     if (this.props.pending) {
       if (this.props.user1 === this.props.user) {
@@ -142,7 +163,7 @@ class tradeDetails extends React.Component {
         <button className='btn btn-sml btn-danger offersButton' onClick={this.removeThisOffer}>Decline Offer</button>
       </div>;
     }
-    return <button type='button' onClick={this.closeTrade} className='closeTradeButton'>Close Trade</button>;
+    return <button type='button' onClick={this.closeTrade} className='closeTradeButton buttonsGeneric'>Close Trade</button>;
   }
 
   modalBuilder = () => {
@@ -173,10 +194,10 @@ class tradeDetails extends React.Component {
 
     if (this.state.closing) {
       return <div>
-        <ModalHeader >Trade Details
+        <ModalHeader className='modalH'>Trade Details
           <button type='button' className='close closeThis' onClick={this.props.toggle}>x</button>
         </ModalHeader>
-        <ModalBody>
+        <ModalBody className='modalB'>
           <RatingScreen updateRating={this.updateRating}/>
         </ModalBody>
       </div>;

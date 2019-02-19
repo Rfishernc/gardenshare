@@ -14,11 +14,11 @@ class giveAways extends React.Component {
     userName: '',
     userPlants: [],
     selectedPlants: [],
-    zipcodeRadius: 0,
+    zipcodeRadius: 1,
     error: false,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const user = firebase.auth().currentUser;
     giveAwaysData.getUser(user.uid)
       .then((userData) => {
@@ -95,7 +95,7 @@ class giveAways extends React.Component {
   search = () => {
     zipcodeData.zipcodeRadius(this.state.userZip, this.state.zipcodeRadius)
       .then((zipcodesArray) => {
-        giveAwaysData.getGiveAwaysByZips([zipcodesArray])
+        giveAwaysData.getUsersForGiveAways(zipcodesArray)
           .then((giveAwaysArray) => {
             this.setState({ giveAwaysArray });
           });

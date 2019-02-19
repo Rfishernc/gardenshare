@@ -57,7 +57,7 @@ class login extends React.Component {
       <div className="login">
         <div className='titleBlock'>
           <img src={gnome} alt='gnome' className='gnomeTitle'/>
-          <p className='loginTitle'>Gardeners' Bazaar</p>
+          <p className='loginTitle'>Gardenshare</p>
           <img src={gnome} alt='gnome' className='gnomeTitle'/>
         </div>
         <div className="jumbotron loginScreen">
